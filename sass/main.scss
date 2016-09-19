@@ -1,0 +1,59 @@
+@import "sassCore/_base.scss";
+
+$colors : #ffff00 #0089ff #4d4d4d #ff7300 #81ffff #5200ff #b8b8b8 #ff0000 #760000 #28c200;
+
+@for $i from 1 through 10 {
+    .color-#{$i}{
+        background-color: nth($colors, $i);
+    }
+}
+
+
+.navbar{
+    border-radius: 0;
+}
+.main{
+    padding: 20px;
+}
+
+.slider-header{
+    color: #337ab7;
+    //text-align: center;
+}
+
+
+.userInfo{
+    h1{
+        text-indent: -50px;
+        margin: 20px 0 30px;
+    }
+    p.text-danger{
+        line-height: 30px;
+        text-indent: -15px;
+    }
+}
+
+
+.table{
+    thead td{
+        font-size: 16px;
+        text-align: center;
+        font-weight: bold;
+    }
+    td {
+        text-align: center;
+        vertical-align: middle !important;
+    }
+}
+.td-span {
+    span {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        display: inline-block;
+        color: #fff;
+        text-shadow: 0 0 1px #000;
+        margin: 2px 5px;
+    }
+}

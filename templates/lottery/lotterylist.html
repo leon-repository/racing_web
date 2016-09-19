@@ -1,0 +1,23 @@
+<div>
+    <h2>{{text}}</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>期号</td>
+                <td>比赛结果</td>
+                <td colspan="3">item1</td>
+                <td colspan="5">item2</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="$tr in tableRows">
+                <td>{{$tr.date}}</td>
+                <td class="td-span text-center">
+                    <span ng-repeat="num in $tr.reslut track by $index" class="color-{{$index+1}}">{{num}}</span>
+                </td>
+                <td ng-repeat="td1 in $tr.item1 track by $index">{{td1}}</td>
+                <td ng-repeat="td2 in $tr.item2 track by $index">{{td2}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

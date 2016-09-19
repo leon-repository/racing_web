@@ -1,0 +1,45 @@
+<div class="userInfo">
+    <h1 class="text-center text-info">用户登录</h1>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form-horizontal" name="loginForm" ng-controller="loginCtrl">
+              <div class="form-group has-feedback" ng-class="{'has-success':loginForm.username.$valid && loginForm.username.$dirty,'has-error':loginForm.username.$invalid &&loginForm.username.$dirty}">
+                <label for="username" class="col-md-2 control-label">用户名</label>
+                <div class="col-md-7">
+                  <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名" ng-model="username" required>
+                  <span ng-if="loginForm.username.$vaild && loginForm.username.$dirty" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                  <span ng-if="loginForm.username.$invalid && loginForm.username.$dirty" class="glyphicon glyphicon-error form-control-feedback"></span>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-danger" ng-if="loginForm.username.$invalid && loginForm.username.$dirty">用户名不为空</p>
+                </div>
+              </div>
+              <div class="form-group has-feedback" ng-class="{'has-success':loginForm.password.$valid && loginForm.password.$dirty,'has-error':loginForm.password.$invalid && loginForm.password.$dirty}">
+                <label for="password" class="col-md-2 control-label">密码</label>
+                <div class="col-md-7">
+                  <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" ng-model="password" required>
+                  <span ng-if="loginForm.username.$vaild" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                  <span ng-if="loginForm.username.$invalid" class="glyphicon glyphicon-error form-control-feedback"></span>
+                </div>
+                <div class="col-md-3">
+                    <p class="text-danger" ng-if="loginForm.password.$invalid && loginForm.password.$dirty">密码名不为空</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" ng-model="remember"> 记住我
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success" ng-click="loginSubmit()" ng-disabled="loginForm.$invalid">登录</button>
+                </div>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>
