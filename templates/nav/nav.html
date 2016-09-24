@@ -1,0 +1,29 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navList">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">总盘系统管理</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navList">
+          <ul class="nav navbar-nav">
+            <li ng-class="{'active': nowSelsect == 'realtimeClass'}">
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">开奖管理 <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li ng-class="{'active': realtimeSelsect == 'realtimeClass'}"><a href="#/realtime">实时开奖</a></li>
+                  <li ng-class="{'active': realtimeSelsect == 'realtimeListClass'}"><a href="#/lottery/list">开奖列表</a></li>
+                </ul>
+            </li>
+            <li ng-class="{'active': nowSelsect == 'integralClass'}"><a href="#/integral/apply">积分管理</a></li>
+            <li ng-class="{'active': nowSelsect == 'profitClass'}"><a href="#/profitloss/profitlossAll">盈亏报表</a></li>
+            <li ng-class="{'active': nowSelsect == 'betClass'}"><a href="#/bet/allBet">押注报表</a></li>
+            <li ng-class="{'active': nowSelsect == 'userClass'}"><a href="#/users/allUser">用户管理</a></li>
+          </ul>
+          <p ng-controller="userLoginedCtrl" class="navbar-text navbar-right"><span>{{username}}</span> 你好,   <a href="javascript:;" class="navbar-link" ng-click='logout()'>退出</a></p>
+        </div>
+    </div>
+</nav>

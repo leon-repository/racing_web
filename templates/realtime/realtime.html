@@ -1,15 +1,102 @@
-<div class="row">
-    <div class="col-md-3">
-        <div>
-            <h2 class="slider-header">开奖管理 > 实时开奖</h2>
-            <ul class="nav nav-pills nav-stacked" role="tablist">
-              <li class="active" tab-active><a ui-sref=".status">当前押注情况</a></li>
-              <li tab-active><a ui-sref=".compluteReslut">显示计算结果</a></li>
-              <li tab-active><a ui-sref=".modifyReslut">修改比赛结果</a></li>
-            </ul>
+<nav-header select-active='realtimeClass' realtime-active='realtimeClass'></nav-header>
+<div class="realtime" ng-controller='realtimeCtrl'>
+    <div class="container-fluid realtime-header bg-success">
+        <div class="row">
+            <div class="col-md-3">
+                <h4>北京赛车（PK10）</h4>
+                <p>{{racingNum}}期</p>
+            </div>
+            <div class="col-md-3">
+                <h4>今日输赢：{{todayIncome}}</h4>
+                <p>距离封盘：{{stopTime}}</p>
+            </div>
+            <div class="col-md-6">
+                <h4 class="old-code">
+                    {{preRacingNum}}期开奖：
+                    <span ng-repeat='num in preResult' class="color-{{num}}">{{num}}</span>
+                </h4>
+                <div class="row">
+                    <div class='col-md-6'><p>距离开奖：{{startTime}}</p></div>
+                    <div class='col-md-6 text-danger'><p>当前阶段：{{nowStatus}}</p></div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-md-9">
-        <div ui-view></div>
+    <h2 class="text-center text-primary">1-10名</h2>
+    <div id='table-1-10' class="row main-box">
+        <div class="col-md-12">
+            <div id="table-box_1" class="table-box table-responsive" ng-class="{'disabled':tableDisabled}">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td>赔率</td>
+                            <td>冠军</td>
+                            <td>亚军</td>
+                            <td>第三名</td>
+                            <td>第四名</td>
+                            <td>第五名</td>
+                            <td>第六名</td>
+                            <td>第七名</td>
+                            <td>第八名</td>
+                            <td>第九名</td>
+                            <td>第十名</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in table1 track by $index">
+                            <td ng-if='$index<6' class="red">1.94</td>
+                            <td ng-if='$index>5' class="red">9.7</td>
+                            <td ng-repeat='item in row'>
+                                <div class="item-td">
+                                    <p class="item-code" ng-if='item.key'>{{item.key}}</p>
+                                    <p class="item-value" ng-if='item.key'>{{item.money}}</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+    <h2 class="text-center text-primary">冠亚组合</h2>
+    <div id='table-gy' class="row main-box">
+        <div class="col-md-12">
+            <div id="table-box_2" class="table-box table-responsive" ng-class="{'disabled':tableDisabled}">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td colspan="4">冠、亚军和（冠军车号 + 亚军车号 = 和）</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat='row in table2'>
+                            <td ng-repeat='item in row'>
+                                <div class="item-td">
+                                    <p class="item-code">{{item.key}}</p>
+                                    <p class="item-value">{{item.value}}</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="computering" class="pos-box" ng-show='computering'>
+        <div class="alert alert-danger text-center">正在计算比赛结果，请稍后。。。</div>
+    </div>
+    <div id="modifying" class="pos-box" ng-show='modifying'>
+        <div class="alert alert-info">
+            <h3 class="text-center">拖动数字修改比赛结果修改比赛结果</h3>
+            <div class="drag-box" ui-sortable='sortableOptions' ng-model="arrResult">
+                <span  ng-repeat='num in arrResult' class="drag-item color-{{num}}">{{num}}</span>
+            </div>
+            <div class="modify-notice text-center">{{modifyNotice}}</div>
+            <div class="text-center">
+                <button id="domodify" class="btn btn-primary" ng-click='modifyReslut()'>修改比赛结果</button>
+            </div>
+        </div>
+    </div>
+    <div class="mask" ng-show='mask'></div>
+    <div class="toast" ng-show='toast'>{{toastMessage}}</div>
 </div>

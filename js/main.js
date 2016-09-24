@@ -1,11 +1,14 @@
-var myApp = angular.module('myApp',['ui.router','LocalStorageModule']);
+var myApp = angular.module('myApp',['ui.router','ui.sortable','bw.paging','LocalStorageModule','angular-sha1']);
 
-myApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
-    
+myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorageServiceProvider',function($stateProvider,$urlRouterProvider,$httpProvider,localStorageServiceProvider){
+
+    //所有请求添加header配置
+    $httpProvider.interceptors.push('HttpInterceptor');
 
 
     // 路由部分
     $urlRouterProvider.otherwise('/login');
+
 
     //实时开奖
     $stateProvider.state('login',{
@@ -14,15 +17,6 @@ myApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$url
     }).state('realtime',{
         url : '/realtime',
         templateUrl : './templates/realtime/realtime.html',
-    }).state('realtime.status',{
-        url : '/status',
-        templateUrl : './templates/realtime/status.html',
-    }).state('realtime.compluteReslut',{
-        url : '/complute',
-        templateUrl : './templates/realtime/complute.html',
-    }).state('realtime.modifyReslut',{
-        url : '/modify',
-        templateUrl : './templates/realtime/modify.html',
     })
     //开奖列表
     .state('lottery',{
@@ -78,4 +72,11 @@ myApp.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$url
         templateUrl : './templates/users/other.html',
     })
 
+}]);
+//监控所有路由 清除 实时监控的 请求定时器
+myApp.run(['$state','$rootScope','$timeout',function($state,$rootScope,$timeout){
+    $rootScope.$on('$stateChangeStart',function(event,toState,toParams,fromState,fromParams,options){
+        console.log('url router change');
+        $timeout.cancel($rootScope.timer);
+    })
 }]);

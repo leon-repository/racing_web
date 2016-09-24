@@ -1,12 +1,12 @@
 <div>
-    <h2>{{text}}</h2>
+    <h4>{{text}}</h4>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <td>期号</td>
                 <td>比赛结果</td>
-                <td colspan="3">item1</td>
-                <td colspan="5">item2</td>
+                <td colspan="3">冠亚和</td>
+                <td colspan="5">1-5龙虎</td>
             </tr>
         </thead>
         <tbody>
@@ -20,4 +20,14 @@
             </tr>
         </tbody>
     </table>
+    <div class="text-right">
+        <paging
+          page="currentPage"
+          page-size="pageSize"
+          total="total"
+          show-prev-next="true"
+          show-first-last="true"
+          paging-action="goPage('bar',page)" >
+        </paging>
+    </div>
 </div>
