@@ -564,9 +564,9 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     };
 
     $scope.tableData = [
-        {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'add'},
-        {'code':2,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'reduce'},
-        {'code':3,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'detail'},
+        {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd'},
+        {'code':2,'aa':'kk','bb':'bb','cc':'cc','dd':'dd'},
+        {'code':3,'aa':'oo','bb':'bb','cc':'cc','dd':'dd'},
     ];
 
     //弹层
@@ -588,7 +588,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 }]);
 //查看积分详情
 myApp.controller('integralDetailCtrl',['$scope','$stateParams','$sanitize',function($scope,$stateParams,$sanitize){
-    console.log($stateParams);
+    //console.log($stateParams);
 
     $scope.title = $stateParams.item1+'==='+ $stateParams.item2;
 
@@ -597,14 +597,59 @@ myApp.controller('integralDetailCtrl',['$scope','$stateParams','$sanitize',funct
         {'code':2,'content':'aa','bb':[1,2],'cc':[3,4],'dd':[5,6]}
     ];
 
+    //分页
+    $scope.currentPage = 30;
+    //$scope.pageSize = 5;  //每页显示多少
+    $scope.total = 100;
+    $scope.goPage = function(page){
+        console.log(page);
+    };
 }]);
 
 
-
-
 //盈亏报表
-myApp.controller('allPlCtrl',['$scope',function($scope){
+myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
+    //页面一进来控制 class active
+    $scope.selectClass = $location.path().substr(1);
+}]).controller('allPlCtrl',['$scope',function($scope){
     $scope.text = "总体盈亏报表";
+    $scope.selectActive = 'byDate';
+
+    //分页
+    $scope.currentPage = 1;
+    //$scope.pageSize = 5;  //每页显示多少
+    $scope.total = 100;
+    $scope.goPage = function(page){
+        console.log(page);
+    };
+
+    $scope.reRender = function(item){
+        if(item == 'date'){ //按日期
+            $scope.selectActive = 'byDate';
+
+
+            //分页
+            $scope.currentPage = 1;
+            //$scope.pageSize = 5;  //每页显示多少
+            $scope.total = 70;
+            $scope.goPage = function(page){
+                console.log(page);
+            };
+        }
+        if(item == 'issue'){ //按期号
+            $scope.selectActive = 'byIssue';
+
+            //分页
+            $scope.currentPage = 30;
+            //$scope.pageSize = 5;  //每页显示多少
+            $scope.total = 100;
+            $scope.goPage = function(page){
+                console.log(page);
+            };
+        }
+    };
+
+
 }]).controller('otherPlCtrl',['$scope',function($scope){
     $scope.text = "其他盈亏报表";
 }]);

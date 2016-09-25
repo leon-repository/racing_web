@@ -1,11 +1,11 @@
 <nav-header select-active='profitClass'></nav-header>
-<div class="row main-box">
+<div class="row main-box" ng-controller='profitCtrl'>
     <div class="col-md-3">
         <div>
             <h4 class="slider-header">盈亏报表</h4>
             <ul class="nav nav-pills nav-stacked" role="tablist">
-              <li class="active" tab-active><a ui-sref=".all">总盘盈亏报表</a></li>
-              <li tab-active><a ui-sref=".other">分盘盈亏报表</a></li>
+              <li ng-class="{'active' : selectClass == 'profitloss/profitlossAll'}" tab-active><a ui-sref=".all">总盘盈亏报表</a></li>
+              <li ng-class="{'active' : selectClass == 'profitloss/profitlossOther'}" tab-active><a ui-sref=".other">分盘盈亏报表</a></li>
             </ul>
         </div>
     </div>

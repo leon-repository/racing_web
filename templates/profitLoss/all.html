@@ -1,3 +1,113 @@
 <div ng-controller="allPlCtrl">
-    {{text}}
+    <h4>{{text}}</h4>
+    <div class="chose-box">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" ng-class="{'active': selectActive == 'byDate'}" ng-click='reRender("date")'>按日期</button>
+            <button type="button" class="btn btn-primary" ng-class="{'active': selectActive == 'byIssue'}" ng-click='reRender("issue")'>按期号</button>
+        </div>
+    </div>
+    <div class="tab-box container-fluid" ng-if='selectActive=="byDate"'>
+        <div class="row chose-box">
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>开始时间: </label>
+                  <input type="text" class="form-control" ng-model='startTime' placeholder="开始时间">
+                </div>
+            </div>
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>结束时间: </label>
+                  <input type="text" class="form-control" ng-model='endTime' placeholder="结束时间">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" ng-click="search();">搜索</button>
+            </div>
+        </div>
+        <div class="row chose-box">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>日期</th>
+                        <th>总押注金额</th>
+                        <th>总盈利金额</th>
+                        <th>总盈亏</th>
+                        <th>押注数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-box container-fluid" ng-if='selectActive=="byIssue"'>
+        <div class="row chose-box">
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>开始时间: </label>
+                  <input type="text" class="form-control" ng-model='startTime' placeholder="开始时间">
+                </div>
+            </div>
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>结束时间: </label>
+                  <input type="text" class="form-control" ng-model='endTime' placeholder="结束时间">
+                </div>
+            </div>
+        </div>
+        <div class="row chose-box">
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>查找期号: </label>
+                  <input type="text" class="form-control" ng-model='issue' placeholder="期号">
+                </div>
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+                <button class="btn btn-primary" ng-click="search();">搜索</button>
+            </div>
+        </div>
+        <div class="row chose-box">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>期号</th>
+                        <th>总押注金额</th>
+                        <th>总盈利金额</th>
+                        <th>总盈亏</th>
+                        <th>押注数</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-right">
+        <paging
+          page="currentPage"
+          page-size="pageSize"
+          total="total"
+          show-prev-next="true"
+          show-first-last="true"
+          paging-action="goPage(page)" >
+        </paging>
+    </div>
 </div>

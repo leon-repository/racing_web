@@ -41,17 +41,6 @@ myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorag
         url : '/integralDetail/?item1&item2',
         templateUrl : './templates/integral/integralDetail.html',
     })
-    //押注报表
-    .state('bet',{
-        url : '/bet',
-        templateUrl : './templates/bet/bet.html',
-    }).state('bet.allbet',{
-        url : '/allBet',
-        templateUrl : './templates/bet/all.html',
-    }).state('bet.otherbet',{
-        url : '/otherBet',
-        templateUrl : './templates/bet/other.html',
-    })
     //盈亏报表
     .state('profitloss',{
         url : '/profitloss',
@@ -62,6 +51,17 @@ myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorag
     }).state('profitloss.other',{
         url : '/profitlossOther',
         templateUrl : './templates/profitloss/other.html',
+    })
+    //押注报表
+    .state('bet',{
+        url : '/bet',
+        templateUrl : './templates/bet/bet.html',
+    }).state('bet.allbet',{
+        url : '/allBet',
+        templateUrl : './templates/bet/all.html',
+    }).state('bet.otherbet',{
+        url : '/otherBet',
+        templateUrl : './templates/bet/other.html',
     })
     //用户管理
     .state('users',{

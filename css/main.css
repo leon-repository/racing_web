@@ -1,5 +1,7 @@
 body { overflow-x: hidden; }
 
+button, input { outline: none !important; }
+
 .color-1 { background-color: #ffff00; }
 
 .color-2 { background-color: #0089ff; }

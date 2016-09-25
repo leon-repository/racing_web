@@ -4,6 +4,9 @@ $colors : #ffff00 #0089ff #4d4d4d #ff7300 #81ffff #5200ff #b8b8b8 #ff0000 #76000
 body{
     overflow-x: hidden;
 }
+button,input{
+    outline: none !important;
+}
 
 @for $i from 1 through 10 {
     .color-#{$i}{
