@@ -75,6 +75,7 @@ myApp.controller('loginCtrl',['$scope','$http','$state','$rootScope','localStora
 //实时开奖
 myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filter','$state','encrypt','localStorageService',function($scope,$rootScope,$http,$timeout,$filter,$state,encrypt,localStorageService){
 
+    //1-10 表格数据
     $scope.table1 = [
         //1
         [
@@ -287,7 +288,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
     ];
 
 
-
+    //冠亚组 表格数据
     $scope.table2 = [
         [{'key':'3','value':'41'},{'key':'4','value':'41'},{'key':'5','value':'21'},{'key':'6','value':'21'}],
         [{'key':'7','value':'12'},{'key':'8','value':'12'},{'key':'9','value':'10.3'},{'key':'10','value':'10.3'}],
@@ -439,9 +440,9 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
         },function(err){
             console.log(err);
         });
-        $rootScope.timer = $timeout(action,4000);
+        $rootScope.timer = $timeout(action,3000);
     }
-    $rootScope.timer = $timeout(action,4000);
+    $rootScope.timer = $timeout(action,3000);
 
 
 
@@ -507,11 +508,99 @@ myApp.controller('lotterylistCtrl',['$scope','$http',function($scope,$http){
 
 
 //积分管理
-myApp.controller('applyCtrl',['$scope',function($scope){
+myApp.controller('integralCtrl',['$scope','$location',function($scope,$location){
+    //页面一进来控制 class active
+    $scope.selectClass = $location.path().substr(1);
+}]).controller('applyCtrl',['$scope','$sanitize',function($scope,$sanitize){
     $scope.text = "分盘申请上下分列表";
+
+    $scope.tableData = [
+        {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee','ff':'ok'},
+        {'code':2,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee','ff':'danger'},
+        {'code':3,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee','ff':'cancel'},
+    ];
+
+    //分页
+    $scope.currentPage = 30;
+    //$scope.pageSize = 5;  //每页显示多少
+    $scope.total = 100;
+    $scope.goPage = function(page){
+        console.log(page);
+    };
+
+    $scope.toRight = function(item) {
+        console.log(item);
+        $scope.modalContent = '';
+        switch (item) {
+            case 'ok':
+                $scope.modalTitle = '批准';
+                $scope.modalStatus = 'ok';
+                break;
+            case 'danger':
+                $scope.modalTitle = '拒绝';
+                $scope.modalStatus = 'danger';
+                break;
+            case 'cancel':
+                $scope.modalTitle = '取消';
+                $scope.modalStatus = 'cancel';
+                break;
+        }
+    };
+
+    //确认发送数据
+    $scope.confirm = function(status) {
+        console.log(status,$scope.modalContent,'modal');
+    };
+
 }]).controller('listCtrl',['$scope',function($scope){
     $scope.text = "分盘积分列表";
+
+    //分页
+    $scope.currentPage = 30;
+    //$scope.pageSize = 5;  //每页显示多少
+    $scope.total = 100;
+    $scope.goPage = function(page){
+        console.log(page);
+    };
+
+    $scope.tableData = [
+        {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'add'},
+        {'code':2,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'reduce'},
+        {'code':3,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'detail'},
+    ];
+
+    //弹层
+    $scope.toModal = function(item){
+        $scope.money = '';
+        if(item == 'add'){
+            $scope.modalTitle = '加积分';
+            $scope.modalStatus = 'add';
+        }
+        if(item == 'reduce'){
+            $scope.modalTitle = '减积分';
+            $scope.modalStatus = 'reduce';
+        }
+    }
+    // 弹层确定
+    $scope.confirm = function(status){
+        console.log(status, $scope.money);
+    }
 }]);
+//查看积分详情
+myApp.controller('integralDetailCtrl',['$scope','$stateParams','$sanitize',function($scope,$stateParams,$sanitize){
+    console.log($stateParams);
+
+    $scope.title = $stateParams.item1+'==='+ $stateParams.item2;
+
+    $scope.tableData = [
+        {'code':1,'content':'aa','bb':[1,2],'cc':[3,4],'dd':[5,6]},
+        {'code':2,'content':'aa','bb':[1,2],'cc':[3,4],'dd':[5,6]}
+    ];
+
+}]);
+
+
+
 
 //盈亏报表
 myApp.controller('allPlCtrl',['$scope',function($scope){

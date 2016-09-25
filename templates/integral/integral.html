@@ -1,11 +1,11 @@
 <nav-header select-active='integralClass'></nav-header>
-<div class="row main-box">
+<div class="row main-box" ng-controller='integralCtrl'>
     <div class="col-md-3">
         <div>
             <h4 class="slider-header">积分管理</h4>
             <ul class="nav nav-pills nav-stacked" role="tablist">
-              <li class="active" tab-active><a ui-sref=".apply">分盘申请上下分列表</a></li>
-              <li tab-active><a ui-sref=".list">分盘积分列表</a></li>
+              <li ng-class="{'active' : selectClass == 'integral/apply'}" tab-active><a ui-sref=".apply">分盘申请上下分列表</a></li>
+              <li ng-class="{'active' : selectClass == 'integral/list'}" tab-active><a ui-sref=".list">分盘积分列表</a></li>
             </ul>
         </div>
     </div>

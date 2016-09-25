@@ -8,6 +8,18 @@ myApp.directive('navHeader',function() {
         },
         templateUrl : './templates/nav/nav.html',
     }
+});
+
+//历史回退
+myApp.directive('goback',function(){
+    return {
+        restrict : 'A',
+        link : function(scope,elem){
+            $(elem).on('click',function(){
+                window.history.back();
+            })
+        }
+    }
 })
 
 // 切换 class active 指令
@@ -23,22 +35,6 @@ myApp.directive('tabActive',function(){
     }
 });
 
-
-//时间格式化
-myApp.filter('toMinSec', function() {
-    return function(time) {
-        var totalSec = time / 1000;
-        var min = parseInt(totalSec / 60);
-        var sec = parseInt(totalSec % 60);
-        if (min < 10) {
-            min = '0' + min;
-        }
-        if (sec < 10) {
-            sec = '0' + sec;
-        }
-        return min + ':' + sec;
-    }
-});
 
 //拼接加密算法
 myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
@@ -103,3 +99,32 @@ myApp.factory('HttpInterceptor', ['$q', 'localStorageService', function($q, loca
         }
     };
 }]);
+
+
+//时间格式化
+myApp.filter('toMinSec', function() {
+    return function(time) {
+        var totalSec = time / 1000;
+        var min = parseInt(totalSec / 60);
+        var sec = parseInt(totalSec % 60);
+        if (min < 10) {
+            min = '0' + min;
+        }
+        if (sec < 10) {
+            sec = '0' + sec;
+        }
+        return min + ':' + sec;
+    }
+});
+
+//过滤数据
+myApp.filter('splitArrFilter',function(){
+    return function(str){
+        if(typeof str == 'object'){
+            var str = str[0]+'<span class="paddingTips">|</span>'+str[1];
+            return str;
+        }else{
+            return str;
+        }
+    }
+})

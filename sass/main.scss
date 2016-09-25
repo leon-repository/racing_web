@@ -65,17 +65,6 @@ body{
 }
 
 
-.table{
-    thead td{
-        font-size: 16px;
-        text-align: center;
-        font-weight: bold;
-    }
-    td {
-        text-align: center;
-        vertical-align: middle !important;
-    }
-}
 .td-span {
     span {
         width: 20px;
@@ -103,16 +92,17 @@ body{
 }
 
 table{
-    thead td{
-        font-size: 20px;
+    thead th{
+        font-size: 18px;
         font-weight: bold;
         text-align: center;
-        height: 40px;
+        vertical-align: middle !important;
     }
     tbody {
         td{
             cursor: pointer;
-            vertical-align: middle;
+            text-align: center;
+            vertical-align: middle !important;
         }
         .selected{
             background-color: #dff0d8;
@@ -233,6 +223,22 @@ table{
 
 }
 
+.chose-box{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
 .red{
     color: red;
+}
+
+.th-box{
+    font-size: 16px;
+    span{
+        padding: 0 10px;
+        color: #999;
+    }
+}
+.paddingTips{
+    padding: 0 10px;
+    color: #999;
 }

@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp',['ui.router','ui.sortable','bw.paging','LocalStorageModule','angular-sha1']);
+var myApp = angular.module('myApp',['ui.router','ui.sortable','bw.paging','ngSanitize','LocalStorageModule','angular-sha1']);
 
 myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorageServiceProvider',function($stateProvider,$urlRouterProvider,$httpProvider,localStorageServiceProvider){
 
@@ -37,6 +37,9 @@ myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorag
     }).state('integral.list',{
         url : '/list',
         templateUrl : './templates/integral/list.html',
+    }).state('integralDetail',{
+        url : '/integralDetail/?item1&item2',
+        templateUrl : './templates/integral/integralDetail.html',
     })
     //押注报表
     .state('bet',{

@@ -36,17 +36,14 @@ body { overflow-x: hidden; }
 .userInfo h1 { text-indent: -50px; margin: 20px 0 30px; }
 .userInfo p.text-danger { line-height: 30px; text-indent: -15px; }
 
-.table thead td { font-size: 16px; text-align: center; font-weight: bold; }
-.table td { text-align: center; vertical-align: middle !important; }
-
 .td-span span { width: 20px; height: 20px; line-height: 20px; text-align: center; display: inline-block; color: #fff; text-shadow: 0 0 1px #000; margin: 2px 5px; }
 
 .disabled table { color: #999 !important; }
 .disabled table td { cursor: not-allowed; }
 .disabled .item-value { color: #999 !important; }
 
-table thead td { font-size: 20px; font-weight: bold; text-align: center; height: 40px; }
-table tbody td { cursor: pointer; vertical-align: middle; }
+table thead th { font-size: 18px; font-weight: bold; text-align: center; vertical-align: middle !important; }
+table tbody td { cursor: pointer; text-align: center; vertical-align: middle !important; }
 table tbody .selected { background-color: #dff0d8; }
 
 .item-td { overflow: hidden; }
@@ -78,4 +75,11 @@ table tbody .selected { background-color: #dff0d8; }
 .historyBody { padding: 10px 40px 200px; }
 .historyBody table tr td { text-align: center; }
 
+.chose-box { margin-top: 10px; margin-bottom: 20px; }
+
 .red { color: red; }
+
+.th-box { font-size: 16px; }
+.th-box span { padding: 0 10px; color: #999; }
+
+.paddingTips { padding: 0 10px; color: #999; }
