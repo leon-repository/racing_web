@@ -9,15 +9,35 @@
     <div class="tab-box container-fluid" ng-if='selectActive=="byDate"'>
         <div class="row chose-box">
             <div class="col-md-4 form-inline">
-                <div class="form-group">
-                  <label class='control-label'>开始时间: </label>
-                  <input type="text" class="form-control" ng-model='startTime' placeholder="开始时间">
+                <div class="dropdown">
+                    <label class='control-label'>开始时间: </label>
+                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target="#"
+                       href="javascript:;">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" data-ng-model="dateRangeStart">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="dateRangeStart"
+                                        data-datetimepicker-config="{ startView:'day', minView:'day',modelType: 'YYYY-MM-DD', renderOn: 'end-date-changed' }"></datetimepicker>
+                    </ul>
                 </div>
             </div>
             <div class="col-md-4 form-inline">
-                <div class="form-group">
-                  <label class='control-label'>结束时间: </label>
-                  <input type="text" class="form-control" ng-model='endTime' placeholder="结束时间">
+                <div class="dropdown">
+                    <label class='control-label'>结束时间: </label>
+                    <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target="#"
+                       href="javascript:;">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" data-ng-model="dateRangeEnd">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="dateRangeEnd"
+                                        data-datetimepicker-config="{ startView:'day', minView:'day',modelType: 'YYYY-MM-DD', renderOn: 'start-date-changed' }"></datetimepicker>
+                    </ul>
                 </div>
             </div>
             <div class="col-md-4">

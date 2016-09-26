@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp',['ui.router','ui.sortable','bw.paging','ngSanitize','LocalStorageModule','angular-sha1']);
+var myApp = angular.module('myApp',['ui.router','ui.sortable','bw.paging','ngSanitize','ui.bootstrap.datetimepicker','LocalStorageModule','angular-sha1']);
 
 myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorageServiceProvider',function($stateProvider,$urlRouterProvider,$httpProvider,localStorageServiceProvider){
 

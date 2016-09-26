@@ -615,6 +615,16 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.text = "总体盈亏报表";
     $scope.selectActive = 'byDate';
 
+
+    //日期
+    // $scope.date = {
+    //     'startTime' : moment().locale('zh-cn').format('YYYY-MM-DD'),
+    // }
+
+    //日历控制
+    
+
+
     //分页
     $scope.currentPage = 1;
     //$scope.pageSize = 5;  //每页显示多少
@@ -651,7 +661,43 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
 
 
 }]).controller('otherPlCtrl',['$scope',function($scope){
-    $scope.text = "其他盈亏报表";
+    $scope.text = "分盘盈亏报表";
+    $scope.selectActive = 'byDate';
+
+
+    //分页
+    $scope.currentPage = 1;
+    //$scope.pageSize = 5;  //每页显示多少
+    $scope.total = 100;
+    $scope.goPage = function(page){
+        console.log(page);
+    };
+
+    $scope.reRender = function(item){
+        if(item == 'date'){ //按日期
+            $scope.selectActive = 'byDate';
+
+
+            //分页
+            $scope.currentPage = 1;
+            //$scope.pageSize = 5;  //每页显示多少
+            $scope.total = 70;
+            $scope.goPage = function(page){
+                console.log(page);
+            };
+        }
+        if(item == 'issue'){ //按期号
+            $scope.selectActive = 'byIssue';
+
+            //分页
+            $scope.currentPage = 30;
+            //$scope.pageSize = 5;  //每页显示多少
+            $scope.total = 100;
+            $scope.goPage = function(page){
+                console.log(page);
+            };
+        }
+    };
 }]);
 
 

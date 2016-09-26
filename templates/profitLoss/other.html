@@ -1,3 +1,188 @@
 <div ng-controller="otherPlCtrl">
-    {{text}}
+    <h4>{{text}}</h4>
+    <div class="chose-box">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" ng-class="{'active': selectActive == 'byDate'}" ng-click='reRender("date")'>按日期</button>
+            <button type="button" class="btn btn-primary" ng-class="{'active': selectActive == 'byIssue'}" ng-click='reRender("issue")'>按期号</button>
+        </div>
+    </div>
+    <div class="tab-box container-fluid" ng-if='selectActive=="byDate"'>
+        <div class="row chose-box">
+            <div class="col-md-4 form-inline">
+                <div class="dropdown">
+                    <label class='control-label'>开始时间: </label>
+                    <a class="dropdown-toggle" id="dropdownStart" role="button" data-toggle="dropdown" data-target="#"
+                       href="javascript:;">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" data-ng-model="dateRangeStart">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="dateRangeStart"
+                                        data-datetimepicker-config="{ dropdownSelector: '#dropdownStart',startView:'day', minView:'day',modelType: 'YYYY-MM-DD', renderOn: 'end-date-changed' }"
+                                        data-on-set-time="startDateOnSetTime()"
+                                        data-before-render="startDateBeforeRender($dates)"></datetimepicker>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 form-inline">
+                <div class="dropdown">
+                    <label class='control-label'>结束时间: </label>
+                    <a class="dropdown-toggle" id="dropdownEnd" role="button" data-toggle="dropdown" data-target="#"
+                       href="javascript:;">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" data-ng-model="dateRangeEnd">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="dateRangeEnd"
+                                        data-datetimepicker-config="{ dropdownSelector: '#dropdownEnd',startView:'day', minView:'day',modelType: 'YYYY-MM-DD', renderOn: 'start-date-changed' }"
+                                        data-on-set-time="endDateOnSetTime()"
+                                        data-before-render="endDateBeforeRender($view, $dates, $leftDate, $upDate, $rightDate)"></datetimepicker>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" ng-click="search();">搜索</button>
+            </div>
+        </div>
+        <div class="row chose-box">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>日期</th>
+                        <th>
+                            押注金额
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            盈利金额
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            盈亏
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            押注数
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-box container-fluid" ng-if='selectActive=="byIssue"'>
+        <div class="row chose-box">
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>开始时间: </label>
+                  <input type="text" class="form-control" ng-model='startTime' placeholder="开始时间">
+                </div>
+            </div>
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>结束时间: </label>
+                  <input type="text" class="form-control" ng-model='endTime' placeholder="结束时间">
+                </div>
+            </div>
+        </div>
+        <div class="row chose-box">
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>查找期号: </label>
+                  <input type="text" class="form-control" ng-model='issue' placeholder="期号">
+                </div>
+            </div>
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>select: </label>
+                  <select class="form-control" ng-model='select'>
+                      <options>1</options>
+                      <options>2</options>
+                      <options>3</options>
+                  </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" ng-click="search();">搜索</button>
+            </div>
+        </div>
+        <div class="row chose-box">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>期号</th>
+                        <th>
+                            押注金额
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            盈利金额
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            盈亏
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            押注数
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-right">
+        <paging
+          page="currentPage"
+          page-size="pageSize"
+          total="total"
+          show-prev-next="true"
+          show-first-last="true"
+          paging-action="goPage(page)" >
+        </paging>
+    </div>
 </div>

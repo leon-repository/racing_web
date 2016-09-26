@@ -81,7 +81,7 @@ table tbody .selected { background-color: #dff0d8; }
 
 .red { color: red; }
 
-.th-box { font-size: 16px; }
-.th-box span { padding: 0 10px; color: #999; }
+.th-box { font-size: 14px; }
+.th-box span { padding: 0 5px; color: #999; }
 
 .paddingTips { padding: 0 10px; color: #999; }
