@@ -1094,7 +1094,10 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
 
 
 //用户管理
-myApp.controller('allUserCtrl',['$scope',function($scope){
+myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
+    //页面一进来控制 class active
+    $scope.selectClass = $location.path().substr(1);
+}]).controller('allUserCtrl',['$scope',function($scope){
     $scope.text = "总盘用户管理";
 }]).controller('otherUserCtrl',['$scope',function($scope){
     $scope.text = "分盘用户管理";
