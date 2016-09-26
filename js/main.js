@@ -44,7 +44,7 @@ myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorag
     //盈亏报表
     .state('profitlose',{
         url : '/profitlose',
-        templateUrl : './templates/profitlose/profitloss.html',
+        templateUrl : './templates/profitlose/profitlose.html',
     }).state('profitlose.all',{
         url : '/profitloseAll',
         templateUrl : './templates/profitlose/all.html',
