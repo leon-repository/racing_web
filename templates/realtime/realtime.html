@@ -72,8 +72,8 @@
                         <tr ng-repeat='row in table2'>
                             <td ng-repeat='item in row'>
                                 <div class="item-td">
-                                    <p class="item-code">{{item.key}}</p>
-                                    <p class="item-value">{{item.value}}</p>
+                                    <p class="item-code">{{item.key}} <span class="red" ng-if="item.value">({{item.value}})</span></p>
+                                    <p class="item-value">{{item.money}}</p>
                                 </div>
                             </td>
                         </tr>

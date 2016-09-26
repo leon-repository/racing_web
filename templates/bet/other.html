@@ -72,11 +72,15 @@
                                 总体 <span>|</span> 用户 <span>|</span> 玩家
                             </div>
                         </th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat='row in tableData'>
                         <td ng-repeat="item in row"  ng-bind-html='item | splitArrFilter'></td>
+                        <td>
+                            <a class="btn btn-primary" ui-sref="betDetail({type:'byDate',item1:row.code,item2:row.aa})">查看详情</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -156,11 +160,15 @@
                                 总体 <span>|</span> 用户 <span>|</span> 玩家
                             </div>
                         </th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat='row in tableData'>
                         <td ng-repeat="item in row"  ng-bind-html='item | splitArrFilter'></td>
+                        <td>
+                            <a class="btn btn-primary" ui-sref="betDetail({type:'byIssue',item1:row.code,item2:row.aa})">查看详情</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

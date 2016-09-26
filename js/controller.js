@@ -290,12 +290,12 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
 
     //冠亚组 表格数据
     $scope.table2 = [
-        [{'key':'3','value':'41'},{'key':'4','value':'41'},{'key':'5','value':'21'},{'key':'6','value':'21'}],
-        [{'key':'7','value':'12'},{'key':'8','value':'12'},{'key':'9','value':'10.3'},{'key':'10','value':'10.3'}],
-        [{'key':'11','value':'8.3'},{'key':'12','value':'10.3'},{'key':'13','value':'10.3'},{'key':'14','value':'12'}],
-        [{'key':'15','value':'12'},{'key':'16','value':'21'},{'key':'17','value':'21'},{'key':'18','value':'41'}],
-        [{'key':'19','value':'12'},{'key':'','value':''},{'key':'','value':''},{'key':'','value':''}],
-        [{'key':'冠亚大','value':'2'},{'key':'冠亚小','value':'1.63'},{'key':'冠亚单','value':'1.63'},{'key':'冠亚双','value':'2'}]
+        [{'key':'3','value':'41','money':'100'},{'key':'4','value':'41','money':'100'},{'key':'5','value':'21','money':'100'},{'key':'6','value':'21','money':'100'}],
+        [{'key':'7','value':'12','money':'100'},{'key':'8','value':'12','money':'100'},{'key':'9','value':'10.3','money':'100'},{'key':'10','value':'10.3','money':'100'}],
+        [{'key':'11','value':'8.3','money':'100'},{'key':'12','value':'10.3','money':'100'},{'key':'13','value':'10.3','money':'100'},{'key':'14','value':'12','money':'100'}],
+        [{'key':'15','value':'12','money':'100'},{'key':'16','value':'21','money':'100'},{'key':'17','value':'21','money':'100'},{'key':'18','value':'41','money':'100'}],
+        [{'key':'19','value':'12','money':'100'},{'key':'','value':''},{'key':'','value':''},{'key':'','value':''}],
+        [{'key':'冠亚大','value':'2','money':'100'},{'key':'冠亚小','value':'1.63','money':'100'},{'key':'冠亚单','value':'1.63','money':'100'},{'key':'冠亚双','value':'2','money':'100'}]
     ];
 
 
@@ -1081,12 +1081,12 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
 
     //冠亚组 表格数据
     $scope.table2 = [
-        [{'key':'3','value':'41'},{'key':'4','value':'41'},{'key':'5','value':'21'},{'key':'6','value':'21'}],
-        [{'key':'7','value':'12'},{'key':'8','value':'12'},{'key':'9','value':'10.3'},{'key':'10','value':'10.3'}],
-        [{'key':'11','value':'8.3'},{'key':'12','value':'10.3'},{'key':'13','value':'10.3'},{'key':'14','value':'12'}],
-        [{'key':'15','value':'12'},{'key':'16','value':'21'},{'key':'17','value':'21'},{'key':'18','value':'41'}],
-        [{'key':'19','value':'12'},{'key':'','value':''},{'key':'','value':''},{'key':'','value':''}],
-        [{'key':'冠亚大','value':'2'},{'key':'冠亚小','value':'1.63'},{'key':'冠亚单','value':'1.63'},{'key':'冠亚双','value':'2'}]
+        [{'key':'3','value':'41','money':'100'},{'key':'4','value':'41','money':'100'},{'key':'5','value':'21','money':'100'},{'key':'6','value':'21','money':'100'}],
+        [{'key':'7','value':'12','money':'100'},{'key':'8','value':'12','money':'100'},{'key':'9','value':'10.3','money':'100'},{'key':'10','value':'10.3','money':'100'}],
+        [{'key':'11','value':'8.3','money':'100'},{'key':'12','value':'10.3','money':'100'},{'key':'13','value':'10.3','money':'100'},{'key':'14','value':'12','money':'100'}],
+        [{'key':'15','value':'12','money':'100'},{'key':'16','value':'21','money':'100'},{'key':'17','value':'21','money':'100'},{'key':'18','value':'41','money':'100'}],
+        [{'key':'19','value':'12','money':'100'},{'key':'','value':''},{'key':'','value':''},{'key':'','value':''}],
+        [{'key':'冠亚大','value':'2','money':'100'},{'key':'冠亚小','value':'1.63','money':'100'},{'key':'冠亚单','value':'1.63','money':'100'},{'key':'冠亚双','value':'2','money':'100'}]
     ];
 
 
