@@ -62,6 +62,9 @@ myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorag
     }).state('bet.otherbet',{
         url : '/otherBet',
         templateUrl : './templates/bet/other.html',
+    }).state('betDetail',{
+        url : '/betDetail/:type&:item1&:item2',
+        templateUrl : './templates/bet/betDetail.html'
     })
     //用户管理
     .state('users',{

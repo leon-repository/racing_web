@@ -626,15 +626,17 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee'},
     ];
 
-
-    $scope.search = function() {
-        console.log('search');
-        console.log($scope.startTime,$scope.endTime,$scope.issue);
+    // $scope.startTime = '2016-06-12';
+    // $scope.endTime = '2016-08-12';
+    // $scope.issue = '1232454';
+    $scope.searchByDate = function() {
+        console.log('search by date');
+        console.log($scope.startTime,$scope.endTime);
     };
 
     $scope.searchByIssue = function() {
         console.log('search by issue');
-        console.log($scope.startTimeIssue,$scope.endTimeIssue);
+        console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
     }
 
 
@@ -645,7 +647,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.goPage = function(page){
         console.log(page);
     };
-
+    // 按日期 与 按 期号 切换
     $scope.reRender = function(item){
         if(item == 'date'){ //按日期
             $scope.selectActive = 'byDate';
@@ -676,7 +678,24 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
 }]).controller('otherPlCtrl',['$scope',function($scope){
     $scope.text = "分盘盈亏报表";
     $scope.selectActive = 'byDate';
+    // 表格数据格式
+    $scope.tableData = [
+        {'code':1,'aa':'aa','bb':[1,2,3],'cc':[1,2,3],'dd':[1,2,3],'ee':[1,2,3]},
+        {'code':1,'aa':'aa','bb':[1,2,3],'cc':[1,2,3],'dd':[1,2,3],'ee':[1,2,3]}
+    ];
 
+    // $scope.startTime = '2016-06-12';
+    // $scope.endTime = '2016-08-12';
+    // $scope.issue = '1232454';
+    $scope.searchByDate = function() {
+        console.log('search by date');
+        console.log($scope.startTime,$scope.endTime);
+    };
+
+    $scope.searchByIssue = function() {
+        console.log('search by issue');
+        console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
+    }
 
     //分页
     $scope.currentPage = 1;
@@ -686,6 +705,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         console.log(page);
     };
 
+    // 按日期 与 按 期号 切换
     $scope.reRender = function(item){
         if(item == 'date'){ //按日期
             $scope.selectActive = 'byDate';
@@ -715,10 +735,361 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
 
 
 //押注报表
-myApp.controller('allBetCtrl',['$scope',function($scope){
+myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
+    //页面一进来控制 class active
+    $scope.selectClass = $location.path().substr(1);
+}]).controller('allBetCtrl',['$scope',function($scope){
     $scope.text = "总体押注报表";
+    $scope.selectActive = 'byDate';
+
+    $scope.tableData = [
+        {'code':1,'aa':'aa','bb':'bb','cc':'cc'},
+        {'code':2,'aa':'kk','bb':'bb','cc':'cc'},
+    ];
+
+    // $scope.startTime = '2016-06-12';
+    // $scope.endTime = '2016-08-12';
+    // $scope.issue = '1232454';
+    $scope.searchByDate = function() {
+        console.log('search by date');
+        console.log($scope.startTime,$scope.endTime);
+    };
+
+    $scope.searchByIssue = function() {
+        console.log('search by issue');
+        console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
+    }
+
+
+    //分页
+    $scope.currentPage = 1;
+    //$scope.pageSize = 5;  //每页显示多少
+    $scope.total = 100;
+    $scope.goPage = function(page){
+        console.log(page);
+    };
+    // 按日期 与 按 期号 切换
+    $scope.reRender = function(item){
+        if(item == 'date'){ //按日期
+            $scope.selectActive = 'byDate';
+
+
+            //分页
+            $scope.currentPage = 1;
+            //$scope.pageSize = 5;  //每页显示多少
+            $scope.total = 70;
+            $scope.goPage = function(page){
+                console.log(page);
+            };
+        }
+        if(item == 'issue'){ //按期号
+            $scope.selectActive = 'byIssue';
+
+            //分页
+            $scope.currentPage = 30;
+            //$scope.pageSize = 5;  //每页显示多少
+            $scope.total = 100;
+            $scope.goPage = function(page){
+                console.log(page);
+            };
+        }
+    };
+
 }]).controller('otherBetCtrl',['$scope',function($scope){
-    $scope.text = "其他押注报表";
+    $scope.text = "分盘押注报表";
+
+    $scope.selectActive = 'byDate';
+    // 表格数据格式
+    $scope.tableData = [
+        {'code':1,'aa':'aa','bb':[1,2,3],'cc':[1,2,3],'dd':[1,2,3],'ee':[1,2,3]},
+        {'code':1,'aa':'aa','bb':[1,2,3],'cc':[1,2,3],'dd':[1,2,3],'ee':[1,2,3]}
+    ];
+
+    // $scope.startTime = '2016-06-12';
+    // $scope.endTime = '2016-08-12';
+    // $scope.issue = '1232454';
+    $scope.searchByDate = function() {
+        console.log('search by date');
+        console.log($scope.startTime,$scope.endTime);
+    };
+
+    $scope.searchByIssue = function() {
+        console.log('search by issue');
+        console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
+    }
+
+    //分页
+    $scope.currentPage = 1;
+    //$scope.pageSize = 5;  //每页显示多少
+    $scope.total = 100;
+    $scope.goPage = function(page){
+        console.log(page);
+    };
+
+    // 按日期 与 按 期号 切换
+    $scope.reRender = function(item){
+        if(item == 'date'){ //按日期
+            $scope.selectActive = 'byDate';
+
+
+            //分页
+            $scope.currentPage = 1;
+            //$scope.pageSize = 5;  //每页显示多少
+            $scope.total = 70;
+            $scope.goPage = function(page){
+                console.log(page);
+            };
+        }
+        if(item == 'issue'){ //按期号
+            $scope.selectActive = 'byIssue';
+
+            //分页
+            $scope.currentPage = 30;
+            //$scope.pageSize = 5;  //每页显示多少
+            $scope.total = 100;
+            $scope.goPage = function(page){
+                console.log(page);
+            };
+        }
+    };
+
+}]).controller('betDetailCtrl',['$scope','$stateParams',function($scope,$stateParams){
+    console.log($stateParams.type);
+    $scope.type = $stateParams.type;
+    $scope.dateIssue = $stateParams.item1;
+    // ....
+    $scope.lotteryRestut = '12445555';
+    $scope.money = 1000;
+    $scope.number = 34;
+    $scope.fitloss = 23;
+    $scope.allfitloss = 43;
+
+
+
+    //1-10 表格数据
+    $scope.table1 = [
+        //1
+        [
+            {key:'大',value:1.94,money:'aa'},
+            {key:'大',value:1.94,money:'aa'},
+            {key:'大',value:1.94,money:'aa'},
+            {key:'大',value:1.94,money:'aa'},
+            {key:'大',value:1.94,money:'aa'},
+            {key:'大',value:1.94,money:'aa'},
+            {key:'大',value:1.94,money:'aa'},
+            {key:'大',value:1.94,money:'aa'},
+            {key:'大',value:1.94,money:'aa'},
+            {key:'大',value:1.94,money:'aa'}
+        ],
+        //2
+        [
+            {key:'小',value:1.94,money:'aa'},
+            {key:'小',value:1.94,money:'aa'},
+            {key:'小',value:1.94,money:'aa'},
+            {key:'小',value:1.94,money:'aa'},
+            {key:'小',value:1.94,money:'aa'},
+            {key:'小',value:1.94,money:'aa'},
+            {key:'小',value:1.94,money:'aa'},
+            {key:'小',value:1.94,money:'aa'},
+            {key:'小',value:1.94,money:'aa'},
+            {key:'小',value:1.94,money:'aa'}
+        ],
+        //3
+        [
+            {key:'单',value:1.94,money:'aa'},
+            {key:'单',value:1.94,money:'aa'},
+            {key:'单',value:1.94,money:'aa'},
+            {key:'单',value:1.94,money:'aa'},
+            {key:'单',value:1.94,money:'aa'},
+            {key:'单',value:1.94,money:'aa'},
+            {key:'单',value:1.94,money:'aa'},
+            {key:'单',value:1.94,money:'aa'},
+            {key:'单',value:1.94,money:'aa'},
+            {key:'单',value:1.94,money:'aa'}
+        ],
+        //4
+        [
+            {key:'双',value:1.94,money:'aa'},
+            {key:'双',value:1.94,money:'aa'},
+            {key:'双',value:1.94,money:'aa'},
+            {key:'双',value:1.94,money:'aa'},
+            {key:'双',value:1.94,money:'aa'},
+            {key:'双',value:1.94,money:'aa'},
+            {key:'双',value:1.94,money:'aa'},
+            {key:'双',value:1.94,money:'aa'},
+            {key:'双',value:1.94,money:'aa'},
+            {key:'双',value:1.94,money:'aa'}
+        ],
+        //5
+        [
+            {key:'龙',value:1.94,money:'aa'},
+            {key:'龙',value:1.94,money:'aa'},
+            {key:'龙',value:1.94,money:'aa'},
+            {key:'龙',value:1.94,money:'aa'},
+            {key:'龙',value:1.94,money:'aa'},
+            {key:'',value:'',money:''},
+            {key:'',value:'',money:''},
+            {key:'',value:'',money:''},
+            {key:'',value:'',money:''},
+            {key:'',value:'',money:''}
+        ],
+        //6
+        [
+            {key:'虎',value:1.94,money:'aa'},
+            {key:'虎',value:1.94,money:'aa'},
+            {key:'虎',value:1.94,money:'aa'},
+            {key:'虎',value:1.94,money:'aa'},
+            {key:'虎',value:1.94,money:'aa'},
+            {key:'',value:'',money:''},
+            {key:'',value:'',money:''},
+            {key:'',value:'',money:''},
+            {key:'',value:'',money:''},
+            {key:'',value:'',money:''}
+        ],
+        //7
+        [
+            {key:1,value:9.7,money:'aa'},
+            {key:1,value:9.7,money:'aa'},
+            {key:1,value:9.7,money:'aa'},
+            {key:1,value:9.7,money:'aa'},
+            {key:1,value:9.7,money:'aa'},
+            {key:1,value:9.7,money:'aa'},
+            {key:1,value:9.7,money:'aa'},
+            {key:1,value:9.7,money:'aa'},
+            {key:1,value:9.7,money:'aa'},
+            {key:1,value:9.7,money:'aa'}
+        ],
+        //8
+        [
+            {key:2,value:9.7,money:'aa'},
+            {key:2,value:9.7,money:'aa'},
+            {key:2,value:9.7,money:'aa'},
+            {key:2,value:9.7,money:'aa'},
+            {key:2,value:9.7,money:'aa'},
+            {key:2,value:9.7,money:'aa'},
+            {key:2,value:9.7,money:'aa'},
+            {key:2,value:9.7,money:'aa'},
+            {key:2,value:9.7,money:'aa'},
+            {key:2,value:9.7,money:'aa'}
+        ],
+        //9
+        [
+            {key:3,value:9.7,money:'aa'},
+            {key:3,value:9.7,money:'aa'},
+            {key:3,value:9.7,money:'aa'},
+            {key:3,value:9.7,money:'aa'},
+            {key:3,value:9.7,money:'aa'},
+            {key:3,value:9.7,money:'aa'},
+            {key:3,value:9.7,money:'aa'},
+            {key:3,value:9.7,money:'aa'},
+            {key:3,value:9.7,money:'aa'},
+            {key:3,value:9.7,money:'aa'}
+        ],
+        //10
+        [
+            {key:4,value:9.7,money:'aa'},
+            {key:4,value:9.7,money:'aa'},
+            {key:4,value:9.7,money:'aa'},
+            {key:4,value:9.7,money:'aa'},
+            {key:4,value:9.7,money:'aa'},
+            {key:4,value:9.7,money:'aa'},
+            {key:4,value:9.7,money:'aa'},
+            {key:4,value:9.7,money:'aa'},
+            {key:4,value:9.7,money:'aa'},
+            {key:4,value:9.7,money:'aa'}
+        ],
+        //11
+        [
+            {key:5,value:9.7,money:'aa'},
+            {key:5,value:9.7,money:'aa'},
+            {key:5,value:9.7,money:'aa'},
+            {key:5,value:9.7,money:'aa'},
+            {key:5,value:9.7,money:'aa'},
+            {key:5,value:9.7,money:'aa'},
+            {key:5,value:9.7,money:'aa'},
+            {key:5,value:9.7,money:'aa'},
+            {key:5,value:9.7,money:'aa'},
+            {key:5,value:9.7,money:'aa'}
+        ],
+        //12
+        [
+            {key:6,value:9.7,money:'aa'},
+            {key:6,value:9.7,money:'aa'},
+            {key:6,value:9.7,money:'aa'},
+            {key:6,value:9.7,money:'aa'},
+            {key:6,value:9.7,money:'aa'},
+            {key:6,value:9.7,money:'aa'},
+            {key:6,value:9.7,money:'aa'},
+            {key:6,value:9.7,money:'aa'},
+            {key:6,value:9.7,money:'aa'},
+            {key:6,value:9.7,money:'aa'}
+        ],
+        //13
+        [
+            {key:7,value:9.7,money:'aa'},
+            {key:7,value:9.7,money:'aa'},
+            {key:7,value:9.7,money:'aa'},
+            {key:7,value:9.7,money:'aa'},
+            {key:7,value:9.7,money:'aa'},
+            {key:7,value:9.7,money:'aa'},
+            {key:7,value:9.7,money:'aa'},
+            {key:7,value:9.7,money:'aa'},
+            {key:7,value:9.7,money:'aa'},
+            {key:7,value:9.7,money:'aa'}
+        ],
+        //14
+        [
+            {key:8,value:9.7,money:'aa'},
+            {key:8,value:9.7,money:'aa'},
+            {key:8,value:9.7,money:'aa'},
+            {key:8,value:9.7,money:'aa'},
+            {key:8,value:9.7,money:'aa'},
+            {key:8,value:9.7,money:'aa'},
+            {key:8,value:9.7,money:'aa'},
+            {key:8,value:9.7,money:'aa'},
+            {key:8,value:9.7,money:'aa'},
+            {key:8,value:9.7,money:'aa'}
+        ],
+        //15
+        [
+            {key:9,value:9.7,money:'aa'},
+            {key:9,value:9.7,money:'aa'},
+            {key:9,value:9.7,money:'aa'},
+            {key:9,value:9.7,money:'aa'},
+            {key:9,value:9.7,money:'aa'},
+            {key:9,value:9.7,money:'aa'},
+            {key:9,value:9.7,money:'aa'},
+            {key:9,value:9.7,money:'aa'},
+            {key:9,value:9.7,money:'aa'},
+            {key:9,value:9.7,money:'aa'}
+        ],
+        //16
+        [
+            {key:10,value:9.7,money:'aa'},
+            {key:10,value:9.7,money:'aa'},
+            {key:10,value:9.7,money:'aa'},
+            {key:10,value:9.7,money:'aa'},
+            {key:10,value:9.7,money:'aa'},
+            {key:10,value:9.7,money:'aa'},
+            {key:10,value:9.7,money:'aa'},
+            {key:10,value:9.7,money:'aa'},
+            {key:10,value:9.7,money:'aa'},
+            {key:10,value:9.7,money:'aa'}
+        ],
+    ];
+
+
+    //冠亚组 表格数据
+    $scope.table2 = [
+        [{'key':'3','value':'41'},{'key':'4','value':'41'},{'key':'5','value':'21'},{'key':'6','value':'21'}],
+        [{'key':'7','value':'12'},{'key':'8','value':'12'},{'key':'9','value':'10.3'},{'key':'10','value':'10.3'}],
+        [{'key':'11','value':'8.3'},{'key':'12','value':'10.3'},{'key':'13','value':'10.3'},{'key':'14','value':'12'}],
+        [{'key':'15','value':'12'},{'key':'16','value':'21'},{'key':'17','value':'21'},{'key':'18','value':'41'}],
+        [{'key':'19','value':'12'},{'key':'','value':''},{'key':'','value':''},{'key':'','value':''}],
+        [{'key':'冠亚大','value':'2'},{'key':'冠亚小','value':'1.63'},{'key':'冠亚单','value':'1.63'},{'key':'冠亚双','value':'2'}]
+    ];
+
+
 }]);
 
 

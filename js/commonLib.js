@@ -119,12 +119,19 @@ myApp.filter('toMinSec', function() {
 
 //过滤数据
 myApp.filter('splitArrFilter',function(){
-    return function(str){
-        if(typeof str == 'object'){
-            var str = str[0]+'<span class="paddingTips">|</span>'+str[1];
+    return function(o){
+        if(typeof o == 'object'){
+            var str ='';
+            for(var i=0;i<o.length;i++){
+                if(i==0){
+                    str += o[i];
+                }else{
+                    str += '<span class="paddingTips">|</span>'+o[i];
+                }
+            }
             return str;
         }else{
-            return str;
+            return o;
         }
     }
 })

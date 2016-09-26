@@ -1,3 +1,165 @@
 <div ng-controller="otherBetCtrl">
-    {{text}}
+    <h4>{{text}}</h4>
+    <div class="chose-box">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" ng-class="{'active': selectActive == 'byDate'}" ng-click='reRender("date")'>按日期</button>
+            <button type="button" class="btn btn-primary" ng-class="{'active': selectActive == 'byIssue'}" ng-click='reRender("issue")'>按期号</button>
+        </div>
+    </div>
+    <div class="tab-box container-fluid" ng-show='selectActive=="byDate"'>
+        <div class="row chose-box">
+            <div class="col-md-4 form-inline">
+                <div class="form-group" moment-picker="startTime" locale="zh-cn" start-view="month" format="YYYY-MM-DD" today='true'  max-date="endTime" >
+                      <label class="control-label">开始时间: </label>
+                      <div class="input-group">
+                          <input class="form-control" placeholder="开始时间" ng-model="startTime">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-4 form-inline">
+                <div class="form-group" moment-picker="endTime" locale="zh-cn" start-view = "month" format="YYYY-MM-DD" today='true' min-date="startTime" >
+                  <label class='control-label'>结束时间: </label>
+                  <div class="input-group">
+                      <input class="form-control" placeholder="结束时间" ng-model="endTime">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" ng-click="searchByDate();">搜索</button>
+            </div>
+        </div>
+        <div class="row chose-box">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>日期</th>
+                        <th>
+                            押注金额
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            盈利金额
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            盈亏
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            押注数
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat='row in tableData'>
+                        <td ng-repeat="item in row"  ng-bind-html='item | splitArrFilter'></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-box container-fluid" ng-show='selectActive=="byIssue"'>
+        <div class="row chose-box">
+            <div class="col-md-4 form-inline">
+                <div class="form-group" moment-picker="startTimeIssue" locale="zh-cn" start-view="month" format="YYYY-MM-DD" today='true'  max-date="endTimeIssue" >
+                      <label class="control-label">开始时间: </label>
+                      <div class="input-group">
+                          <input class="form-control" placeholder="开始时间" ng-model="startTimeIssue">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-4 form-inline">
+                <div class="form-group" moment-picker="endTimeIssue" locale="zh-cn" start-view = "month" format="YYYY-MM-DD" today='true' min-date="startTimeIssue" >
+                  <label class='control-label'>结束时间: </label>
+                  <div class="input-group">
+                      <input class="form-control" placeholder="结束时间" ng-model="endTimeIssue">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row chose-box">
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>查找期号: </label>
+                  <input type="text" class="form-control" ng-model='issue' placeholder="期号">
+                </div>
+            </div>
+            <div class="col-md-4 form-inline">
+                <div class="form-group">
+                  <label class='control-label'>select: </label>
+                  <select class="form-control" ng-model='select'>
+                      <options>1</options>
+                      <options>2</options>
+                      <options>3</options>
+                  </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary" ng-click="searchByIssue();">搜索</button>
+            </div>
+        </div>
+        <div class="row chose-box">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>期号</th>
+                        <th>
+                            押注金额
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            盈利金额
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            盈亏
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                        <th>
+                            押注数
+                            <div class='th-box'>
+                                总体 <span>|</span> 用户 <span>|</span> 玩家
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat='row in tableData'>
+                        <td ng-repeat="item in row"  ng-bind-html='item | splitArrFilter'></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-right">
+        <paging
+          page="currentPage"
+          page-size="pageSize"
+          total="total"
+          show-prev-next="true"
+          show-first-last="true"
+          paging-action="goPage(page)" >
+        </paging>
+    </div>
 </div>
