@@ -42,15 +42,15 @@ myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorag
         templateUrl : './templates/integral/integralDetail.html',
     })
     //盈亏报表
-    .state('profitloss',{
-        url : '/profitloss',
-        templateUrl : './templates/profitloss/profitloss.html',
-    }).state('profitloss.all',{
-        url : '/profitlossAll',
-        templateUrl : './templates/profitloss/all.html',
-    }).state('profitloss.other',{
-        url : '/profitlossOther',
-        templateUrl : './templates/profitloss/other.html',
+    .state('profitlose',{
+        url : '/profitlose',
+        templateUrl : './templates/profitlose/profitloss.html',
+    }).state('profitlose.all',{
+        url : '/profitloseAll',
+        templateUrl : './templates/profitlose/all.html',
+    }).state('profitlose.other',{
+        url : '/profitloseOther',
+        templateUrl : './templates/profitlose/other.html',
     })
     //押注报表
     .state('bet',{
