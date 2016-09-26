@@ -569,6 +569,12 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
         {'code':3,'aa':'oo','bb':'bb','cc':'cc','dd':'dd'},
     ];
 
+    //搜索
+    $scope.search = function(){
+        console.log('search list');
+        console.log($scope.searchName,$scope.searchId);
+    }
+
     //弹层
     $scope.toModal = function(item){
         $scope.money = '';
@@ -615,14 +621,21 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.text = "总体盈亏报表";
     $scope.selectActive = 'byDate';
 
+    $scope.tableData = [
+        {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee'},
+        {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee'},
+    ];
 
-    //日期
-    // $scope.date = {
-    //     'startTime' : moment().locale('zh-cn').format('YYYY-MM-DD'),
-    // }
 
-    //日历控制
-    
+    $scope.search = function() {
+        console.log('search');
+        console.log($scope.startTime,$scope.endTime,$scope.issue);
+    };
+
+    $scope.searchByIssue = function() {
+        console.log('search by issue');
+        console.log($scope.startTimeIssue,$scope.endTimeIssue);
+    }
 
 
     //分页
