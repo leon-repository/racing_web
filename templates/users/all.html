@@ -1,7 +1,7 @@
 <div ng-controller="allUserCtrl">
     <h4>{{text}}</h4>
     <div class="container-fluid">
-        <a href="javascript:;" class="btn btn-primary">添加用户</a>
+        <button class="btn btn-primary" ng-click="addUser();" data-toggle="modal" data-target="#myModal">添加用户</button>
         <div class="chose-box">
             <table class="table table-bordered table-striped">
                 <thead>
@@ -24,9 +24,10 @@
                         <td>ee</td>
                         <td>ff</td>
                         <td>
-                            <p><a href="javascript:;" class="btn btn-sm btn-success">启用</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-warning">禁用</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-info">修改信息</a></p>
+                            <p><button class="btn btn-sm btn-success">启用</button></p>
+                            <p><button class="btn btn-sm btn-warning">禁用</button></p>
+                            <p><button class="btn btn-sm btn-info" ng-click="modify();" data-toggle="modal" data-target="#myModal">修改信息</button></p>
+                            <p><button class="btn btn-sm btn-danger" ng-click="delete();" data-toggle="modal" data-target="#myModal">删除</button></p>
                         </td>
                     </tr>
                     <tr>
@@ -37,13 +38,80 @@
                         <td>ee</td>
                         <td>ff</td>
                         <td>
-                            <p><a href="javascript:;" class="btn btn-sm btn-success">启用</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-warning">禁用</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-info">修改信息</a></p>
+                            <p><button class="btn btn-sm btn-success">启用</button></p>
+                            <p><button class="btn btn-sm btn-warning">禁用</button></p>
+                            <p><button class="btn btn-sm btn-info" ng-click="modify();" data-toggle="modal" data-target="#myModal">修改信息</button></p>
+                            <p><button class="btn btn-sm btn-danger" ng-click="delete();" data-toggle="modal" data-target="#myModal">删除</button></p>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">{{modalTitle}}</h4>
+          </div>
+          <div class="modal-body">
+            <!-- 删除用户 -->
+            <p ng-show="operation == 'delete'">确认要删除该用户吗?</p>
+            <!-- 修改用户 -->
+            <div class="form-horizontal" ng-show="operation == 'modify'">
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>修改昵称：</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="请输入昵称" ng-model="nickname">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>修改密码：</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="请输入新密码" ng-model="password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>重复密码：</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="重复输入新密码" ng-model="repeatPwd">
+                  </div>
+                </div>
+            </div>
+            <!-- 添加用户 -->
+            <div class="form-horizontal" ng-show="operation == 'add'">
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>用户昵称：</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="请输入昵用户昵称" ng-model="nickname">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>用户名称：</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="用户名称" ng-model="username">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>用户密码：</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="用户密码" ng-model="password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>重复密码：</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="重复输入新密码" ng-model="repeatPwd">
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" ng-click='confirm()' data-dismiss="modal">确定</button>
+          </div>
+        </div>
+      </div>
     </div>
 </div>

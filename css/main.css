@@ -86,3 +86,5 @@ table tbody .selected { background-color: #dff0d8; }
 .th-box span { padding: 0 5px; color: #999; }
 
 .paddingTips { padding: 0 10px; color: #999; }
+
+.expire { padding: 0 14px !important; }

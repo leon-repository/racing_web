@@ -1099,6 +1099,107 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
     $scope.selectClass = $location.path().substr(1);
 }]).controller('allUserCtrl',['$scope',function($scope){
     $scope.text = "总盘用户管理";
+
+    $scope.modify = function(){
+        $scope.operation = 'modify';
+        $scope.modalTitle = '修改用户信息';
+        $scope.nickname = '';
+        $scope.password = '';
+        $scope.repeatPwd = '';
+    }
+
+    $scope.delete = function(){
+        $scope.operation = 'delete';
+        $scope.modalTitle = '删除用户';
+    }
+
+    $scope.addUser = function(){
+        $scope.operation = 'add';
+        $scope.modalTitle = '添加新用户';
+        $scope.nickname = '';
+        $scope.password = '';
+        $scope.repeatPwd = '';
+        $scope.username = '';
+    }
+
+
+    $scope.confirm = function(){
+        if($scope.operation == 'modify'){
+            console.log('modify');
+            console.log($scope.nickname);
+            console.log($scope.password);
+            console.log($scope.repeatPwd);
+        }
+        if($scope.operation == 'delete'){
+            console.log('delete');
+        }
+        if($scope.operation == 'add'){
+            console.log('adduser');
+            console.log($scope.nickname);
+            console.log($scope.username);
+            console.log($scope.password);
+            console.log($scope.repeatPwd);
+        }
+    }
+
+
+
 }]).controller('otherUserCtrl',['$scope',function($scope){
     $scope.text = "分盘用户管理";
+
+    $scope.search = function(){
+        console.log($scope.searchName,$scope.searchId);
+    }
+
+    $scope.modify = function(){
+        $scope.operation = 'modify';
+        $scope.modalTitle = '修改用户信息';
+        $scope.nickname = '';
+    }
+
+    $scope.delete = function(){
+        $scope.operation = 'delete';
+        $scope.modalTitle = '删除用户';
+    }
+
+    $scope.addUser = function(){
+        $scope.operation = 'add';
+        $scope.modalTitle = '添加新用户';
+        $scope.clientsn = '';
+        $scope.expire = '';
+    }
+
+    $scope.setRobot = function(){
+        $scope.operation = 'setRobot';
+        $scope.modalTitle = '设置机器人到期时间';
+        $scope.expire = '';
+    }
+
+    $scope.addRobot = function(){
+        $scope.operation = 'addRobot';
+        $scope.modalTitle = '添加机器人';
+        $scope.expire = '';
+    }
+
+
+    $scope.confirm = function(){
+        if($scope.operation == 'modify'){
+            console.log('modify');
+            console.log($scope.nickname);
+        }
+        if($scope.operation == 'delete'){
+            console.log('delete');
+        }
+        if($scope.operation == 'add'){
+            console.log('adduser');
+            console.log($scope.clientsn);
+            console.log($scope.expire);
+        }
+        if($scope.operation == 'addRobot'){
+            console.log('addRobot',$scope.expire);
+        }
+        if($scope.operation == 'setRobot'){
+            console.log('setRobot',$scope.expire);
+        }
+    }
 }]);

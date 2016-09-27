@@ -1,7 +1,7 @@
 <div ng-controller="otherUserCtrl">
     <h4>{{text}}</h4>
     <div class="container-fluid">
-        <a href="javascript:;" class="btn btn-primary">添加用户</a>
+        <button class="btn btn-primary" ng-click="addUser();" data-toggle="modal" data-target="#myModal">添加用户</button>
         <div class="row chose-box">
             <div class="col-md-4 form-inline">
                 <div class="form-group">
@@ -28,9 +28,9 @@
                         <th>分盘名称</th>
                         <th>最后一次登录IP</th>
                         <th>最后一次登录时间</th>
-                        <th>机器人状态</th>
-                        <th>机器人到期时间</th>
                         <th>操作</th>
+                        <th>机器人操作</th>
+                        <th>机器人状态</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,16 +40,19 @@
                         <td>cc</td>
                         <td>dd</td>
                         <td>ee</td>
-                        <td>ff</td>
-                        <td>gg</td>
                         <td>
-                            <p><a href="javascript:;" class="btn btn-sm btn-success">启用</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-warning">禁用</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-danger">删除</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-info">修改信息</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-primary">机器人到期时间管理</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-primary">添加机器人</a></p>
+                            <p><button class="btn btn-sm btn-success">启用</button></p>
+                            <p><button class="btn btn-sm btn-warning">禁用</button></p>
+                            <p><button class="btn btn-sm btn-danger" ng-click="delete()" data-toggle="modal" data-target="#myModal">删除</button></p>
+                            <p><button class="btn btn-sm btn-info" ng-click="modify()" data-toggle="modal" data-target="#myModal">修改信息</button></p>
                         </td>
+                        <td>
+                            <p><button class="btn btn-sm btn-success">启用机器人</button></p>
+                            <p><button class="btn btn-sm btn-warning">禁用机器人</button></p>
+                            <p><button class="btn btn-sm btn-info" ng-click="setRobot()" data-toggle="modal" data-target="#myModal">设置到期时间</button></p>
+                            <p><button class="btn btn-sm btn-primary" ng-click="addRobot()" data-toggle="modal" data-target="#myModal">添加机器人</button></p>
+                        </td>
+                        <td>gg</td>
                     </tr>
                     <tr>
                         <td>22</td>
@@ -57,17 +60,97 @@
                         <td>cc</td>
                         <td>dd</td>
                         <td>ee</td>
-                        <td>ff</td>
-                        <td>gg</td>
                         <td>
-                            <p><a href="javascript:;" class="btn btn-sm btn-success">启用</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-warning">禁用</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-danger">删除</a></p>
-                            <p><a href="javascript:;" class="btn btn-sm btn-info">修改信息</a></p>
+                            <p><button class="btn btn-sm btn-success">启用</button></p>
+                            <p><button class="btn btn-sm btn-warning">禁用</button></p>
+                            <p><button class="btn btn-sm btn-danger">删除</button></p>
+                            <p><button class="btn btn-sm btn-info">修改信息</button></p>
                         </td>
+                        <td>
+                            <p><button class="btn btn-sm btn-success">启用机器人</button></p>
+                            <p><button class="btn btn-sm btn-warning">禁用机器人</button></p>
+                            <p><button class="btn btn-sm btn-info">设置到期时间</button></p>
+                            <p><button class="btn btn-sm btn-primary">添加机器人</button></p>
+                        </td>
+                        <td>gg</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">{{modalTitle}}</h4>
+          </div>
+          <div class="modal-body">
+            <!-- 删除用户 -->
+            <p ng-show="operation == 'delete'">确认要删除该用户吗?</p>
+            <!-- 修改用户 -->
+            <div class="form-horizontal" ng-show="operation == 'modify'">
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>修改昵称: </label>
+                  <div class="col-sm-7">
+                      <input type="text" class="form-control" placeholder="请输入昵称" ng-model="nickname">
+                  </div>
+                </div>
+            </div>
+            <!-- 添加用户 -->
+            <div class="form-horizontal" ng-show="operation == 'add'">
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>ClientSN: </label>
+                  <div class="col-sm-7">
+                      <input type="text" class="form-control" placeholder="请输入ClientSN" ng-model="clientsn">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>到期时间: </label>
+                  <div class="col-sm-7">
+                      <div class="form-group" moment-picker="expire" locale="zh-cn" start-view = "month" format="YYYY-MM-DD" today='true'>
+                        <div class="input-group expire">
+                            <input class="form-control" placeholder="到期时间" ng-model="expire">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <!-- 设置机器人到期时间 -->
+            <div class="form-horizontal" ng-show="operation == 'setRobot'">
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>到期时间: </label>
+                  <div class="col-sm-7">
+                      <div class="form-group" moment-picker="expire" locale="zh-cn" start-view = "month" format="YYYY-MM-DD" today='true'>
+                        <div class="input-group expire">
+                            <input class="form-control" placeholder="到期时间" ng-model="expire">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            <!-- 添加机器人 -->
+            <div class="form-horizontal" ng-show="operation == 'addRobot'">
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>到期时间: </label>
+                  <div class="col-sm-7">
+                      <div class="form-group" moment-picker="expire" locale="zh-cn" start-view = "month" format="YYYY-MM-DD" today='true'>
+                        <div class="input-group expire">
+                            <input class="form-control" placeholder="到期时间" ng-model="expire">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" ng-click='confirm()' data-dismiss="modal">确定</button>
+          </div>
+        </div>
+      </div>
     </div>
 </div>
