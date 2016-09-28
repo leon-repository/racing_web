@@ -134,6 +134,12 @@
             <!-- 添加机器人 -->
             <div class="form-horizontal" ng-show="operation == 'addRobot'">
                 <div class="form-group">
+                  <label class='control-label col-sm-3'>ClientSN: </label>
+                  <div class="col-sm-7">
+                      <input type="text" class="form-control" placeholder="请输入ClientSN" ng-model="clientsn">
+                  </div>
+                </div>
+                <div class="form-group">
                   <label class='control-label col-sm-3'>到期时间: </label>
                   <div class="col-sm-7">
                       <div class="form-group" moment-picker="expire" locale="zh-cn" start-view = "month" format="YYYY-MM-DD" today='true'>
