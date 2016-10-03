@@ -14,7 +14,7 @@ myApp.controller('userLoginedCtrl',['$scope','$state','$rootScope','localStorage
     $scope.logout = function(){
         localStorageService.clearAll();
         $state.go('login');
-    }
+    };
 }]);
 
 
@@ -36,39 +36,38 @@ myApp.controller('loginCtrl',['$scope','$http','$state','$rootScope','localStora
     //登录请求获取 Accesskey 和 secretKey
     $scope.loginSubmit = function(){
         var params = {
-            username : $scope.username,
-            password : $scope.password,
-            remember : $scope.remember
+            userName : $scope.username,
+            password : $scope.password
         };
         $http({
-            url : './data/loginvip.php',
+            url : 'http://60.205.163.65:8080/manager/login',
             method : 'post',
             headers : {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                'Content-Type': 'application/json;charset=utf-8;'
             },
-            data: $.param(params)
+            data: params
         }).then(function(res){
             console.log(res);
-
-            var userType = true; // 用户的级别
-
-            $rootScope.username = $scope.username;
-            if(localStorageService.isSupported) {
-                localStorageService.set('Accesskey',res.Accesskey);
-                localStorageService.set('secretKey',res.secretKey);
-                localStorageService.set('username',$scope.username);
-                localStorageService.set('userType',userType);
+            var data = res.data;
+            if(data.result == 'SUCCESS'){
+                //var userType = true; // 用户的级别
+                $rootScope.username = $scope.username;
+                if(localStorageService.isSupported) {
+                    localStorageService.set('Accesskey',data.data.accessKey);
+                    localStorageService.set('secretKey',data.data.securityKey);
+                    localStorageService.set('username',$scope.username);
+                    //localStorageService.set('userType',userType);
+                }else{
+                    alert('您的浏览器版本太低，请升级高版本浏览器');
+                }
+                $state.go('realtime');
             }else{
-                alert('您的浏览器版本太低，请升级高版本浏览器');
+                alert('用户名或密码有误请重试');
             }
-
-            $state.go('realtime');
-
-
         },function(err){
             console.log(err);
         });
-    }
+    };
 }]);
 
 
@@ -335,9 +334,11 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
         //stage : false  //是否所处于修改结果阶段，控制重复渲染
     //};
 
+    console.log('res secretKey: '+ localStorageService.get('secretKey'));
+    console.log('res Accesskey: '+localStorageService.get('Accesskey'));
     var authoriza = encrypt.getAuthor(urlObj,localStorageService.get('secretKey'));
     localStorageService.set('Authorization',authoriza);
-    localStorageService.set('Accesskey',localStorageService.get('Accesskey'))
+    localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
     console.log(authoriza,'set');
 
 
@@ -460,8 +461,8 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
         },function(err){
             console.log(err);
             $scope.modifyNotice = '请求失败请重试';
-        })
-    }
+        });
+    };
 
 
 }]);
@@ -501,7 +502,7 @@ myApp.controller('lotterylistCtrl',['$scope','$http',function($scope,$http){
     $scope.total = 100;
     $scope.goPage = function(a,b){
         console.log(a,b);
-    }
+    };
 
 }]);
 
@@ -573,7 +574,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     $scope.search = function(){
         console.log('search list');
         console.log($scope.searchName,$scope.searchId);
-    }
+    };
 
     //弹层
     $scope.toModal = function(item){
@@ -586,11 +587,11 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
             $scope.modalTitle = '减积分';
             $scope.modalStatus = 'reduce';
         }
-    }
+    };
     // 弹层确定
     $scope.confirm = function(status){
         console.log(status, $scope.money);
-    }
+    };
 }]);
 //查看积分详情
 myApp.controller('integralDetailCtrl',['$scope','$stateParams','$sanitize',function($scope,$stateParams,$sanitize){
@@ -637,7 +638,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.searchByIssue = function() {
         console.log('search by issue');
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
-    }
+    };
 
 
     //分页
@@ -695,7 +696,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.searchByIssue = function() {
         console.log('search by issue');
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
-    }
+    };
 
     //分页
     $scope.currentPage = 1;
@@ -758,7 +759,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     $scope.searchByIssue = function() {
         console.log('search by issue');
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
-    }
+    };
 
 
     //分页
@@ -1097,8 +1098,37 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
 myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
     //页面一进来控制 class active
     $scope.selectClass = $location.path().substr(1);
-}]).controller('allUserCtrl',['$scope',function($scope){
+}]).controller('allUserCtrl',['$scope','$http','encrypt','localStorageService',function($scope,$http,encrypt,localStorageService){
     $scope.text = "总盘用户管理";
+
+
+
+    //测试代码，后期删除  ************  注意删除依赖
+    // url 参数
+    var urlObj = {
+        url : 'http://60.205.163.65:8080/manager/user',
+        domain : 'http://60.205.163.65:8080',
+        path : '/manager/user',
+        searchObj : {},
+        params : null
+    };
+    var authoriza = encrypt.getAuthor(urlObj,localStorageService.get('secretKey'));
+    localStorageService.set('Authorization',authoriza);
+    localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+    console.log(authoriza,'set');
+    //测试代码，后期删除  ************
+
+
+    // 获取 用户列表
+    $http({
+        url : urlObj.url,
+        method : 'get',
+    }).then(function(res){
+        console.log(res);
+    }, function(err){
+        console.log(err,'获取用户管理页面失败');
+    });
+
 
     $scope.modify = function(){
         $scope.operation = 'modify';
@@ -1106,12 +1136,12 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         $scope.nickname = '';
         $scope.password = '';
         $scope.repeatPwd = '';
-    }
+    };
 
     $scope.delete = function(){
         $scope.operation = 'delete';
         $scope.modalTitle = '删除用户';
-    }
+    };
 
     $scope.addUser = function(){
         $scope.operation = 'add';
@@ -1120,7 +1150,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         $scope.password = '';
         $scope.repeatPwd = '';
         $scope.username = '';
-    }
+    };
 
 
     $scope.confirm = function(){
@@ -1129,6 +1159,24 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             console.log($scope.nickname);
             console.log($scope.password);
             console.log($scope.repeatPwd);
+
+            // url 参数
+            var urlObj = {
+                url : 'http://60.205.163.65:8080/manager/user/{userId}',
+                domain : 'http://60.205.163.65:8080',
+                path : '/manager/user/{userId}',
+                searchObj : {nickName:$scope.nickname},
+                params : null
+            };
+            $http({
+                url : urlObj.url,
+                method : 'put',
+                data : {}
+            }).then(function(res){
+                console.log(res);
+            }, function(err){
+                console.log(err,'获取用户管理页面失败');
+            });
         }
         if($scope.operation == 'delete'){
             console.log('delete');
@@ -1139,8 +1187,19 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             console.log($scope.username);
             console.log($scope.password);
             console.log($scope.repeatPwd);
+
+
+            $http({
+                url : 'http://60.205.163.65:8080/manager/user',
+                method : 'get',
+            }).then(function(res){
+                console.log(res);
+            }, function(err){
+                console.log(err,'获取用户管理页面失败');
+            });
+
         }
-    }
+    };
 
 
 
@@ -1149,37 +1208,37 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
 
     $scope.search = function(){
         console.log($scope.searchName,$scope.searchId);
-    }
+    };
 
     $scope.modify = function(){
         $scope.operation = 'modify';
         $scope.modalTitle = '修改用户信息';
         $scope.nickname = '';
-    }
+    };
 
     $scope.delete = function(){
         $scope.operation = 'delete';
         $scope.modalTitle = '删除用户';
-    }
+    };
 
     $scope.addUser = function(){
         $scope.operation = 'add';
         $scope.modalTitle = '添加新用户';
         $scope.clientsn = '';
         $scope.expire = '';
-    }
+    };
 
     $scope.setRobot = function(){
         $scope.operation = 'setRobot';
         $scope.modalTitle = '设置机器人到期时间';
         $scope.expire = '';
-    }
+    };
 
     $scope.addRobot = function(){
         $scope.operation = 'addRobot';
         $scope.modalTitle = '添加机器人';
         $scope.expire = '';
-    }
+    };
 
 
     $scope.confirm = function(){
@@ -1201,5 +1260,5 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         if($scope.operation == 'setRobot'){
             console.log('setRobot',$scope.expire);
         }
-    }
+    };
 }]);

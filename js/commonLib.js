@@ -66,7 +66,7 @@ myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
             //console.log(urlObj.path + keyStr + secretKey);
             return sha1.hash(urlObj.path + keyStr + secretKey).toUpperCase();
         }
-    }
+    };
 }]);
 
 
