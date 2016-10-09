@@ -58,7 +58,9 @@ table tbody .selected { background-color: #dff0d8; }
 
 .notice-info { color: #f00; font-size: 20px; }
 
-.mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.8); z-index: 10; }
+.mask, .loading-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.8); z-index: 10; }
+
+.loading { position: absolute; top: 48%; left: 48%; font-size: 14px; color: #fff; z-index: 20; }
 
 .pos-box { position: fixed; padding: 100px; top: 0; left: 0; right: 0; bottom: 0; z-index: 20; font-size: 20px; font-weight: bold; }
 

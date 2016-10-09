@@ -890,11 +890,19 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
 
 }]).controller('otherPlCtrl',['$scope',function($scope){
     $scope.text = "分盘盈亏报表";
+    $scope.tableData = null;
     $scope.selectActive = 'byDate';
 
 
+    $scope.userId = '';
+    $scope.queryStartDate = '';
+    $scope.queryEndDate = '';
+    $scope.queryPage = '';
+    $scope.issue = '';
+
+
     $scope.selectOptions = [
-        {key: '0',value:'选择分盘名称'},
+        {key:'0',value:'选择分盘名称'},
         {key:'1',value:'分盘one'},
         {key:'2',value:'分盘two'},
         {key:'3',value:'分盘three'},
@@ -903,15 +911,56 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
 
     $scope.selectChange = function(){
         console.log($scope.selectName);
+        $scope.userId = $scope.selectName.key;
+        if($scope.selectActive = 'byDate'){
+            byDate();
+        }else{
+            byIssue();
+        }
+
+
     }
 
+    function byDate(){
+        $http({
+            url : 'http://60.205.163.65:8080/manger/user/'+$scope.userId+'/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
+            method : 'get'
+        }).then(function(res){
+            var data = res.data;
 
+            $scope.tableData = data.data;
+
+            $scope.currentPage = data.page;
+            $scope.pageSize = data.pageSize;  //每页显示多少
+            $scope.total = data.totalPage;
+
+        },function(){
+            alert('请求失败，请重试')
+        });
+    }
+    function byIssue(){
+        $http({
+            url : 'http://60.205.163.65:8080/manger/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            method : 'get'
+        }).then(function(res){
+            var data = res.data;
+
+            $scope.tableData = data.data;
+
+            $scope.currentPage = data.page;
+            $scope.pageSize = data.pageSize;  //每页显示多少
+            $scope.total = data.totalPage;
+
+        },function(){
+            alert('请求失败，请重试')
+        });
+    }
 
     // 表格数据格式
-    $scope.tableData = [
-        {'code':1,'aa':'aa','bb':[1,2,3],'cc':[1,2,3],'dd':[1,2,3],'ee':[1,2,3]},
-        {'code':1,'aa':'aa','bb':[1,2,3],'cc':[1,2,3],'dd':[1,2,3],'ee':[1,2,3]}
-    ];
+    // $scope.tableData = [
+    //     {'code':1,'aa':'aa','bb':[1,2,3],'cc':[1,2,3],'dd':[1,2,3],'ee':[1,2,3]},
+    //     {'code':1,'aa':'aa','bb':[1,2,3],'cc':[1,2,3],'dd':[1,2,3],'ee':[1,2,3]}
+    // ];
 
     // $scope.startTime = '2016-06-12';
     // $scope.endTime = '2016-08-12';
@@ -919,19 +968,28 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.searchByDate = function() {
         console.log('search by date');
         console.log($scope.startTime,$scope.endTime);
+        $scope.queryStartDate = $scope.startTime;
+        $scope.queryEndDate = $scope.endTime;
+        byDate();
     };
 
     $scope.searchByIssue = function() {
         console.log('search by issue');
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
+        $scope.queryStartDate = $scope.startTimeIssue;
+        $scope.queryEndDate = $scope.endTimeIssue;
+        byIssue();
     };
 
     //分页
-    $scope.currentPage = 1;
-    //$scope.pageSize = 5;  //每页显示多少
-    $scope.total = 100;
     $scope.goPage = function(page){
+        $scope.queryPage = page;
         console.log(page);
+        if($scope.selectActive = 'byDate'){
+            byDate();
+        }else{
+            byIssue();
+        }
     };
 
     // 按日期 与 按 期号 切换
@@ -939,25 +997,13 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         if(item == 'date'){ //按日期
             $scope.selectActive = 'byDate';
 
-
-            //分页
-            $scope.currentPage = 1;
-            //$scope.pageSize = 5;  //每页显示多少
-            $scope.total = 70;
-            $scope.goPage = function(page){
-                console.log(page);
-            };
+            $scope.queryPage = 1;
+            byDate();
         }
         if(item == 'issue'){ //按期号
             $scope.selectActive = 'byIssue';
-
-            //分页
-            $scope.currentPage = 30;
-            //$scope.pageSize = 5;  //每页显示多少
-            $scope.total = 100;
-            $scope.goPage = function(page){
-                console.log(page);
-            };
+            $scope.queryPage = 1;
+            byIssue();
         }
     };
 }]);
@@ -967,14 +1013,56 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
 myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     //页面一进来控制 class active
     $scope.selectClass = $location.path().substr(1);
-}]).controller('allBetCtrl',['$scope',function($scope){
+}]).controller('allBetCtrl',['$scope','$http',function($scope,$http){
     $scope.text = "总体押注报表";
     $scope.selectActive = 'byDate';
 
-    $scope.tableData = [
-        {'code':1,'aa':'aa','bb':'bb','cc':'cc'},
-        {'code':2,'aa':'kk','bb':'bb','cc':'cc'},
-    ];
+    $scope.queryStartDate = '';
+    $scope.queryEndDate = '';
+    $scope.queryPage = '';
+    $scope.issue = '';
+
+    function byDate(){
+        $http({
+            url : 'http://60.205.163.65:8080/manger/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
+            method : 'get'
+        }).then(function(res){
+            var data = res.data;
+
+            $scope.tableData = data.data;
+
+            $scope.currentPage = data.page;
+            $scope.pageSize = data.pageSize;  //每页显示多少
+            $scope.total = data.totalPage;
+
+        },function(){
+            alert('请求失败，请重试')
+        });
+    }
+    function byIssue(){
+        $http({
+            url : 'http://60.205.163.65:8080/manger/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            method : 'get'
+        }).then(function(res){
+            var data = res.data;
+
+            $scope.tableData = data.data;
+
+            $scope.currentPage = data.page;
+            $scope.pageSize = data.pageSize;  //每页显示多少
+            $scope.total = data.totalPage;
+
+        },function(){
+            alert('请求失败，请重试')
+        });
+    }
+
+    byDate();
+
+    // $scope.tableData = [
+    //     {'code':1,'aa':'aa','bb':'bb','cc':'cc'},
+    //     {'code':2,'aa':'kk','bb':'bb','cc':'cc'},
+    // ];
 
     // $scope.startTime = '2016-06-12';
     // $scope.endTime = '2016-08-12';
@@ -982,45 +1070,42 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     $scope.searchByDate = function() {
         console.log('search by date');
         console.log($scope.startTime,$scope.endTime);
+        $scope.queryStartDate = $scope.startTime;
+        $scope.queryEndDate = $scope.endTime;
+        byDate();
     };
 
     $scope.searchByIssue = function() {
         console.log('search by issue');
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
+        $scope.queryStartDate = $scope.startTimeIssue;
+        $scope.queryEndDate = $scope.endTimeIssue;
+        byIssue();
     };
 
 
     //分页
-    $scope.currentPage = 1;
-    //$scope.pageSize = 5;  //每页显示多少
-    $scope.total = 100;
     $scope.goPage = function(page){
+        $scope.queryPage = page;
         console.log(page);
+        if($scope.selectActive = 'byDate'){
+            byDate();
+        }else{
+            byIssue();
+        }
     };
     // 按日期 与 按 期号 切换
     $scope.reRender = function(item){
         if(item == 'date'){ //按日期
             $scope.selectActive = 'byDate';
 
-
-            //分页
-            $scope.currentPage = 1;
-            //$scope.pageSize = 5;  //每页显示多少
-            $scope.total = 70;
-            $scope.goPage = function(page){
-                console.log(page);
-            };
+            $scope.queryPage = 1;
+            byDate();
         }
         if(item == 'issue'){ //按期号
             $scope.selectActive = 'byIssue';
-
-            //分页
-            $scope.currentPage = 30;
-            //$scope.pageSize = 5;  //每页显示多少
-            $scope.total = 100;
-            $scope.goPage = function(page){
-                console.log(page);
-            };
+            $scope.queryPage = 1;
+            byIssue();
         }
     };
 

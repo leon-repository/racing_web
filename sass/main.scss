@@ -139,7 +139,7 @@ table{
     font-size: 20px;
 }
 
-.mask{
+.mask,.loading-mask{
     position: fixed;
     top: 0;
     left: 0;
@@ -147,6 +147,15 @@ table{
     bottom: 0;
     background-color: rgba(0,0,0,.8);
     z-index: 10;
+}
+
+.loading{
+    position: absolute;
+    top: 48%;
+    left: 48%;
+    font-size: 14px;
+    color: #fff;
+    z-index: 20;
 }
 
 .pos-box{
