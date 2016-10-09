@@ -16,21 +16,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>aa</td>
-                        <td>bb</td>
-                        <td>cc</td>
-                        <td>dd</td>
-                        <td>ee</td>
-                        <td>ff</td>
-                        <td>
+                    <tr ng-repeat="(id, row) in userArr">
+                      <td>{{id+1}}</td>
+                      <td>{{row.id}}</td>
+                      <td>{{row.nickName}}</td>
+                      <td>{{row.lastLoginIp}}</td>
+                      <td>{{row.lastLoginTime}}</td>
+                      <td>{{row.clientIsEnable}}</td>
+                      <td>
                             <p><button class="btn btn-sm btn-success">启用</button></p>
                             <p><button class="btn btn-sm btn-warning">禁用</button></p>
                             <p><button class="btn btn-sm btn-info" ng-click="modify();" data-toggle="modal" data-target="#myModal">修改信息</button></p>
                             <p><button class="btn btn-sm btn-danger" ng-click="delete();" data-toggle="modal" data-target="#myModal">删除</button></p>
                         </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>22</td>
                         <td>bb</td>
                         <td>cc</td>
@@ -43,7 +43,7 @@
                             <p><button class="btn btn-sm btn-info" ng-click="modify();" data-toggle="modal" data-target="#myModal">修改信息</button></p>
                             <p><button class="btn btn-sm btn-danger" ng-click="delete();" data-toggle="modal" data-target="#myModal">删除</button></p>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>

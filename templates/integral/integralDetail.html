@@ -40,7 +40,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat='row in tableData'>
+                        <tr ng-repeat='row in tableData track by $index'>
                             <td ng-repeat='item in row' ng-bind-html='item | splitArrFilter'></td>
                         </tr>
                     </tbody>

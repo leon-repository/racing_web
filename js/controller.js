@@ -512,63 +512,174 @@ myApp.controller('lotterylistCtrl',['$scope','$http',function($scope,$http){
 myApp.controller('integralCtrl',['$scope','$location',function($scope,$location){
     //页面一进来控制 class active
     $scope.selectClass = $location.path().substr(1);
-}]).controller('applyCtrl',['$scope','$sanitize',function($scope,$sanitize){
+}]).controller('applyCtrl',['$scope','$http',function($scope,$http){
     $scope.text = "分盘申请上下分列表";
 
-    $scope.tableData = [
-        {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee','ff':'ok'},
-        {'code':2,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee','ff':'danger'},
-        {'code':3,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee','ff':'cancel'},
-    ];
+    //默认查询状态
+    $scope.queryStatus = '';
+    $scope.queryPage = 1;
 
-    //分页
-    $scope.currentPage = 30;
-    //$scope.pageSize = 5;  //每页显示多少
-    $scope.total = 100;
+    $http({
+        url : 'http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,
+        method : 'get',
+    }).then(function(res){
+        console.log(res);
+        var data = res.data;
+        // $scope.tableData = [
+        //     {"id":1,"appPoints":1,"appComment":"1","appTime":1475677107000,"operationComment":"aaaaaa","operationTime":1475939822000,"status":"AUDIT","userId":1,"userNickName":"测试分盘用户1","userUserName":null},
+        //     {"id":2,"appPoints":2,"appComment":"1","appTime":1475677107000,"operationComment":"aaaaaa","operationTime":1475939822000,"status":"REJECT","userId":1,"userNickName":"测试分盘用户1","userUserName":null},
+        //     {"id":3,"appPoints":3,"appComment":"1","appTime":1475677107000,"operationComment":"aaaaaa","operationTime":1475939822000,"status":"CANCEL","userId":1,"userNickName":"测试分盘用户1","userUserName":null},
+        //     {"id":4,"appPoints":4,"appComment":"1","appTime":1475677107000,"operationComment":"aaaaaa","operationTime":1475939822000,"status":"UNTREATED","userId":1,"userNickName":"测试分盘用户1","userUserName":null},
+        //     {"id":5,"appPoints":5,"appComment":"1","appTime":1475677107000,"operationComment":"aaaaaa","operationTime":1475939822000,"status":"UNTREATED","userId":1,"userNickName":"测试分盘用户1","userUserName":null}
+        // ];
+
+        $scope.tableData = data.data;
+        //分页
+        $scope.currentPage = data.page;
+        $scope.pageSize = data.pageSize;
+        $scope.total = data.totalPage;
+
+    }, function(err){
+        console.log(err,'获取用户管理页面失败');
+    });
+
+    // $scope.tableData = [
+    //     {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee','ff':'ok'},
+    //     {'code':2,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee','ff':'danger'},
+    //     {'code':3,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee','ff':'cancel'},
+    // ];
+
+    //select
+    $scope.selectOptions =[{key:'UNTREATED',value:'待处理'},{key:'AUDIT',value:'已批准'},{key:'REJECT',value:'已拒绝'},{key:'CANCEL',value:'已取消'}];
+    $scope.selection = $scope.selectOptions[0];
+    $scope.selectChange = function(){
+        $scope.queryStatus = $scope.selection.key;
+        $scope.queryPage = 1;
+
+        $http.get('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.page).then(function(res){
+            console.log(res);
+            var data = res.data;
+            //重绘表格
+            $scope.tableData = data.data;
+            //分页
+            $scope.currentPage = data.page;
+            $scope.pageSize = data.pageSize;
+            $scope.total = data.totalPage;
+        },function(){
+            alert('请求失败，请重试');
+        });
+    }
+
+    //页面跳转
     $scope.goPage = function(page){
         console.log(page);
+        $scope.queryPage = page;
+        $http({
+            url : 'http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,
+            method : 'get',
+        }).then(function(res){
+            console.log(res);
+            var data = res.data;
+            //重绘表格
+            $scope.tableData = data.data;
+            //分页
+            $scope.currentPage = data.page;
+            $scope.pageSize = data.pageSize;
+            $scope.total = data.totalPage;
+        },function(){
+            alert('请求失败，请重试');
+        });
     };
 
-    $scope.toRight = function(item) {
-        console.log(item);
+    $scope.toRight = function(status,id) {
+        //console.log(status,id);
         $scope.modalContent = '';
-        switch (item) {
+        $scope.modalID = id;
+        $scope.modalStatus = status;
+        switch (status) {
             case 'ok':
                 $scope.modalTitle = '批准';
-                $scope.modalStatus = 'ok';
                 break;
             case 'danger':
                 $scope.modalTitle = '拒绝';
-                $scope.modalStatus = 'danger';
                 break;
             case 'cancel':
                 $scope.modalTitle = '取消';
-                $scope.modalStatus = 'cancel';
                 break;
         }
     };
 
     //确认发送数据
     $scope.confirm = function(status) {
-        console.log(status,$scope.modalContent,'modal');
+        //console.log(status,$scope.modalContent,$scope.modalID,'modal');
+        switch (status) {
+            case 'ok':
+                var url = '/manager/pointsapp/'+$scope.modalID+'/status/audit';
+                break;
+            case 'danger':
+                var url = '/manager/pointsapp/'+$scope.modalID+'/status/reject';
+                break;
+            case 'cancel':
+                var url = '/manager/pointsapp/'+$scope.modalID+'/status/cancel';
+                break;
+        }
+
+        $http({
+            url : 'http://60.205.163.65:8080'+url,
+            method : 'put',
+            data : {
+                comments : $scope.modalContent
+            }
+        }).then(function(res){
+            var data = res.data;
+            if(data.result=='ERROR'){
+                alert(data.message);
+            }
+            if(data.result=='SUCCESS'){
+                alert('操作成功');
+                //重绘表格
+                $scope.tableData = data.data;
+                //分页
+                $scope.currentPage = data.page;
+                $scope.pageSize = data.pageSize;
+                $scope.total = data.totalPage;
+            }
+        },function(){
+            alert('请求失败，请重试');
+        });
+
     };
 
-}]).controller('listCtrl',['$scope',function($scope){
+}]).controller('listCtrl',['$scope','$http',function($scope,$http){
     $scope.text = "分盘积分列表";
 
-    //分页
-    $scope.currentPage = 30;
-    //$scope.pageSize = 5;  //每页显示多少
-    $scope.total = 100;
+    $scope.queryNickName = '';
+    $scope.queryUserId = '';
+    $scope.queryPage = 1;
+
+
+    $http({
+        url : 'http://60.205.163.65:8080/manager/user/points?nickName='+$scope.queryNickName+'&userId='+$scope.queryUserId+'&page='+$scope.queryPage,
+        method : 'get',
+    }).then(function(res){
+        console.log(res);
+        var data = res.data;
+
+        $scope.tableData = data.data;
+        //分页
+        $scope.currentPage = data.page;
+        $scope.pageSize = data.pageSize;
+        $scope.total = data.totalPage;
+
+    }, function(err){
+        console.log(err,'获取用户管理页面失败');
+    });
+
+    //分页跳转
     $scope.goPage = function(page){
         console.log(page);
     };
 
-    $scope.tableData = [
-        {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd'},
-        {'code':2,'aa':'kk','bb':'bb','cc':'cc','dd':'dd'},
-        {'code':3,'aa':'oo','bb':'bb','cc':'cc','dd':'dd'},
-    ];
 
     //搜索
     $scope.search = function(){
@@ -577,40 +688,98 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     };
 
     //弹层
-    $scope.toModal = function(item){
+    $scope.toModal = function(status,userId){
         $scope.money = '';
-        if(item == 'add'){
+        $scope.queryUserId = userId;
+        if(status == 'add'){
             $scope.modalTitle = '加积分';
             $scope.modalStatus = 'add';
         }
-        if(item == 'reduce'){
+        if(status == 'reduce'){
             $scope.modalTitle = '减积分';
             $scope.modalStatus = 'reduce';
         }
     };
     // 弹层确定
     $scope.confirm = function(status){
-        console.log(status, $scope.money);
+        switch (status) {
+            case 'add':
+                var url = '/manager/add/points/user/'+$scope.queryUserId;
+                break;
+            case 'reduce':
+                var url = '/manager/subtract/points/user/'+$scope.queryUserId;
+                break;
+        }
+
+        console.log(status, url, $scope.money);
+        $http({
+            url : 'http://60.205.163.65:8080'+url,
+            method : 'put',
+            data : {
+                points : $scope.money
+            }
+        }).then(function(res){
+            var data = res.data;
+            if(data.result=='ERROR'){
+                alert(data.message);
+            }
+            if(data.result=='SUCCESS'){
+                alert('操作成功');
+                //重绘表格
+                $scope.tableData = data.data;
+                //分页
+                $scope.currentPage = data.page;
+                $scope.pageSize = data.pageSize;
+                $scope.total = data.totalPage;
+            }
+        },function(){
+            alert('请求失败，请重试');
+        });
+
     };
 }]);
 //查看积分详情
-myApp.controller('integralDetailCtrl',['$scope','$stateParams','$sanitize',function($scope,$stateParams,$sanitize){
+myApp.controller('integralDetailCtrl',['$scope','$http','$stateParams','$sanitize',function($scope,$http,$stateParams,$sanitize){
     //console.log($stateParams);
+    $scope.queryUserId = $stateParams.userId;
+    $scope.queryPage = 1;
 
-    $scope.title = $stateParams.item1+'==='+ $stateParams.item2;
+    $scope.title = '当前的分盘名称为 '+$stateParams.userName;
 
-    $scope.tableData = [
-        {'code':1,'content':'aa','bb':[1,2],'cc':[3,4],'dd':[5,6]},
-        {'code':2,'content':'aa','bb':[1,2],'cc':[3,4],'dd':[5,6]}
-    ];
+
+    $http({
+        url : 'http://60.205.163.65:8080/manager/user/'+$scope.queryUserId+'/account/record?page='+$scope.queryPage,
+        method : 'get',
+    }).then(function(res){
+        var data = res.data;
+        if(data.result=='ERROR'){
+            alert(data.message);
+        }
+        if(data.result=='SUCCESS'){
+            alert('操作成功');
+            //重绘表格
+            $scope.tableData = data.data;
+            //分页
+            $scope.currentPage = data.page;
+            $scope.pageSize = data.pageSize;
+            $scope.total = data.totalPage;
+        }
+    },function(){
+        alert('请求失败，请重试');
+    });
 
     //分页
-    $scope.currentPage = 30;
-    //$scope.pageSize = 5;  //每页显示多少
-    $scope.total = 100;
     $scope.goPage = function(page){
         console.log(page);
+        $scope.queryPage = page;
     };
+
+
+
+    // $scope.tableData = [
+    //     {'code':1,'content':'aa','bb':[1,2],'cc':[3,4],'dd':[5,6]},
+    //     {'code':2,'content':'aa','bb':[1,2],'cc':[3,4],'dd':[5,6]}
+    // ];
 }]);
 
 
@@ -618,14 +787,59 @@ myApp.controller('integralDetailCtrl',['$scope','$stateParams','$sanitize',funct
 myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     //页面一进来控制 class active
     $scope.selectClass = $location.path().substr(1);
-}]).controller('allPlCtrl',['$scope',function($scope){
+}]).controller('allPlCtrl',['$scope','$http',function($scope,$http){
     $scope.text = "总体盈亏报表";
+
+
+    $scope.queryStartDate = '';
+    $scope.queryEndDate = '';
+    $scope.queryPage = '';
+
+
     $scope.selectActive = 'byDate';
 
-    $scope.tableData = [
-        {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee'},
-        {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee'},
-    ];
+    function byDate(){
+        $http({
+            url : 'http://60.205.163.65:8080/manger/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
+            method : 'get'
+        }).then(function(res){
+            var data = res.data;
+
+            $scope.tableData = data.data;
+
+            $scope.currentPage = data.page;
+            $scope.pageSize = data.pageSize;  //每页显示多少
+            $scope.total = data.totalPage;
+
+        },function(){
+            alert('请求失败，请重试')
+        });
+    }
+    function byIssue(){
+        $http({
+            url : 'http://60.205.163.65:8080/manger/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            method : 'get'
+        }).then(function(res){
+            var data = res.data;
+
+            $scope.tableData = data.data;
+
+            $scope.currentPage = data.page;
+            $scope.pageSize = data.pageSize;  //每页显示多少
+            $scope.total = data.totalPage;
+
+        },function(){
+            alert('请求失败，请重试')
+        });
+    }
+
+    byDate();
+
+
+    // $scope.tableData = [
+    //     {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee'},
+    //     {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee'},
+    // ];
 
     // $scope.startTime = '2016-06-12';
     // $scope.endTime = '2016-08-12';
@@ -633,45 +847,43 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.searchByDate = function() {
         console.log('search by date');
         console.log($scope.startTime,$scope.endTime);
+        $scope.queryStartDate = $scope.startTime;
+        $scope.queryEndDate = $scope.endTime;
+        byDate();
     };
 
     $scope.searchByIssue = function() {
         console.log('search by issue');
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
+        $scope.queryStartDate = $scope.startTimeIssue;
+        $scope.queryEndDate = $scope.endTimeIssue;
+        byIssue();
     };
 
 
     //分页
-    $scope.currentPage = 1;
-    //$scope.pageSize = 5;  //每页显示多少
-    $scope.total = 100;
     $scope.goPage = function(page){
+        $scope.queryPage = page;
         console.log(page);
+        if($scope.selectActive = 'byDate'){
+            byDate();
+        }else{
+            byIssue();
+        }
     };
+
     // 按日期 与 按 期号 切换
     $scope.reRender = function(item){
         if(item == 'date'){ //按日期
             $scope.selectActive = 'byDate';
 
-
-            //分页
-            $scope.currentPage = 1;
-            //$scope.pageSize = 5;  //每页显示多少
-            $scope.total = 70;
-            $scope.goPage = function(page){
-                console.log(page);
-            };
+            $scope.queryPage = 1;
+            byDate();
         }
         if(item == 'issue'){ //按期号
             $scope.selectActive = 'byIssue';
-
-            //分页
-            $scope.currentPage = 30;
-            //$scope.pageSize = 5;  //每页显示多少
-            $scope.total = 100;
-            $scope.goPage = function(page){
-                console.log(page);
-            };
+            $scope.queryPage = 1;
+            byIssue();
         }
     };
 
@@ -679,6 +891,22 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
 }]).controller('otherPlCtrl',['$scope',function($scope){
     $scope.text = "分盘盈亏报表";
     $scope.selectActive = 'byDate';
+
+
+    $scope.selectOptions = [
+        {key: '0',value:'选择分盘名称'},
+        {key:'1',value:'分盘one'},
+        {key:'2',value:'分盘two'},
+        {key:'3',value:'分盘three'},
+    ];
+    $scope.selectName = $scope.selectOptions[0];
+
+    $scope.selectChange = function(){
+        console.log($scope.selectName);
+    }
+
+
+
     // 表格数据格式
     $scope.tableData = [
         {'code':1,'aa':'aa','bb':[1,2,3],'cc':[1,2,3],'dd':[1,2,3],'ee':[1,2,3]},
@@ -817,7 +1045,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     $scope.searchByIssue = function() {
         console.log('search by issue');
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
-    }
+    };
 
     //分页
     $scope.currentPage = 1;
@@ -1125,6 +1353,9 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         method : 'get',
     }).then(function(res){
         console.log(res);
+        var data = res.data;
+        $scope.userArr = data.data;
+
     }, function(err){
         console.log(err,'获取用户管理页面失败');
     });

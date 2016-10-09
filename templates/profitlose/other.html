@@ -11,11 +11,7 @@
             <div class="col-md-4 form-inline">
                 <div class="form-group">
                   <label class='control-label'>分盘名称: </label>
-                  <select class="form-control" ng-model='selectName'>
-                      <options>1</options>
-                      <options>2</options>
-                      <options>3</options>
-                  </select>
+                  <select class="form-control" ng-model='selectName' ng-change="selectChange()" ng-options="item.value for item in selectOptions"></select>
                 </div>
             </div>
         </div>

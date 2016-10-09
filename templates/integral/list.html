@@ -31,14 +31,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="row in tableData">
-                        <td ng-repeat='item in row'>
-                            <span>{{item}}</span>
-                        </td>
+                    <tr ng-repeat="row in tableData track by $index">
+                        <td>{{$index+1}}</td>
+                        <td>{{row.userName}}</td>
+                        <td>{{row.userPoints}}</td>
+                        <td>{{row.totalPoints}}</td>
+                        <td>{{row.membersPoints}}</td>
                         <td>
-                            <a class='btn btn-sm btn-success' ng-click='toModal("add")' data-toggle="modal" data-target="#myModal">加积分</a>
-                            <a class='btn btn-sm btn-info' ng-click='toModal("reduce")' data-toggle="modal" data-target="#myModal">减积分</a>
-                            <a ui-sref="integralDetail({item1:row.aa,item2:row.bb})" class='btn btn-sm btn-primary'>查看积分详情</a>
+                            <a class='btn btn-sm btn-success' ng-click='toModal("add",row.userId)' data-toggle="modal" data-target="#myModal">加积分</a>
+                            <a class='btn btn-sm btn-info' ng-click='toModal("reduce",row.userId)' data-toggle="modal" data-target="#myModal">减积分</a>
+                            <a ui-sref="integralDetail({userId:row.userId,userName:row.userName})" class='btn btn-sm btn-primary'>查看积分详情</a>
                         </td>
                     </tr>
                 </tbody>

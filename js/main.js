@@ -38,7 +38,7 @@ myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorag
         url : '/list',
         templateUrl : './templates/integral/list.html',
     }).state('integralDetail',{
-        url : '/integralDetail/?item1&item2',
+        url : '/integralDetail/?userId&userName',
         templateUrl : './templates/integral/integralDetail.html',
     })
     //盈亏报表

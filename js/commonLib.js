@@ -30,9 +30,9 @@ myApp.directive('tabActive',function(){
             $(elem).on('click',function(ev){
                 $(elem).siblings('li').removeClass('active');
                 $(this).addClass('active');
-            })
+            });
         }
-    }
+    };
 });
 
 
@@ -79,6 +79,7 @@ myApp.factory('HttpInterceptor', ['$q', 'localStorageService', function($q, loca
             if (localStorageService.get('Authorization')) {
                 //console.log(localStorageService.get('Authorization'),'location');
                 config.headers.Authorization = localStorageService.get('Authorization');
+                config.headers.Accesskey = localStorageService.get('Accesskey');
             }
             return config;
         },
