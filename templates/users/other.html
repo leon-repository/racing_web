@@ -34,43 +34,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>aa</td>
-                        <td>bb</td>
-                        <td>cc</td>
-                        <td>dd</td>
-                        <td>ee</td>
+                    <tr ng-repeat="row in userArr track by $index">
+                        <td>{{$index+1}}</td>
+                        <td>{{row.id}}</td>
+                        <td>{{row.nickName}}</td>
+                        <td>{{row.lastLoginIp}}</td>
+                        <td>{{row.lastLoginTime}}</td>
                         <td>
-                            <p><button class="btn btn-sm btn-success">启用</button></p>
-                            <p><button class="btn btn-sm btn-warning">禁用</button></p>
-                            <p><button class="btn btn-sm btn-danger" ng-click="delete()" data-toggle="modal" data-target="#myModal">删除</button></p>
-                            <p><button class="btn btn-sm btn-info" ng-click="modify()" data-toggle="modal" data-target="#myModal">修改信息</button></p>
+                            <p><button class="btn btn-sm btn-success" ng-click="enable(row.id)">启用</button></p>
+                            <p><button class="btn btn-sm btn-warning" ng-click="disable(row.id)">禁用</button></p>
+                            <p><button class="btn btn-sm btn-danger" ng-click="delete(row.id)" data-toggle="modal" data-target="#myModal">删除</button></p>
+                            <p><button class="btn btn-sm btn-info" ng-click="modify(row.id)" data-toggle="modal" data-target="#myModal">修改信息</button></p>
                         </td>
                         <td>
-                            <p><button class="btn btn-sm btn-success">启用机器人</button></p>
-                            <p><button class="btn btn-sm btn-warning">禁用机器人</button></p>
-                            <p><button class="btn btn-sm btn-info" ng-click="setRobot()" data-toggle="modal" data-target="#myModal">设置到期时间</button></p>
-                            <p><button class="btn btn-sm btn-primary" ng-click="addRobot()" data-toggle="modal" data-target="#myModal">添加机器人</button></p>
-                        </td>
-                        <td>gg</td>
-                    </tr>
-                    <tr>
-                        <td>22</td>
-                        <td>bb</td>
-                        <td>cc</td>
-                        <td>dd</td>
-                        <td>ee</td>
-                        <td>
-                            <p><button class="btn btn-sm btn-success">启用</button></p>
-                            <p><button class="btn btn-sm btn-warning">禁用</button></p>
-                            <p><button class="btn btn-sm btn-danger">删除</button></p>
-                            <p><button class="btn btn-sm btn-info">修改信息</button></p>
-                        </td>
-                        <td>
-                            <p><button class="btn btn-sm btn-success">启用机器人</button></p>
-                            <p><button class="btn btn-sm btn-warning">禁用机器人</button></p>
-                            <p><button class="btn btn-sm btn-info">设置到期时间</button></p>
-                            <p><button class="btn btn-sm btn-primary">添加机器人</button></p>
+                            <p><button class="btn btn-sm btn-success" ng-click="enableRoot(row.id)">启用机器人</button></p>
+                            <p><button class="btn btn-sm btn-warning" ng-click="disableRoot(row.id)">禁用机器人</button></p>
+                            <p><button class="btn btn-sm btn-info" ng-click="setRobot(row.id)" data-toggle="modal" data-target="#myModal">设置到期时间</button></p>
+                            <p><button class="btn btn-sm btn-primary" ng-click="addRobot(row.id)" data-toggle="modal" data-target="#myModal">添加机器人</button></p>
                         </td>
                         <td>gg</td>
                     </tr>

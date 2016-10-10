@@ -1,5 +1,13 @@
 <div ng-controller="otherBetCtrl">
     <h4>{{text}}</h4>
+    <div class='row chose-box'>
+        <div class="col-md-4 form-inline">
+            <div class="form-group">
+              <label class='control-label'>请先选择分盘名称: </label>
+              <select class="form-control" ng-model='selectName' ng-change="selectChange()" ng-options="item.value for item in selectOptions"></select>
+            </div>
+        </div>
+    </div>
     <div class="chose-box">
         <div class="btn-group">
             <button type="button" class="btn btn-primary" ng-class="{'active': selectActive == 'byDate'}" ng-click='reRender("date")'>按日期</button>
@@ -7,18 +15,6 @@
         </div>
     </div>
     <div class="tab-box container-fluid" ng-show='selectActive=="byDate"'>
-        <div class='row chose-box'>
-            <div class="col-md-4 form-inline">
-                <div class="form-group">
-                  <label class='control-label'>分盘名称: </label>
-                  <select class="form-control" ng-model='selectName'>
-                      <options>1</options>
-                      <options>2</options>
-                      <options>3</options>
-                  </select>
-                </div>
-            </div>
-        </div>
         <div class="row chose-box">
             <div class="col-md-4 form-inline">
                 <div class="form-group" moment-picker="startTime" locale="zh-cn" start-view="month" format="YYYY-MM-DD" today='true'  max-date="endTime" >
@@ -87,18 +83,6 @@
         </div>
     </div>
     <div class="tab-box container-fluid" ng-show='selectActive=="byIssue"'>
-        <div class='row chose-box'>
-            <div class="col-md-4 form-inline">
-                <div class="form-group">
-                  <label class='control-label'>分盘名称: </label>
-                  <select class="form-control" ng-model='selectName'>
-                      <options>1</options>
-                      <options>2</options>
-                      <options>3</options>
-                  </select>
-                </div>
-            </div>
-        </div>
         <div class="row chose-box">
             <div class="col-md-4 form-inline">
                 <div class="form-group" moment-picker="startTimeIssue" locale="zh-cn" start-view="month" format="YYYY-MM-DD" today='true'  max-date="endTimeIssue" >

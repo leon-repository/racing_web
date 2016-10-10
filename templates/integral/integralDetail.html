@@ -41,7 +41,18 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat='row in tableData track by $index'>
-                            <td ng-repeat='item in row' ng-bind-html='item | splitArrFilter'></td>
+                            <td>{{$index+1}}</td>
+                            <td>
+                                {{row.type == 'MANAGER_ADD' ? '总盘加积分':''}}
+                                {{row.type == 'MANAGER_SUBTRACT' ? '总盘减积分':''}}
+                                {{row.type == 'USER_ADD' ? '给用户上分':''}}
+                                {{row.type == 'USER_SUBTRACT' ? '给用户下分':''}}
+                                {{row.type == 'OFFER' ? '报盘':''}}
+                                {{row.type == 'LOTTERY' ? '开奖':''}}
+                            </td>
+                            <td>{{row.operationTotalPoints}}<span  class="paddingTips">|</span>{{row.resultTotalPoints}}</td>
+                            <td>{{row.operationUserPoints}}<span  class="paddingTips">|</span>{{row.resultUserPoints}}</td>
+                            <td>{{row.operationMembersPoints}}<span  class="paddingTips">|</span>{{row.resultMembersPoints}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -57,5 +68,8 @@
               paging-action="goPage(page)" >
             </paging>
         </div>
+    </div>
+    <div class="loading-mask" loading>
+        <div class="loading">loading...</div>
     </div>
 </div>

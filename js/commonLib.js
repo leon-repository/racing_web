@@ -38,18 +38,18 @@ myApp.directive('tabActive',function(){
 
 //拼接加密算法
 myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
-    // console.log($location.url());
-    // console.log($location.path());
-    // console.log($location.search());
-    // console.log(sha1.hash('/sign/check2011{"point":2000}10001123ewqasdcxz').toUpperCase(),'aaa');
-    // console.log(sha1.hash('/sign/check2011{\"point\":2000}10001123ewqasdcxz').toUpperCase(),'bbb');
-
-
-    //var path = $location.path();
-    //var path = '/sign/check';
-    //var searchObj = $location.search();
-    //var searchObj = {'userId':10001,'account':2011};
-    //console.log(keyStr);
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for(var i = 0; i < strs.length; i ++) {
+                theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
     return {
         getAuthor: function(urlObj, secretKey) {
             urlObj.searchObj['requestBody'] = JSON.stringify(urlObj.params);

@@ -16,18 +16,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="(id, row) in userArr">
-                      <td>{{id+1}}</td>
+                    <tr ng-repeat="row in userArr track by $index">
+                      <td>{{$index+1}}</td>
                       <td>{{row.id}}</td>
                       <td>{{row.nickName}}</td>
                       <td>{{row.lastLoginIp}}</td>
                       <td>{{row.lastLoginTime}}</td>
                       <td>{{row.clientIsEnable}}</td>
                       <td>
-                            <p><button class="btn btn-sm btn-success">启用</button></p>
-                            <p><button class="btn btn-sm btn-warning">禁用</button></p>
-                            <p><button class="btn btn-sm btn-info" ng-click="modify();" data-toggle="modal" data-target="#myModal">修改信息</button></p>
-                            <p><button class="btn btn-sm btn-danger" ng-click="delete();" data-toggle="modal" data-target="#myModal">删除</button></p>
+                            <p><button class="btn btn-sm btn-success" ng-click="enable(row.id)">启用</button></p>
+                            <p><button class="btn btn-sm btn-warning" ng-click="disable(row.id)">禁用</button></p>
+                            <p><button class="btn btn-sm btn-info" ng-click="modify(row.id);" data-toggle="modal" data-target="#myModal">修改信息</button></p>
+                            <p><button class="btn btn-sm btn-danger" ng-click="delete(row.id);" data-toggle="modal" data-target="#myModal">删除</button></p>
                         </td>
                     </tr>
                     <!-- <tr>
@@ -69,13 +69,13 @@
                 <div class="form-group">
                   <label class='control-label col-sm-3'>修改密码：</label>
                   <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="请输入新密码" ng-model="password">
+                      <input type="password" class="form-control" placeholder="请输入新密码" ng-model="password">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class='control-label col-sm-3'>重复密码：</label>
                   <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="重复输入新密码" ng-model="repeatPwd">
+                      <input type="password" class="form-control" placeholder="重复输入新密码" ng-model="repeatPwd">
                   </div>
                 </div>
             </div>
@@ -96,13 +96,13 @@
                 <div class="form-group">
                   <label class='control-label col-sm-3'>用户密码：</label>
                   <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="用户密码" ng-model="password">
+                      <input type="password" class="form-control" placeholder="用户密码" ng-model="password">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class='control-label col-sm-3'>重复密码：</label>
                   <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="重复输入新密码" ng-model="repeatPwd">
+                      <input type="password" class="form-control" placeholder="重复输入新密码" ng-model="repeatPwd">
                   </div>
                 </div>
             </div>
