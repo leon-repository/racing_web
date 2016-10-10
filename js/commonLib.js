@@ -38,21 +38,38 @@ myApp.directive('tabActive',function(){
 
 //拼接加密算法
 myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
-    function GetRequest() {
-        var url = location.search; //获取url中"?"符后的字串
-        var theRequest = new Object();
+
+    function getUrlInfo(url,bodyQuery) {
+        var arrUrl = url.split("//");
+        var queryObj = new Object();
+        var start = arrUrl[1].indexOf("/");
+        var relUrl = arrUrl[1].substring(start);
+        console.log(relUrl,'relUrl');
+
+        if (relUrl.indexOf("?") != -1) {
+            var path = relUrl.split("?")[0];
+        }else{
+            var path = relUrl;
+        }
         if (url.indexOf("?") != -1) {
-            var str = url.substr(1);
+            var searchStr = '?'+relUrl.split("?")[1];
+            var str = searchStr.substr(1);
             strs = str.split("&");
             for(var i = 0; i < strs.length; i ++) {
-                theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+                queryObj[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
             }
         }
-        return theRequest;
+        return {url: url, domain: arrUrl[1].substring(0,start), path: path, searchObj:queryObj,params:bodyQuery};
     }
+
     return {
-        getAuthor: function(urlObj, secretKey) {
-            urlObj.searchObj['requestBody'] = JSON.stringify(urlObj.params);
+        getAuthor: function(url, bodyQuery,secretKey) {
+            var urlObj = getUrlInfo(url,bodyQuery);
+            console.log(urlObj,'urlObj');
+            //return;
+            if(angular.isObject(urlObj.params)){
+                urlObj.searchObj['requestBody'] = JSON.stringify(urlObj.params);
+            }
             var keyArr = [];
             angular.forEach(urlObj.searchObj, function(val, key) {
                 keyArr.push(key);
@@ -63,7 +80,7 @@ myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
             angular.forEach(keyArr, function(val, index) {
                 keyStr += urlObj.searchObj[val];
             });
-            //console.log(urlObj.path + keyStr + secretKey);
+            console.log(urlObj.path + keyStr + secretKey,'加密的字串');
             return sha1.hash(urlObj.path + keyStr + secretKey).toUpperCase();
         }
     };

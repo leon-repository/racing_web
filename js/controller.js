@@ -508,25 +508,17 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     $scope.queryStatus = '';
     $scope.queryPage = 1;
 
-    //每次请求的 url
-    var urlObj = {
-        url : 'http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,
-        domain : 'http://60.205.163.65:8080',
-        path : '/manager/pointsapp/status',
-        searchObj : {
-            status : $scope.queryStatus,
-            page : $scope.queryPage
-        },
-        params : null
-    };
     console.log('res secretKey: '+ localStorageService.get('secretKey'));
     console.log('res Accesskey: '+localStorageService.get('Accesskey'));
-    var authoriza = encrypt.getAuthor(urlObj,localStorageService.get('secretKey'));
-    localStorageService.set('Authorization',authoriza);
-    localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-    console.log(authoriza,'set');
 
-
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
+    initEncrypt('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,null);
 
     $http({
         url : 'http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,
@@ -564,7 +556,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     $scope.selectChange = function(){
         $scope.queryStatus = $scope.selection.key;
         $scope.queryPage = 1;
-
+        initEncrypt('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,null);
         $http.get('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage).then(function(res){
             console.log(res);
             var data = res.data;
@@ -583,6 +575,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     $scope.goPage = function(page){
         console.log(page);
         $scope.queryPage = page;
+        initEncrypt('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,
             method : 'get',
@@ -632,7 +625,9 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
                 var url = '/manager/pointsapp/'+$scope.modalID+'/status/cancel';
                 break;
         }
-
+        initEncrypt('http://60.205.163.65:8080'+url,{
+            comments : $scope.modalContent
+        });
         $http({
             url : 'http://60.205.163.65:8080'+url,
             method : 'put',
@@ -659,7 +654,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 
     };
 
-}]).controller('listCtrl',['$scope','$http',function($scope,$http){
+}]).controller('listCtrl',['$scope','$http','localStorageService','encrypt',function($scope,$http,localStorageService,encrypt){
     $scope.text = "分盘积分列表";
 
     $scope.queryNickName = '';
@@ -667,7 +662,16 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     $scope.queryPage = 1;
 
 
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
+
     function initData(){
+        initEncrypt('http://60.205.163.65:8080/manager/user/points?nickName='+$scope.queryNickName+'&userId='+$scope.queryUserId+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manager/user/points?nickName='+$scope.queryNickName+'&userId='+$scope.queryUserId+'&page='+$scope.queryPage,
             method : 'get',
@@ -728,7 +732,9 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
                 var url = '/manager/subtract/points/user/'+$scope.queryUserId;
                 break;
         }
-
+        initEncrypt('http://60.205.163.65:8080'+url,{
+            points : $scope.money
+        });
         console.log(status, url, $scope.money);
         $http({
             url : 'http://60.205.163.65:8080'+url,
@@ -751,14 +757,24 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     };
 }]);
 //查看积分详情
-myApp.controller('integralDetailCtrl',['$scope','$http','$stateParams','$sanitize',function($scope,$http,$stateParams,$sanitize){
+myApp.controller('integralDetailCtrl',['$scope','$http','$stateParams','$sanitize','localStorageService','encrypt',function($scope,$http,$stateParams,$sanitize,localStorageService,encrypt){
     //console.log($stateParams);
     $scope.queryUserId = $stateParams.userId;
     $scope.queryPage = 1;
 
     $scope.title = '当前的分盘名称为 '+$stateParams.userName;
 
+
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
+
     function initData(){
+        initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.queryUserId+'/account/record?page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manager/user/'+$scope.queryUserId+'/account/record?page='+$scope.queryPage,
             method : 'get',
