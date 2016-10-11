@@ -666,9 +666,9 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 }]).controller('listCtrl',['$scope','$http','localStorageService','encrypt',function($scope,$http,localStorageService,encrypt){
     $scope.text = "分盘积分列表";
 
-    $scope.queryNickName = '';
-    $scope.queryUserId = '';
-    $scope.queryPage = 1;
+    // $scope.queryNickName = '';
+    // $scope.queryUserId = '';
+    // $scope.queryPage = 1;
 
 
     function initEncrypt(url,bodyQuery){
@@ -680,6 +680,9 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     }
 
     function initData(){
+        $scope.queryNickName = '';
+        $scope.queryUserId = '';
+        $scope.queryPage = 1;
         initEncrypt('http://60.205.163.65:8080/manager/user/points?nickName='+$scope.queryNickName+'&userId='+$scope.queryUserId+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manager/user/points?nickName='+$scope.queryNickName+'&userId='+$scope.queryUserId+'&page='+$scope.queryPage,
