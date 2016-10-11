@@ -1620,6 +1620,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                 alert(data.message);
             }
             if(data.result == 'SUCCESS'){
+                alert('操作成功');
                 initData();
             }
         },function(){
@@ -1638,6 +1639,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                 alert(data.message);
             }
             if(data.result == 'SUCCESS'){
+                alert('操作成功');
                 initData();
             }
         },function(){
@@ -1855,7 +1857,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             url : 'http://60.205.163.65:8080/manager/user/'+id+'/available',
             method : 'put',
             data : {
-                isEnable : flag
+                isEnable : flage
             }
         }).then(function(res){
             console.log(res);
