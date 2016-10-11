@@ -74,10 +74,10 @@
                     <tr ng-repeat='row in tableData track by $index'>
                         <td>{{$index+1}}</td>
                         <td>{{row.day}}</td>
-                        <td>{{row.membersDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}</td>
-                        <td>{{row.membersDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}</td>
-                        <td>{{row.membersDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}</td>
-                        <td>{{row.membersDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}</td>
+                        <td>{{row.totalStakeAmount}}<span class="paddingTips">|</span>{{row.userStakeAmount}}<span class="paddingTips">|</span>{{row.membersStakeAmount}}</td>
+                        <td>{{row.totalIncomeAmount}}<span class="paddingTips">|</span>{{row.userIncomeAmount}}<span class="paddingTips">|</span>{{row.membersIncomeAmount}}</td>
+                        <td>{{row.totalDeficitAmount}}<span class="paddingTips">|</span>{{row.userDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}</td>
+                        <td>{{row.totalStakeCount}}<span class="paddingTips">|</span>{{row.userStakeCount}}<span class="paddingTips">|</span>{{row.membersStakeCount}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -148,8 +148,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat='row in tableData'>
-                        <td ng-repeat="item in row"  ng-bind-html='item | splitArrFilter'></td>
+                    <tr ng-repeat='row in tableData track by $index'>
+                        <td>{{$index+1}}</td>
+                        <td>{{row.racingNum}}</td>
+                        <td>{{row.totalStakeAmount}}<span class="paddingTips">|</span>{{row.userStakeAmount}}<span class="paddingTips">|</span>{{row.membersStakeAmount}}</td>
+                        <td>{{row.totalIncomeAmount}}<span class="paddingTips">|</span>{{row.userIncomeAmount}}<span class="paddingTips">|</span>{{row.membersIncomeAmount}}</td>
+                        <td>{{row.totalDeficitAmount}}<span class="paddingTips">|</span>{{row.userDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}</td>
+                        <td>{{row.totalStakeCount}}<span class="paddingTips">|</span>{{row.userStakeCount}}<span class="paddingTips">|</span>{{row.membersStakeCount}}</td>
                     </tr>
                 </tbody>
             </table>

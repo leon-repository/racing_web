@@ -100,8 +100,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat='row in tableData'>
-                        <td ng-repeat='item in row'>{{item}}</td>
+                    <tr ng-repeat='row in tableData track by $index'>
+                        <td>{{$index+1}}</td>
+                        <td>{{row.day}}</td>
+                        <td>{{row.stakeAmount}}</td>
+                        <td>{{row.incomeAmount}}</td>
+                        <td>{{row.deficitAmount}}</td>
+                        <td>{{row.stakeCount}}</td>
                     </tr>
                 </tbody>
             </table>

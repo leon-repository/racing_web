@@ -81,6 +81,7 @@ myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
                 keyStr += urlObj.searchObj[val];
             });
             console.log(urlObj.path + keyStr + secretKey,'加密的字串');
+            console.log(secretKey,'secretKey');
             return sha1.hash(urlObj.path + keyStr + secretKey).toUpperCase();
         }
     };

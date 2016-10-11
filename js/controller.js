@@ -309,6 +309,13 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
         return;
     }
 
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
 
     //修改比赛结果的url
     var modifyUrl = 'http://192.168.5.109:8080/stake/result';
@@ -316,25 +323,26 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
     var modifyflag = true;
 
     //每次请求的 url
-    var urlObj = {
-        url : './data/data.php',
-        domain : 'http://120.26.75.31:8080',
-        path : '/data/data.php',
-        searchObj : {},
-        params : null
-    };
-    console.log('res secretKey: '+ localStorageService.get('secretKey'));
-    console.log('res Accesskey: '+localStorageService.get('Accesskey'));
-    var authoriza = encrypt.getAuthor(urlObj,localStorageService.get('secretKey'));
-    localStorageService.set('Authorization',authoriza);
-    localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-    console.log(authoriza,'set');
+    // var urlObj = {
+    //     url : './data/data.php',
+    //     domain : 'http://120.26.75.31:8080',
+    //     path : '/data/data.php',
+    //     searchObj : {},
+    //     params : null
+    // };
+    // console.log('res secretKey: '+ localStorageService.get('secretKey'));
+    // console.log('res Accesskey: '+localStorageService.get('Accesskey'));
+    // var authoriza = encrypt.getAuthor(urlObj,localStorageService.get('secretKey'));
+    // localStorageService.set('Authorization',authoriza);
+    // localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+    // console.log(authoriza,'set');
 
 
     $timeout.cancel($rootScope.timer);
     function action(){
+        initEncrypt('./data/data.php',null);
         $http({
-            url : urlObj.url,
+            url : './data/data.php',
             method : 'get',
             dataType : 'json',
         }).then(function(res){
@@ -542,6 +550,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 
     }, function(err){
         console.log(err,'获取用户管理页面失败');
+        alert('请求失败，请重试或缺失必要内容');
     });
 
     // $scope.tableData = [
@@ -819,7 +828,7 @@ myApp.controller('integralDetailCtrl',['$scope','$http','$stateParams','$sanitiz
 myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     //页面一进来控制 class active
     $scope.selectClass = $location.path().substr(1);
-}]).controller('allPlCtrl',['$scope','$http',function($scope,$http){
+}]).controller('allPlCtrl',['$scope','$http','localStorageService','encrypt',function($scope,$http,localStorageService,encrypt){
     $scope.text = "总体盈亏报表";
 
 
@@ -828,10 +837,18 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.queryPage = '';
     $scope.issue = '';
 
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
 
     $scope.selectActive = 'byDate';
 
     function byDate(){
+        initEncrypt('http://60.205.163.65:8080/manger/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manger/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
             method : 'get'
@@ -849,6 +866,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
+        initEncrypt('http://60.205.163.65:8080/manger/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manger/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
             method : 'get'
@@ -926,7 +944,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     };
 
 
-}]).controller('otherPlCtrl',['$scope','$http',function($scope,$http){
+}]).controller('otherPlCtrl',['$scope','$http','localStorageService','encrypt',function($scope,$http,localStorageService,encrypt){
     $scope.text = "分盘盈亏报表";
     $scope.tableData = null;
     $scope.selectActive = 'byDate';
@@ -938,6 +956,14 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.queryPage = '';
     $scope.issue = '';
 
+
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
 
     $scope.selectOptions = [
         {key:'0',value:'选择分盘名称'},
@@ -960,6 +986,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     }
 
     function byDate(){
+        initEncrypt('http://60.205.163.65:8080/manger/user/'+$scope.userId+'/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manger/user/'+$scope.userId+'/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
             method : 'get'
@@ -977,6 +1004,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
+        initEncrypt('http://60.205.163.65:8080/manger/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manger/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
             method : 'get'
@@ -1056,7 +1084,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
 myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     //页面一进来控制 class active
     $scope.selectClass = $location.path().substr(1);
-}]).controller('allBetCtrl',['$scope','$http',function($scope,$http){
+}]).controller('allBetCtrl',['$scope','$http','localStorageService','encrypt',function($scope,$http,localStorageService,encrypt){
     $scope.text = "总体押注报表";
     $scope.selectActive = 'byDate';
 
@@ -1065,7 +1093,16 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     $scope.queryPage = '';
     $scope.issue = '';
 
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
+
     function byDate(){
+        initEncrypt('http://60.205.163.65:8080/manger/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manger/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
             method : 'get'
@@ -1083,6 +1120,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
+        initEncrypt('http://60.205.163.65:8080/manger/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manger/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
             method : 'get'
@@ -1157,7 +1195,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         }
     };
 
-}]).controller('otherBetCtrl',['$scope','$http',function($scope,$http){
+}]).controller('otherBetCtrl',['$scope','$http','localStorageService','encrypt',function($scope,$http,localStorageService,encrypt){
     $scope.text = "分盘押注报表";
     $scope.tableData = null;
     $scope.selectActive = 'byDate';
@@ -1168,6 +1206,14 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     $scope.queryEndDate = '';
     $scope.queryPage = '';
     $scope.issue = '';
+
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
 
 
     $scope.selectOptions = [
@@ -1191,6 +1237,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     }
 
     function byDate(){
+        initEncrypt('http://60.205.163.65:8080/manger/user/'+$scope.userId+'/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
         $http({
             url :  'http://60.205.163.65:8080/manger/user/'+$scope.userId+'/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
             method : 'get'
@@ -1208,6 +1255,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
+        initEncrypt('http://60.205.163.65:8080/manger/user/'+$scope.userId+'/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manger/user/'+$scope.userId+'/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
             method : 'get'
@@ -1284,7 +1332,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
 }]).controller('betDetailCtrl',['$scope','$stateParams',function($scope,$stateParams){
     console.log($stateParams.type);
     $scope.type = $stateParams.type;
-    $scope.dateIssue = $stateParams.item1;
+    $scope.dateIssue = $stateParams.category;
     // ....
     $scope.lotteryRestut = '12445555';
     $scope.money = 1000;
@@ -1530,8 +1578,17 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
 
     $scope.queryManagerId = '';
 
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
+
     // 获取 用户列表
     function initData(){
+        initEncrypt('http://60.205.163.65:8080/manager',null);
         $http({
             url : 'http://60.205.163.65:8080/manager',
             method : 'get',
@@ -1557,6 +1614,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
 
     //启用
     $scope.enable = function(id){
+        initEncrypt('http://60.205.163.65:8080/manager/'+id+'/status/enable',null);
         $http({
             url : 'http://60.205.163.65:8080/manager/'+id+'/status/enable',
             method : 'put'
@@ -1574,6 +1632,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
     }
     //禁用
     $scope.disable = function(id){
+        initEncrypt('http://60.205.163.65:8080/manager/'+id+'/status/disable',null);
         $http({
             url : 'http://60.205.163.65:8080/manager/'+id+'/status/disable',
             method : 'put'
@@ -1604,21 +1663,6 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         $scope.queryManagerId = id;
         $scope.operation = 'delete';
         $scope.modalTitle = '删除用户';
-        $http({
-            url : 'http://60.205.163.65:8080/manager/'+$scope.queryManagerId,
-            method : 'delete',
-        }).then(function(res){
-            console.log(res);
-            var data = res.data;
-            if(data.result == 'ERROR'){
-                alert(data.message);
-            }
-            if(data.result == 'SUCCESS'){
-                initData();
-            }
-        }, function(err){
-            alert('请求失败，请重试或缺失必要内容');
-        });
     };
 
     $scope.addUser = function(){
@@ -1641,6 +1685,12 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                 alert('两次密码不一致');
                 return;
             }
+
+            initEncrypt('http://60.205.163.65:8080/manager/'+$scope.queryManagerId,{
+                nickName : $scope.nickname,
+                password : $scope.password,
+                repassword : $scope.repeatPwd
+            });
             $http({
                 url : 'http://60.205.163.65:8080/manager/'+$scope.queryManagerId,
                 method : 'put',
@@ -1664,6 +1714,22 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         }
         if($scope.operation == 'delete'){
             console.log('delete');
+            initEncrypt('http://60.205.163.65:8080/manager/'+$scope.queryManagerId,null);
+            $http({
+                url : 'http://60.205.163.65:8080/manager/'+$scope.queryManagerId,
+                method : 'delete',
+            }).then(function(res){
+                console.log(res);
+                var data = res.data;
+                if(data.result == 'ERROR'){
+                    alert(data.message);
+                }
+                if(data.result == 'SUCCESS'){
+                    initData();
+                }
+            }, function(err){
+                alert('请求失败，请重试或缺失必要内容');
+            });
         }
         if($scope.operation == 'add'){
             console.log('adduser');
@@ -1675,14 +1741,20 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                 alert('两次密码不一致');
                 return;
             }
-
+            initEncrypt('http://60.205.163.65:8080/manager/'+$scope.queryManagerId,{
+                nickName : $scope.nickname,
+                password : $scope.password,
+                repassword : $scope.repeatPwd,
+                userName : $scope.username,
+            });
             $http({
                 url : 'http://60.205.163.65:8080/manager/'+$scope.queryManagerId,
                 method : 'put',
                 data : {
                     nickName : $scope.nickname,
                     password : $scope.password,
-                    repassword : $scope.repeatPwd
+                    repassword : $scope.repeatPwd,
+                    userName : $scope.username,
                 }
             }).then(function(res){
                 console.log(res);
@@ -1702,16 +1774,27 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
 
 
 
-}]).controller('otherUserCtrl',['$scope','$http',function($scope,$http){
+}]).controller('otherUserCtrl',['$scope','$http','localStorageService','encrypt',function($scope,$http,localStorageService,encrypt){
     $scope.text = "分盘用户管理";
 
     $scope.queryNickName = '';
+    $scope.queryNumber = '';
     $scope.queryUserId = '';
+
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
+
 
     // 获取 用户列表
     function initData(){
+        initEncrypt('http://60.205.163.65:8080/manager/user?nickName='+$scope.queryNickName+'&userId='+$scope.queryNumber,null);
         $http({
-            url : 'http://60.205.163.65:8080/manager/user?nickName='+$scope.queryNickName+'&userId='+$scope.queryUserId,
+            url : 'http://60.205.163.65:8080/manager/user?nickName='+$scope.queryNickName+'&userId='+$scope.queryNumber,
             method : 'get',
         }).then(function(res){
             console.log(res);
@@ -1732,20 +1815,22 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
     $scope.search = function(){
         console.log($scope.searchName,$scope.searchId);
         $scope.queryNickName = $scope.searchName;
-        $scope.queryUserId = $scope.searchId;
+        $scope.queryNumber = $scope.searchId;
 
         initData();
     };
 
-    $scope.modify = function(){
+    $scope.modify = function(id){
         $scope.operation = 'modify';
         $scope.modalTitle = '修改用户信息';
         $scope.nickname = '';
+        $scope.queryUserId = id;
     };
 
     $scope.delete = function(){
         $scope.operation = 'delete';
         $scope.modalTitle = '删除用户';
+        $scope.queryUserId = id;
     };
 
     $scope.addUser = function(){
@@ -1753,39 +1838,205 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         $scope.modalTitle = '添加新用户';
         $scope.clientsn = '';
         $scope.expire = '';
+
     };
 
-    $scope.setRobot = function(){
-        $scope.operation = 'setRobot';
-        $scope.modalTitle = '设置机器人到期时间';
+    // $scope.setRobot = function(id){
+    //     $scope.operation = 'setRobot';
+    //     $scope.modalTitle = '设置机器人到期时间';
+    //     $scope.expire = '';
+    //     $scope.queryUserId = id;
+    // };
+
+    $scope.addSetRobot = function(id,title){
+        $scope.operation = 'addSetRobot';
+        $scope.modalTitle = title;
         $scope.expire = '';
+        $scope.queryUserId = id;
     };
 
-    $scope.addRobot = function(){
-        $scope.operation = 'addRobot';
-        $scope.modalTitle = '添加机器人';
-        $scope.expire = '';
+    $scope.userCanAble = function(id,flage){
+        initEncrypt('http://60.205.163.65:8080/manager/user/'+id+'/available',{
+            isEnable : flage
+        });
+        $http({
+            url : 'http://60.205.163.65:8080/manager/user/'+id+'/available',
+            method : 'put',
+            data : {
+                isEnable : flag
+            }
+        }).then(function(res){
+            console.log(res);
+            var data = res.data;
+            if(data.result == 'ERROR'){
+                alert(data.message);
+            }
+            if(data.result == 'SUCCESS'){
+                initData();
+            }
+        }, function(err){
+            alert('请求失败，请重试或缺失必要内容');
+        });
+    }
+
+
+    $scope.robotCanAble = function(id,flage){
+        initEncrypt('http://60.205.163.65:8080/manager/user/'+id+'/robot/available',{
+            clientIsEnable : flage
+        });
+        $http({
+            url : 'http://60.205.163.65:8080/manager/user/'+id+'/robot/available',
+            method : 'put',
+            data : {
+                clientIsEnable : flage
+            }
+        }).then(function(res){
+            console.log(res);
+            var data = res.data;
+            if(data.result == 'ERROR'){
+                alert(data.message);
+            }
+            if(data.result == 'SUCCESS'){
+                initData();
+            }
+        }, function(err){
+            alert('请求失败，请重试或缺失必要内容');
+        });
     };
 
+    // $scope.disableRoot = function(id){
+    //     initEncrypt('http://60.205.163.65:8080/manager/user/'+id+'/robot/available',null);
+    //     $http({
+    //         url : 'http://60.205.163.65:8080/manager/user/'+id+'/robot/available',
+    //         method : 'put',
+    //     }).then(function(res){
+    //         console.log(res);
+    //         var data = res.data;
+    //         if(data.result == 'ERROR'){
+    //             alert(data.message);
+    //         }
+    //         if(data.result == 'SUCCESS'){
+    //             initData();
+    //         }
+    //     }, function(err){
+    //         alert('请求失败，请重试或缺失必要内容');
+    //     });
+    // };
 
     $scope.confirm = function(){
         if($scope.operation == 'modify'){
             console.log('modify');
             console.log($scope.nickname);
+
+            if($scope.password != $scope.repeatPwd){
+                alert('两次密码不一致');
+                return;
+            }
+
+            initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.queryUserId,{
+                nickName : $scope.nickname,
+                password : $scope.password,
+                repassword : $scope.repeatPwd,
+            });
+            $http({
+                url : 'http://60.205.163.65:8080/manager/user/'+$scope.queryUserId,
+                method : 'put',
+                data : {
+                    nickName : $scope.nickname,
+                    password : $scope.password,
+                    repassword : $scope.repeatPwd,
+                }
+            }).then(function(res){
+                console.log(res);
+                var data = res.data;
+                if(data.result == 'ERROR'){
+                    alert(data.message);
+                }
+                if(data.result == 'SUCCESS'){
+                    initData();
+                }
+            }, function(err){
+                alert('请求失败，请重试或缺失必要内容');
+            });
         }
         if($scope.operation == 'delete'){
             console.log('delete');
+            initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.queryUserId,null);
+            $http({
+                url : 'http://60.205.163.65:8080/manager/user/'+$scope.queryUserId,
+                method : 'delete',
+            }).then(function(res){
+                console.log(res);
+                var data = res.data;
+                if(data.result == 'ERROR'){
+                    alert(data.message);
+                }
+                if(data.result == 'SUCCESS'){
+                    initData();
+                }
+            }, function(err){
+                alert('请求失败，请重试或缺失必要内容');
+            });
         }
         if($scope.operation == 'add'){
             console.log('adduser');
-            console.log($scope.clientsn);
-            console.log($scope.expire);
+            console.log($scope.nickname,$scope.username,$scope.password,$scope.repeatPwd);
+
+            if($scope.password != $scope.repeatPwd){
+                alert('两次密码不一致');
+                return;
+            }
+            initEncrypt('http://60.205.163.65:8080/manager/user/',{
+                nickName : $scope.nickname,
+                password : $scope.password,
+                repassword : $scope.repeatPwd,
+                userName : $scope.username,
+            });
+            $http({
+                url : 'http://60.205.163.65:8080/manager/user/',
+                method : 'post',
+                data : {
+                    nickName : $scope.nickname,
+                    password : $scope.password,
+                    repassword : $scope.repeatPwd,
+                    userName : $scope.username,
+                }
+            }).then(function(res){
+                console.log(res);
+                var data = res.data;
+                if(data.result == 'ERROR'){
+                    alert(data.message);
+                }
+                if(data.result == 'SUCCESS'){
+                    initData();
+                }
+            }, function(err){
+                alert('请求失败，请重试或缺失必要内容');
+            });
         }
-        if($scope.operation == 'addRobot'){
-            console.log('addRobot',$scope.expire);
-        }
-        if($scope.operation == 'setRobot'){
-            console.log('setRobot',$scope.expire);
+        if($scope.operation == 'addSetRobot'){
+            console.log('addSetRobot',$scope.expire);
+            initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.queryUserId+'/robot',{
+                clientExpireDate : new Date($scope.expire).getTime()
+            });
+            $http({
+                url : 'http://60.205.163.65:8080/manager/user/'+$scope.queryUserId+'/robot',
+                method : 'post',
+                data : {
+                    clientExpireDate : new Date($scope.expire).getTime()
+                }
+            }).then(function(res){
+                console.log(res);
+                var data = res.data;
+                if(data.result == 'ERROR'){
+                    alert(data.message);
+                }
+                if(data.result == 'SUCCESS'){
+                    initData();
+                }
+            }, function(err){
+                alert('请求失败，请重试或缺失必要内容');
+            });
         }
     };
 }]);

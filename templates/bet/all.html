@@ -48,7 +48,7 @@
                         <td>{{row.stakeAmount}}</td>
                         <td>{{row.stakeCount}}</td>
                         <td>
-                            <a class="btn btn-primary" ui-sref="betDetail({type:'byDate',item1:row.code,item2:row.aa})">查看详情</a>
+                            <a class="btn btn-primary" ui-sref="betDetail({type:'byDate',category:row.day,id:row.id})">查看详情</a>
                         </td>
                     </tr>
                 </tbody>
@@ -100,9 +100,12 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat='row in tableData'>
-                        <td ng-repeat='item in row'>{{item}}</td>
+                        <td>{{$index+1}}</td>
+                        <td>{{row.racingNum}}</td>
+                        <td>{{row.stakeAmount}}</td>
+                        <td>{{row.stakeCount}}</td>
                         <td>
-                            <a class="btn btn-primary" ui-sref="betDetail({type:'byIssue',item1:row.code,item2:row.aa})">查看详情</a>
+                            <a class="btn btn-primary" ui-sref="betDetail({type:'byIssue',category:row.racingNum,id:row.id})">查看详情</a>
                         </td>
                     </tr>
                 </tbody>

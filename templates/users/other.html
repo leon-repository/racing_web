@@ -41,18 +41,22 @@
                         <td>{{row.lastLoginIp}}</td>
                         <td>{{row.lastLoginTime}}</td>
                         <td>
-                            <p><button class="btn btn-sm btn-success" ng-click="enable(row.id)">启用</button></p>
-                            <p><button class="btn btn-sm btn-warning" ng-click="disable(row.id)">禁用</button></p>
+                            <p><button class="btn btn-sm btn-success" ng-click="userCanAble(row.id,true)" ng-if="!row.isEnable">启用</button></p>
+                            <p><button class="btn btn-sm btn-warning" ng-click="userCanAble(row.id,false)" ng-if="row.isEnable">禁用</button></p>
                             <p><button class="btn btn-sm btn-danger" ng-click="delete(row.id)" data-toggle="modal" data-target="#myModal">删除</button></p>
                             <p><button class="btn btn-sm btn-info" ng-click="modify(row.id)" data-toggle="modal" data-target="#myModal">修改信息</button></p>
                         </td>
                         <td>
-                            <p><button class="btn btn-sm btn-success" ng-click="enableRoot(row.id)">启用机器人</button></p>
-                            <p><button class="btn btn-sm btn-warning" ng-click="disableRoot(row.id)">禁用机器人</button></p>
-                            <p><button class="btn btn-sm btn-info" ng-click="setRobot(row.id)" data-toggle="modal" data-target="#myModal">设置到期时间</button></p>
-                            <p><button class="btn btn-sm btn-primary" ng-click="addRobot(row.id)" data-toggle="modal" data-target="#myModal">添加机器人</button></p>
+                            <p><button class="btn btn-sm btn-success" ng-click="robotCanAble(row.id,true)" ng-if="row.isHaveClient && !row.clientIsEnable">启用机器人</button></p>
+                            <p><button class="btn btn-sm btn-warning" ng-click="robotCanAble(row.id,false)" ng-if="row.isHaveClient && row.clientIsEnable">禁用机器人</button></p>
+                            <p><button class="btn btn-sm btn-info" ng-click="addSetRobot(row.id,'设置到期时间')" data-toggle="modal" data-target="#myModal" ng-if="row.isHaveClient">设置到期时间</button></p>
+                            <p><button class="btn btn-sm btn-primary" ng-click="addSetRobot(row.id,'添加机器人')" data-toggle="modal" data-target="#myModal" ng-if="!row.isHaveClient">添加机器人</button></p>
                         </td>
-                        <td>gg</td>
+                        <td>
+                            {{!row.isHaveClient ? '无机器人':''}}
+                            {{row.isHaveClient && !row.isClientExpired ? '有机器人':''}}
+                            {{row.isHaveClient && row.isClientExpired ? '机器人已到期':''}}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -76,44 +80,50 @@
                       <input type="text" class="form-control" placeholder="请输入昵称" ng-model="nickname">
                   </div>
                 </div>
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>修改密码：</label>
+                  <div class="col-sm-9">
+                      <input type="password" class="form-control" placeholder="请输入新密码" ng-model="password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>重复密码：</label>
+                  <div class="col-sm-9">
+                      <input type="password" class="form-control" placeholder="重复输入新密码" ng-model="repeatPwd">
+                  </div>
+                </div>
             </div>
             <!-- 添加用户 -->
             <div class="form-horizontal" ng-show="operation == 'add'">
                 <div class="form-group">
-                  <label class='control-label col-sm-3'>ClientSN: </label>
-                  <div class="col-sm-7">
-                      <input type="text" class="form-control" placeholder="请输入ClientSN" ng-model="clientsn">
+                  <label class='control-label col-sm-3'>用户昵称：</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="请输入昵用户昵称" ng-model="nickname">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class='control-label col-sm-3'>到期时间: </label>
-                  <div class="col-sm-7">
-                      <div class="form-group" moment-picker="expire" locale="zh-cn" start-view = "month" format="YYYY-MM-DD" today='true'>
-                        <div class="input-group expire">
-                            <input class="form-control" placeholder="到期时间" ng-model="expire">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                      </div>
+                  <label class='control-label col-sm-3'>用户名称：</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="用户名称" ng-model="username">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>用户密码：</label>
+                  <div class="col-sm-9">
+                      <input type="password" class="form-control" placeholder="用户密码" ng-model="password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class='control-label col-sm-3'>重复密码：</label>
+                  <div class="col-sm-9">
+                      <input type="password" class="form-control" placeholder="重复输入新密码" ng-model="repeatPwd">
                   </div>
                 </div>
             </div>
             <!-- 设置机器人到期时间 -->
-            <div class="form-horizontal" ng-show="operation == 'setRobot'">
-                <div class="form-group">
-                  <label class='control-label col-sm-3'>到期时间: </label>
-                  <div class="col-sm-7">
-                      <div class="form-group" moment-picker="expire" locale="zh-cn" start-view = "month" format="YYYY-MM-DD" today='true'>
-                        <div class="input-group expire">
-                            <input class="form-control" placeholder="到期时间" ng-model="expire">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-            </div>
             <!-- 添加机器人 -->
-            <div class="form-horizontal" ng-show="operation == 'addRobot'">
-                <div class="form-group">
+            <div class="form-horizontal" ng-show="operation == 'addSetRobot'">
+                <div class="form-group" ng-show="modalTitle == '添加机器人'">
                   <label class='control-label col-sm-3'>ClientSN: </label>
                   <div class="col-sm-7">
                       <input type="text" class="form-control" placeholder="请输入ClientSN" ng-model="clientsn">
