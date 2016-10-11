@@ -848,9 +848,9 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.selectActive = 'byDate';
 
     function byDate(){
-        initEncrypt('http://60.205.163.65:8080/manger/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manger/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -866,9 +866,9 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
-        initEncrypt('http://60.205.163.65:8080/manger/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manger/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -986,9 +986,9 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     }
 
     function byDate(){
-        initEncrypt('http://60.205.163.65:8080/manger/user/'+$scope.userId+'/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.userId+'/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manger/user/'+$scope.userId+'/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -1004,9 +1004,9 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
-        initEncrypt('http://60.205.163.65:8080/manger/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manger/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -1102,9 +1102,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     }
 
     function byDate(){
-        initEncrypt('http://60.205.163.65:8080/manger/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manger/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -1120,9 +1120,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
-        initEncrypt('http://60.205.163.65:8080/manger/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manger/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -1237,9 +1237,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     }
 
     function byDate(){
-        initEncrypt('http://60.205.163.65:8080/manger/user/'+$scope.userId+'/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.userId+'/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
         $http({
-            url :  'http://60.205.163.65:8080/manger/user/'+$scope.userId+'/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
+            url :  'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -1255,9 +1255,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
-        initEncrypt('http://60.205.163.65:8080/manger/user/'+$scope.userId+'/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.userId+'/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manger/user/'+$scope.userId+'/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;

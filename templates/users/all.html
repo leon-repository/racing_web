@@ -21,11 +21,11 @@
                       <td>{{row.id}}</td>
                       <td>{{row.nickName}}</td>
                       <td>{{row.lastLoginIp}}</td>
-                      <td>{{row.lastLoginTime}}</td>
-                      <td>{{row.clientIsEnable}}</td>
+                      <td>{{row.lastLoginTime | date:'yyyy-MM-dd'}}</td>
+                      <td>{{row.isEnable ? '可用':'不可用'}}</td>
                       <td>
-                            <p><button class="btn btn-sm btn-success" ng-click="enable(row.id)">启用</button></p>
-                            <p><button class="btn btn-sm btn-warning" ng-click="disable(row.id)">禁用</button></p>
+                            <p><button class="btn btn-sm btn-success" ng-click="enable(row.id)" ng-if="!row.isEnable">启用</button></p>
+                            <p><button class="btn btn-sm btn-warning" ng-click="disable(row.id)" ng-if="row.isEnable">禁用</button></p>
                             <p><button class="btn btn-sm btn-info" ng-click="modify(row.id);" data-toggle="modal" data-target="#myModal">修改信息</button></p>
                             <p><button class="btn btn-sm btn-danger" ng-click="delete(row.id);" data-toggle="modal" data-target="#myModal">删除</button></p>
                         </td>

@@ -39,7 +39,7 @@
                         <td>{{row.id}}</td>
                         <td>{{row.nickName}}</td>
                         <td>{{row.lastLoginIp}}</td>
-                        <td>{{row.lastLoginTime}}</td>
+                        <td>{{row.lastLoginTime | date:'yyyy-MM-dd'}}</td>
                         <td>
                             <p><button class="btn btn-sm btn-success" ng-click="userCanAble(row.id,true)" ng-if="!row.isEnable">启用</button></p>
                             <p><button class="btn btn-sm btn-warning" ng-click="userCanAble(row.id,false)" ng-if="row.isEnable">禁用</button></p>
