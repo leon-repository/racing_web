@@ -113,6 +113,7 @@ myApp.factory('HttpInterceptor', ['$q', 'localStorageService', function($q, loca
     return {
         // 请求发出之前，可以用于添加各种身份验证信息
         request: function(config) {
+            
             //对所有的请求添加 验证
             if (localStorageService.get('Authorization')) {
                 //console.log(localStorageService.get('Authorization'),'location');

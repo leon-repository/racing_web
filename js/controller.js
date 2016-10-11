@@ -1596,10 +1596,6 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             console.log(res);
             var data = res.data;
             $scope.userArr = data.data;
-            $scope.userArr = [
-                {id:1,nickName:'blue',lastLoginIp:'1',lastLoginTime:'q',clientIsEnable:'a'},
-                {id:2,nickName:'luccy',lastLoginIp:'2',lastLoginTime:'q',clientIsEnable:'a'}
-            ];
 
             $scope.currentPage = data.page;
             //$scope.pageSize = data.pageSize;  //每页显示多少
@@ -1688,16 +1684,14 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
 
             initEncrypt('http://60.205.163.65:8080/manager/'+$scope.queryManagerId,{
                 nickName : $scope.nickname,
-                password : $scope.password,
-                repassword : $scope.repeatPwd
+                password : $scope.password
             });
             $http({
                 url : 'http://60.205.163.65:8080/manager/'+$scope.queryManagerId,
                 method : 'put',
                 data : {
                     nickName : $scope.nickname,
-                    password : $scope.password,
-                    repassword : $scope.repeatPwd
+                    password : $scope.password
                 }
             }).then(function(res){
                 console.log(res);
@@ -1744,16 +1738,14 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             initEncrypt('http://60.205.163.65:8080/manager/'+$scope.queryManagerId,{
                 nickName : $scope.nickname,
                 password : $scope.password,
-                repassword : $scope.repeatPwd,
                 userName : $scope.username,
             });
             $http({
                 url : 'http://60.205.163.65:8080/manager/'+$scope.queryManagerId,
-                method : 'put',
+                method : 'post',
                 data : {
                     nickName : $scope.nickname,
                     password : $scope.password,
-                    repassword : $scope.repeatPwd,
                     userName : $scope.username,
                 }
             }).then(function(res){
@@ -1989,7 +1981,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             initEncrypt('http://60.205.163.65:8080/manager/user/',{
                 nickName : $scope.nickname,
                 password : $scope.password,
-                repassword : $scope.repeatPwd,
+                //repassword : $scope.repeatPwd,
                 userName : $scope.username,
             });
             $http({
@@ -1998,7 +1990,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                 data : {
                     nickName : $scope.nickname,
                     password : $scope.password,
-                    repassword : $scope.repeatPwd,
+                    //repassword : $scope.repeatPwd,
                     userName : $scope.username,
                 }
             }).then(function(res){
