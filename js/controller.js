@@ -304,10 +304,10 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
     };
 
     //未登录先登录
-    if(!localStorageService.get('username')){
-        $state.go('login');
-        return;
-    }
+    // if(!localStorageService.get('username')){
+    //     $state.go('login');
+    //     return;
+    // }
 
     function initEncrypt(url,bodyQuery){
         //console.log(url,'url');
@@ -528,30 +528,27 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     }
     initEncrypt('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,null);
 
-    $http({
-        url : 'http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,
-        method : 'get',
-    }).then(function(res){
-        console.log(res);
-        var data = res.data;
-        // $scope.tableData = [
-        //     {"id":1,"appPoints":1,"appComment":"1","appTime":1475677107000,"operationComment":"aaaaaa","operationTime":1475939822000,"status":"AUDIT","userId":1,"userNickName":"测试分盘用户1","userUserName":null},
-        //     {"id":2,"appPoints":2,"appComment":"1","appTime":1475677107000,"operationComment":"aaaaaa","operationTime":1475939822000,"status":"REJECT","userId":1,"userNickName":"测试分盘用户1","userUserName":null},
-        //     {"id":3,"appPoints":3,"appComment":"1","appTime":1475677107000,"operationComment":"aaaaaa","operationTime":1475939822000,"status":"CANCEL","userId":1,"userNickName":"测试分盘用户1","userUserName":null},
-        //     {"id":4,"appPoints":4,"appComment":"1","appTime":1475677107000,"operationComment":"aaaaaa","operationTime":1475939822000,"status":"UNTREATED","userId":1,"userNickName":"测试分盘用户1","userUserName":null},
-        //     {"id":5,"appPoints":5,"appComment":"1","appTime":1475677107000,"operationComment":"aaaaaa","operationTime":1475939822000,"status":"UNTREATED","userId":1,"userNickName":"测试分盘用户1","userUserName":null}
-        // ];
+    function initData(){
+        $http({
+            url : 'http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,
+            method : 'get',
+        }).then(function(res){
+            console.log(res);
+            var data = res.data;
 
-        $scope.tableData = data.data;
-        //分页
-        $scope.currentPage = data.page;
-        //$scope.pageSize = data.pageSize;
-        $scope.total = data.totalPage;
+            $scope.tableData = data.data;
+            //分页
+            $scope.currentPage = data.page;
+            //$scope.pageSize = data.pageSize;
+            $scope.total = data.totalPage;
 
-    }, function(err){
-        console.log(err,'获取用户管理页面失败');
-        alert('请求失败，请重试或缺失必要内容');
-    });
+        }, function(err){
+            console.log(err,'获取用户管理页面失败');
+            alert('请求失败，请重试或缺失必要内容');
+        });
+    }
+
+    initData();
 
     // $scope.tableData = [
     //     {'code':1,'aa':'aa','bb':'bb','cc':'cc','dd':'dd','ee':'ee','ff':'ok'},
@@ -566,40 +563,15 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
         $scope.queryStatus = $scope.selection.key;
         $scope.queryPage = 1;
         initEncrypt('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,null);
-        $http.get('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage).then(function(res){
-            console.log(res);
-            var data = res.data;
-            //重绘表格
-            $scope.tableData = data.data;
-            //分页
-            $scope.currentPage = data.page;
-            //$scope.pageSize = data.pageSize;
-            $scope.total = data.totalPage;
-        },function(){
-            alert('请求失败，请重试或缺失必要内容');
-        });
-    }
+        initData();
+    };
 
     //页面跳转
     $scope.goPage = function(page){
         console.log(page);
         $scope.queryPage = page;
         initEncrypt('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,null);
-        $http({
-            url : 'http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,
-            method : 'get',
-        }).then(function(res){
-            console.log(res);
-            var data = res.data;
-            //重绘表格
-            $scope.tableData = data.data;
-            //分页
-            $scope.currentPage = data.page;
-            //$scope.pageSize = data.pageSize;
-            $scope.total = data.totalPage;
-        },function(){
-            alert('请求失败，请重试或缺失必要内容');
-        });
+        initData();
     };
 
     $scope.toRight = function(status,id) {
@@ -838,7 +810,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.queryStartDate = '';
     $scope.queryEndDate = '';
     $scope.queryPage = '';
-    $scope.issue = '';
+    $scope.queryIssue = '';
 
     function initEncrypt(url,bodyQuery){
         //console.log(url,'url');
@@ -869,9 +841,9 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
-        initEncrypt('http://60.205.163.65:8080/manager/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.queryIssue+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manager/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.queryIssue+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -911,6 +883,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
         $scope.queryStartDate = new Date($scope.startTimeIssue+' 00:00:00').getTime();
         $scope.queryEndDate = new Date($scope.endTimeIssue+' 23:59:59').getTime();
+        $scope.queryIssue = $scope.issue;
         byIssue();
     };
 
@@ -932,7 +905,9 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             $scope.selectActive = 'byDate';
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
-            $scope.issue = '';
+            $scope.queryIssue = '';
+            $scope.startTime = '';
+            $scope.endTime = '';
             $scope.queryPage = 1;
             byDate();
         }
@@ -940,6 +915,9 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             $scope.selectActive = 'byIssue';
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
+            $scope.queryIssue = '';
+            $scope.startTimeIssue = '';
+            $scope.endTimeIssue = '';
             $scope.issue = '';
             $scope.queryPage = 1;
             byIssue();
@@ -957,7 +935,8 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.queryStartDate = '';
     $scope.queryEndDate = '';
     $scope.queryPage = '';
-    $scope.issue = '';
+    $scope.queryIssue = '';
+
 
 
     function initEncrypt(url,bodyQuery){
@@ -986,7 +965,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         }
 
 
-    }
+    };
 
     function byDate(){
         initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.userId+'/income/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
@@ -1007,9 +986,9 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
-        initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.queryIssue+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/income/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.queryIssue+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -1047,6 +1026,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
         $scope.queryStartDate = new Date($scope.startTimeIssue+' 00:00:00').getTime();
         $scope.queryEndDate = new Date($scope.endTimeIssue+' 23:59:59').getTime();
+        $scope.queryIssue = $scope.issue;
         byIssue();
     };
 
@@ -1067,7 +1047,9 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             $scope.selectActive = 'byDate';
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
-            $scope.issue = '';
+            $scope.queryIssue = '';
+            $scope.startTime = '';
+            $scope.endTime = '';
             $scope.queryPage = 1;
             byDate();
         }
@@ -1075,6 +1057,9 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             $scope.selectActive = 'byIssue';
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
+            $scope.queryIssue = '';
+            $scope.startTimeIssue = '';
+            $scope.endTimeIssue = '';
             $scope.issue = '';
             $scope.queryPage = 1;
             byIssue();
@@ -1094,7 +1079,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     $scope.queryStartDate = '';
     $scope.queryEndDate = '';
     $scope.queryPage = '';
-    $scope.issue = '';
+    $scope.queryIssue = '';
 
     function initEncrypt(url,bodyQuery){
         //console.log(url,'url');
@@ -1119,13 +1104,13 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             $scope.total = data.totalPage;
 
         },function(){
-            alert('请求失败，请重试或缺失必要内容')
+            alert('请求失败，请重试或缺失必要内容');
         });
     }
     function byIssue(){
-        initEncrypt('http://60.205.163.65:8080/manager/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.queryIssue+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manager/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.queryIssue+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -1137,7 +1122,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             $scope.total = data.totalPage;
 
         },function(){
-            alert('请求失败，请重试或缺失必要内容')
+            alert('请求失败，请重试或缺失必要内容');
         });
     }
 
@@ -1164,6 +1149,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
         $scope.queryStartDate = new Date($scope.startTimeIssue+' 00:00:00').getTime();
         $scope.queryEndDate = new Date($scope.endTimeIssue+' 23:59:59').getTime();
+        $scope.queryIssue = $scope.issue;
         byIssue();
     };
 
@@ -1184,7 +1170,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             $scope.selectActive = 'byDate';
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
-            $scope.issue = '';
+            $scope.queryIssue = '';
+            $scope.startTime = '';
+            $scope.endTime = '';
             $scope.queryPage = 1;
             byDate();
         }
@@ -1192,6 +1180,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             $scope.selectActive = 'byIssue';
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
+            $scope.queryIssue = '';
+            $scope.startTimeIssue = '';
+            $scope.endTimeIssue = '';
             $scope.issue = '';
             $scope.queryPage = 1;
             byIssue();
@@ -1208,7 +1199,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     $scope.queryStartDate = '';
     $scope.queryEndDate = '';
     $scope.queryPage = '';
-    $scope.issue = '';
+    $scope.queryIssue = '';
 
     function initEncrypt(url,bodyQuery){
         //console.log(url,'url');
@@ -1237,7 +1228,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         }
 
 
-    }
+    };
 
     function byDate(){
         initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.userId+'/bat/day?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&page='+$scope.queryPage,null);
@@ -1258,9 +1249,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         });
     }
     function byIssue(){
-        initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.userId+'/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,null);
+        initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.userId+'/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.queryIssue+'&page='+$scope.queryPage,null);
         $http({
-            url : 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.issue+'&page='+$scope.queryPage,
+            url : 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/bat/racing?startDate='+$scope.queryStartDate+'&endDate='+$scope.queryEndDate+'&racingNum='+$scope.queryIssue+'&page='+$scope.queryPage,
             method : 'get'
         }).then(function(res){
             var data = res.data;
@@ -1298,6 +1289,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
         $scope.queryStartDate = new Date($scope.startTimeIssue+' 00:00:00').getTime();
         $scope.queryEndDate = new Date($scope.endTimeIssue+' 23:59:59').getTime();
+        $scope.queryIssue = $scope.issue;
         byIssue();
     };
 
@@ -1318,7 +1310,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             $scope.selectActive = 'byDate';
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
-            $scope.issue = '';
+            $scope.queryIssue = '';
+            $scope.startTime = '';
+            $scope.endTime = '';
             $scope.queryPage = 1;
             byDate();
         }
@@ -1326,6 +1320,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             $scope.selectActive = 'byIssue';
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
+            $scope.queryIssue = '';
+            $scope.startTimeIssue = '';
+            $scope.endTimeIssue = '';
             $scope.issue = '';
             $scope.queryPage = 1;
             byIssue();
@@ -1629,7 +1626,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         },function(){
             alert('请求失败，请重试或缺失必要内容');
         });
-    }
+    };
     //禁用
     $scope.disable = function(id){
         initEncrypt('http://60.205.163.65:8080/manager/'+id+'/status/disable',null);
@@ -1648,7 +1645,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         },function(){
             alert('请求失败，请重试或缺失必要内容');
         });
-    }
+    };
 
     //修改
     $scope.modify = function(id){
@@ -1833,9 +1830,10 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
     $scope.addUser = function(){
         $scope.operation = 'add';
         $scope.modalTitle = '添加新用户';
-        $scope.clientsn = '';
-        $scope.expire = '';
-
+        $scope.username = '';
+        $scope.nickname = '';
+        $scope.password = '';
+        $scope.repeatPwd = '';
     };
 
     // $scope.setRobot = function(id){
@@ -1874,7 +1872,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         }, function(err){
             alert('请求失败，请重试或缺失必要内容');
         });
-    }
+    };
 
 
     $scope.robotCanAble = function(id,flage){
