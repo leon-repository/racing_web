@@ -84,5 +84,10 @@ myApp.run(['$state','$rootScope','$timeout',function($state,$rootScope,$timeout)
     $rootScope.$on('$stateChangeStart',function(event,toState,toParams,fromState,fromParams,options){
         console.log('url router change');
         $timeout.cancel($rootScope.timer);
+        if(toState.name=='login')return;// 如果是进入登录界面则允许
+        if(!$rootScope.username){
+    		event.preventDefault();// 取消默认跳转行为
+    		$state.go("login");//跳转到登录界面
+    	}
     })
 }]);
