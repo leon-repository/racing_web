@@ -130,7 +130,6 @@ myApp.factory('HttpInterceptor', ['$q', 'localStorageService', function($q, loca
         },
         // 成功返回了响应
         response: function(res) {
-            //console.log('response config success');
             return res;
         },
         // 返回的响应出错，包括后端返回响应时，设置了非 200 的 http 状态码

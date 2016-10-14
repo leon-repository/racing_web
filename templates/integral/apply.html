@@ -25,12 +25,12 @@
                         <td>{{row.operationTime | date:'yyyy-MM-dd'}}</td>
                         <td>{{row.userId}}</td>
                         <td>{{row.status}}</td>
-                        <td ng-switch on="row.status">
-                            <a class='btn btn-sm btn-success' ng-switch-when='AUDIT' ng-click='toRight("ok",row.id)' data-toggle="modal" data-target="#myModal">批准</a>
-                            <a class='btn btn-sm btn-danger' ng-switch-when='REJECT' ng-click='toRight("danger",row.id)' data-toggle="modal" data-target="#myModal">拒绝</a>
-                            <a class='btn btn-sm btn-default' ng-switch-when='CANCEL' ng-click='toRight("cancel",row.id)' data-toggle="modal" data-target="#myModal">取消</a>
-                            <span ng-switch-default></span>
+                        <td>
+                            <a class='btn btn-sm btn-success' ng-if="row.status=='UNTREATED'" ng-click='toRight("ok",row.id)' data-toggle="modal" data-target="#myModal">批准</a>
+                            <a class='btn btn-sm btn-danger' ng-if="row.status=='UNTREATED'" ng-click='toRight("danger",row.id)' data-toggle="modal" data-target="#myModal">拒绝</a>
+                            <a class='btn btn-sm btn-default' ng-if="row.status=='UNTREATED'" ng-click='toRight("cancel",row.id)' data-toggle="modal" data-target="#myModal">取消</a>
                         </td>
+
                     </tr>
                 </tbody>
             </table>
