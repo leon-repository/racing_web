@@ -76,7 +76,7 @@ myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorag
     }).state('users.other',{
         url : '/otherUser',
         templateUrl : './templates/users/other.html',
-    })
+    });
 
 }]);
 //监控所有路由 清除 实时监控的 请求定时器
@@ -89,5 +89,5 @@ myApp.run(['$state','$rootScope','$timeout',function($state,$rootScope,$timeout)
     		event.preventDefault();// 取消默认跳转行为
     		$state.go("login");//跳转到登录界面
     	}
-    })
+    });
 }]);

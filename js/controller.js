@@ -73,229 +73,231 @@ myApp.controller('loginCtrl',['$scope','$http','$state','$rootScope','localStora
 
 //实时开奖
 myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filter','$state','encrypt','localStorageService',function($scope,$rootScope,$http,$timeout,$filter,$state,encrypt,localStorageService){
+    $scope.table1 = [];
+    $scope.table2 = [];
+    function maketableDate(json){
+        //1-10 表格数据
+        $scope.table1 = [
+            //1
+            [
+                {key:'大',value:1.94,money:json.rankingStakeList[0].big},
+                {key:'大',value:1.94,money:json.rankingStakeList[1].big},
+                {key:'大',value:1.94,money:json.rankingStakeList[2].big},
+                {key:'大',value:1.94,money:json.rankingStakeList[3].big},
+                {key:'大',value:1.94,money:json.rankingStakeList[4].big},
+                {key:'大',value:1.94,money:json.rankingStakeList[5].big},
+                {key:'大',value:1.94,money:json.rankingStakeList[6].big},
+                {key:'大',value:1.94,money:json.rankingStakeList[7].big},
+                {key:'大',value:1.94,money:json.rankingStakeList[8].big},
+                {key:'大',value:1.94,money:json.rankingStakeList[9].big}
+            ],
+            //2
+            [
+                {key:'小',value:1.94,money:json.rankingStakeList[0].small},
+                {key:'小',value:1.94,money:json.rankingStakeList[1].small},
+                {key:'小',value:1.94,money:json.rankingStakeList[2].small},
+                {key:'小',value:1.94,money:json.rankingStakeList[3].small},
+                {key:'小',value:1.94,money:json.rankingStakeList[4].small},
+                {key:'小',value:1.94,money:json.rankingStakeList[5].small},
+                {key:'小',value:1.94,money:json.rankingStakeList[6].small},
+                {key:'小',value:1.94,money:json.rankingStakeList[7].small},
+                {key:'小',value:1.94,money:json.rankingStakeList[8].small},
+                {key:'小',value:1.94,money:json.rankingStakeList[9].small}
+            ],
+            //3
+            [
+                {key:'单',value:1.94,money:json.rankingStakeList[0].odd},
+                {key:'单',value:1.94,money:json.rankingStakeList[1].odd},
+                {key:'单',value:1.94,money:json.rankingStakeList[2].odd},
+                {key:'单',value:1.94,money:json.rankingStakeList[3].odd},
+                {key:'单',value:1.94,money:json.rankingStakeList[4].odd},
+                {key:'单',value:1.94,money:json.rankingStakeList[5].odd},
+                {key:'单',value:1.94,money:json.rankingStakeList[6].odd},
+                {key:'单',value:1.94,money:json.rankingStakeList[7].odd},
+                {key:'单',value:1.94,money:json.rankingStakeList[8].odd},
+                {key:'单',value:1.94,money:json.rankingStakeList[9].odd}
+            ],
+            //4
+            [
+                {key:'双',value:1.94,money:json.rankingStakeList[0].even},
+                {key:'双',value:1.94,money:json.rankingStakeList[1].even},
+                {key:'双',value:1.94,money:json.rankingStakeList[2].even},
+                {key:'双',value:1.94,money:json.rankingStakeList[3].even},
+                {key:'双',value:1.94,money:json.rankingStakeList[4].even},
+                {key:'双',value:1.94,money:json.rankingStakeList[5].even},
+                {key:'双',value:1.94,money:json.rankingStakeList[6].even},
+                {key:'双',value:1.94,money:json.rankingStakeList[7].even},
+                {key:'双',value:1.94,money:json.rankingStakeList[8].even},
+                {key:'双',value:1.94,money:json.rankingStakeList[9].even}
+            ],
+            //5
+            [
+                {key:'龙',value:1.94,money:json.commonStake.firstUp},
+                {key:'龙',value:1.94,money:json.commonStake.secondUp},
+                {key:'龙',value:1.94,money:json.commonStake.thirdUp},
+                {key:'龙',value:1.94,money:json.commonStake.fourthUp},
+                {key:'龙',value:1.94,money:json.commonStake.fifthUp},
+                {key:'',value:'',money:''},
+                {key:'',value:'',money:''},
+                {key:'',value:'',money:''},
+                {key:'',value:'',money:''},
+                {key:'',value:'',money:''}
+            ],
+            //6
+            [
+                {key:'虎',value:1.94,money:json.commonStake.firstDowm},
+                {key:'虎',value:1.94,money:json.commonStake.secondDowm},
+                {key:'虎',value:1.94,money:json.commonStake.thirdDowm},
+                {key:'虎',value:1.94,money:json.commonStake.fourthDowm},
+                {key:'虎',value:1.94,money:json.commonStake.fifthDowm},
+                {key:'',value:'',money:''},
+                {key:'',value:'',money:''},
+                {key:'',value:'',money:''},
+                {key:'',value:'',money:''},
+                {key:'',value:'',money:''}
+            ],
+            //7
+            [
+                {key:1,value:9.7,money:json.appointStakeList[0].first},
+                {key:1,value:9.7,money:json.appointStakeList[0].second},
+                {key:1,value:9.7,money:json.appointStakeList[0].third},
+                {key:1,value:9.7,money:json.appointStakeList[0].fourth},
+                {key:1,value:9.7,money:json.appointStakeList[0].fifth},
+                {key:1,value:9.7,money:json.appointStakeList[0].sixth},
+                {key:1,value:9.7,money:json.appointStakeList[0].seventh},
+                {key:1,value:9.7,money:json.appointStakeList[0].eighth},
+                {key:1,value:9.7,money:json.appointStakeList[0].ninth},
+                {key:1,value:9.7,money:json.appointStakeList[0].tenth}
+            ],
+            //8
+            [
+                {key:2,value:9.7,money:json.appointStakeList[1].first},
+                {key:2,value:9.7,money:json.appointStakeList[1].second},
+                {key:2,value:9.7,money:json.appointStakeList[1].third},
+                {key:2,value:9.7,money:json.appointStakeList[1].fourth},
+                {key:2,value:9.7,money:json.appointStakeList[1].fifth},
+                {key:2,value:9.7,money:json.appointStakeList[1].sixth},
+                {key:2,value:9.7,money:json.appointStakeList[1].seventh},
+                {key:2,value:9.7,money:json.appointStakeList[1].eighth},
+                {key:2,value:9.7,money:json.appointStakeList[1].ninth},
+                {key:2,value:9.7,money:json.appointStakeList[1].tenth}
+            ],
+            //9
+            [
+                {key:3,value:9.7,money:json.appointStakeList[2].first},
+                {key:3,value:9.7,money:json.appointStakeList[2].second},
+                {key:3,value:9.7,money:json.appointStakeList[2].third},
+                {key:3,value:9.7,money:json.appointStakeList[2].fourth},
+                {key:3,value:9.7,money:json.appointStakeList[2].fifth},
+                {key:3,value:9.7,money:json.appointStakeList[2].sixth},
+                {key:3,value:9.7,money:json.appointStakeList[2].seventh},
+                {key:3,value:9.7,money:json.appointStakeList[2].eighth},
+                {key:3,value:9.7,money:json.appointStakeList[2].ninth},
+                {key:3,value:9.7,money:json.appointStakeList[2].tenth}
+            ],
+            //10
+            [
+                {key:4,value:9.7,money:json.appointStakeList[3].first},
+                {key:4,value:9.7,money:json.appointStakeList[3].second},
+                {key:4,value:9.7,money:json.appointStakeList[3].third},
+                {key:4,value:9.7,money:json.appointStakeList[3].fourth},
+                {key:4,value:9.7,money:json.appointStakeList[3].fifth},
+                {key:4,value:9.7,money:json.appointStakeList[3].sixth},
+                {key:4,value:9.7,money:json.appointStakeList[3].seventh},
+                {key:4,value:9.7,money:json.appointStakeList[3].eighth},
+                {key:4,value:9.7,money:json.appointStakeList[3].ninth},
+                {key:4,value:9.7,money:json.appointStakeList[3].tenth}
+            ],
+            //11
+            [
+                {key:5,value:9.7,money:json.appointStakeList[4].first},
+                {key:5,value:9.7,money:json.appointStakeList[4].second},
+                {key:5,value:9.7,money:json.appointStakeList[4].third},
+                {key:5,value:9.7,money:json.appointStakeList[4].fourth},
+                {key:5,value:9.7,money:json.appointStakeList[4].fifth},
+                {key:5,value:9.7,money:json.appointStakeList[4].sixth},
+                {key:5,value:9.7,money:json.appointStakeList[4].seventh},
+                {key:5,value:9.7,money:json.appointStakeList[4].eighth},
+                {key:5,value:9.7,money:json.appointStakeList[4].ninth},
+                {key:5,value:9.7,money:json.appointStakeList[4].tenth}
+            ],
+            //12
+            [
+                {key:6,value:9.7,money:json.appointStakeList[5].first},
+                {key:6,value:9.7,money:json.appointStakeList[5].second},
+                {key:6,value:9.7,money:json.appointStakeList[5].third},
+                {key:6,value:9.7,money:json.appointStakeList[5].fourth},
+                {key:6,value:9.7,money:json.appointStakeList[5].fifth},
+                {key:6,value:9.7,money:json.appointStakeList[5].sixth},
+                {key:6,value:9.7,money:json.appointStakeList[5].seventh},
+                {key:6,value:9.7,money:json.appointStakeList[5].eighth},
+                {key:6,value:9.7,money:json.appointStakeList[5].ninth},
+                {key:6,value:9.7,money:json.appointStakeList[5].tenth}
+            ],
+            //13
+            [
+                {key:7,value:9.7,money:json.appointStakeList[6].first},
+                {key:7,value:9.7,money:json.appointStakeList[6].second},
+                {key:7,value:9.7,money:json.appointStakeList[6].third},
+                {key:7,value:9.7,money:json.appointStakeList[6].fourth},
+                {key:7,value:9.7,money:json.appointStakeList[6].fifth},
+                {key:7,value:9.7,money:json.appointStakeList[6].sixth},
+                {key:7,value:9.7,money:json.appointStakeList[6].seventh},
+                {key:7,value:9.7,money:json.appointStakeList[6].eighth},
+                {key:7,value:9.7,money:json.appointStakeList[6].ninth},
+                {key:7,value:9.7,money:json.appointStakeList[6].tenth}
+            ],
+            //14
+            [
+                {key:8,value:9.7,money:json.appointStakeList[7].first},
+                {key:8,value:9.7,money:json.appointStakeList[7].second},
+                {key:8,value:9.7,money:json.appointStakeList[7].third},
+                {key:8,value:9.7,money:json.appointStakeList[7].fourth},
+                {key:8,value:9.7,money:json.appointStakeList[7].fifth},
+                {key:8,value:9.7,money:json.appointStakeList[7].sixth},
+                {key:8,value:9.7,money:json.appointStakeList[7].seventh},
+                {key:8,value:9.7,money:json.appointStakeList[7].eighth},
+                {key:8,value:9.7,money:json.appointStakeList[7].ninth},
+                {key:8,value:9.7,money:json.appointStakeList[7].tenth}
+            ],
+            //15
+            [
+                {key:9,value:9.7,money:json.appointStakeList[8].first},
+                {key:9,value:9.7,money:json.appointStakeList[8].second},
+                {key:9,value:9.7,money:json.appointStakeList[8].third},
+                {key:9,value:9.7,money:json.appointStakeList[8].fourth},
+                {key:9,value:9.7,money:json.appointStakeList[8].fifth},
+                {key:9,value:9.7,money:json.appointStakeList[8].sixth},
+                {key:9,value:9.7,money:json.appointStakeList[8].seventh},
+                {key:9,value:9.7,money:json.appointStakeList[8].eighth},
+                {key:9,value:9.7,money:json.appointStakeList[8].ninth},
+                {key:9,value:9.7,money:json.appointStakeList[8].tenth}
+            ],
+            //16
+            [
+                {key:10,value:9.7,money:json.appointStakeList[9].first},
+                {key:10,value:9.7,money:json.appointStakeList[9].second},
+                {key:10,value:9.7,money:json.appointStakeList[9].third},
+                {key:10,value:9.7,money:json.appointStakeList[9].fourth},
+                {key:10,value:9.7,money:json.appointStakeList[9].fifth},
+                {key:10,value:9.7,money:json.appointStakeList[9].sixth},
+                {key:10,value:9.7,money:json.appointStakeList[9].seventh},
+                {key:10,value:9.7,money:json.appointStakeList[9].eighth},
+                {key:10,value:9.7,money:json.appointStakeList[9].ninth},
+                {key:10,value:9.7,money:json.appointStakeList[9].tenth}
+            ],
+        ];
+        //冠亚组 表格数据
+        $scope.table2 = [
+            [{'key':'3','value':'41','money':json.commonStake.firstSecond3},{'key':'4','value':'41','money':json.commonStake.firstSecond4},{'key':'5','value':'21','money':json.commonStake.firstSecond5},{'key':'6','value':'21','money':json.commonStake.firstSecond6}],
+            [{'key':'7','value':'12','money':json.commonStake.firstSecond7},{'key':'8','value':'12','money':json.commonStake.firstSecond8},{'key':'9','value':'10.3','money':json.commonStake.firstSecond9},{'key':'10','value':'10.3','money':json.commonStake.firstSecond10}],
+            [{'key':'11','value':'8.3','money':json.commonStake.firstSecond11},{'key':'12','value':'10.3','money':json.commonStake.firstSecond12},{'key':'13','value':'10.3','money':json.commonStake.firstSecond13},{'key':'14','value':'12','money':json.commonStake.firstSecond14}],
+            [{'key':'15','value':'12','money':json.commonStake.firstSecond15},{'key':'16','value':'21','money':json.commonStake.firstSecond16},{'key':'17','value':'21','money':json.commonStake.firstSecond17},{'key':'18','value':'41','money':json.commonStake.firstSecond18}],
+            [{'key':'19','value':'12','money':json.commonStake.firstSecond19},{'key':'','value':''},{'key':'','value':''},{'key':'','value':''}],
+            [{'key':'冠亚大','value':'2','money':json.commonStake.firstSecondBig},{'key':'冠亚小','value':'1.63','money':json.commonStake.firstSecondSmall},{'key':'冠亚单','value':'1.63','money':json.commonStake.firstSecondOdd},{'key':'冠亚双','value':'2','money':json.commonStake.firstSecondOdd}]
+        ];
+    }
 
-    //1-10 表格数据
-    $scope.table1 = [
-        //1
-        [
-            {key:'大',value:1.94,money:'aa'},
-            {key:'大',value:1.94,money:'aa'},
-            {key:'大',value:1.94,money:'aa'},
-            {key:'大',value:1.94,money:'aa'},
-            {key:'大',value:1.94,money:'aa'},
-            {key:'大',value:1.94,money:'aa'},
-            {key:'大',value:1.94,money:'aa'},
-            {key:'大',value:1.94,money:'aa'},
-            {key:'大',value:1.94,money:'aa'},
-            {key:'大',value:1.94,money:'aa'}
-        ],
-        //2
-        [
-            {key:'小',value:1.94,money:'aa'},
-            {key:'小',value:1.94,money:'aa'},
-            {key:'小',value:1.94,money:'aa'},
-            {key:'小',value:1.94,money:'aa'},
-            {key:'小',value:1.94,money:'aa'},
-            {key:'小',value:1.94,money:'aa'},
-            {key:'小',value:1.94,money:'aa'},
-            {key:'小',value:1.94,money:'aa'},
-            {key:'小',value:1.94,money:'aa'},
-            {key:'小',value:1.94,money:'aa'}
-        ],
-        //3
-        [
-            {key:'单',value:1.94,money:'aa'},
-            {key:'单',value:1.94,money:'aa'},
-            {key:'单',value:1.94,money:'aa'},
-            {key:'单',value:1.94,money:'aa'},
-            {key:'单',value:1.94,money:'aa'},
-            {key:'单',value:1.94,money:'aa'},
-            {key:'单',value:1.94,money:'aa'},
-            {key:'单',value:1.94,money:'aa'},
-            {key:'单',value:1.94,money:'aa'},
-            {key:'单',value:1.94,money:'aa'}
-        ],
-        //4
-        [
-            {key:'双',value:1.94,money:'aa'},
-            {key:'双',value:1.94,money:'aa'},
-            {key:'双',value:1.94,money:'aa'},
-            {key:'双',value:1.94,money:'aa'},
-            {key:'双',value:1.94,money:'aa'},
-            {key:'双',value:1.94,money:'aa'},
-            {key:'双',value:1.94,money:'aa'},
-            {key:'双',value:1.94,money:'aa'},
-            {key:'双',value:1.94,money:'aa'},
-            {key:'双',value:1.94,money:'aa'}
-        ],
-        //5
-        [
-            {key:'龙',value:1.94,money:'aa'},
-            {key:'龙',value:1.94,money:'aa'},
-            {key:'龙',value:1.94,money:'aa'},
-            {key:'龙',value:1.94,money:'aa'},
-            {key:'龙',value:1.94,money:'aa'},
-            {key:'',value:'',money:''},
-            {key:'',value:'',money:''},
-            {key:'',value:'',money:''},
-            {key:'',value:'',money:''},
-            {key:'',value:'',money:''}
-        ],
-        //6
-        [
-            {key:'虎',value:1.94,money:'aa'},
-            {key:'虎',value:1.94,money:'aa'},
-            {key:'虎',value:1.94,money:'aa'},
-            {key:'虎',value:1.94,money:'aa'},
-            {key:'虎',value:1.94,money:'aa'},
-            {key:'',value:'',money:''},
-            {key:'',value:'',money:''},
-            {key:'',value:'',money:''},
-            {key:'',value:'',money:''},
-            {key:'',value:'',money:''}
-        ],
-        //7
-        [
-            {key:1,value:9.7,money:'aa'},
-            {key:1,value:9.7,money:'aa'},
-            {key:1,value:9.7,money:'aa'},
-            {key:1,value:9.7,money:'aa'},
-            {key:1,value:9.7,money:'aa'},
-            {key:1,value:9.7,money:'aa'},
-            {key:1,value:9.7,money:'aa'},
-            {key:1,value:9.7,money:'aa'},
-            {key:1,value:9.7,money:'aa'},
-            {key:1,value:9.7,money:'aa'}
-        ],
-        //8
-        [
-            {key:2,value:9.7,money:'aa'},
-            {key:2,value:9.7,money:'aa'},
-            {key:2,value:9.7,money:'aa'},
-            {key:2,value:9.7,money:'aa'},
-            {key:2,value:9.7,money:'aa'},
-            {key:2,value:9.7,money:'aa'},
-            {key:2,value:9.7,money:'aa'},
-            {key:2,value:9.7,money:'aa'},
-            {key:2,value:9.7,money:'aa'},
-            {key:2,value:9.7,money:'aa'}
-        ],
-        //9
-        [
-            {key:3,value:9.7,money:'aa'},
-            {key:3,value:9.7,money:'aa'},
-            {key:3,value:9.7,money:'aa'},
-            {key:3,value:9.7,money:'aa'},
-            {key:3,value:9.7,money:'aa'},
-            {key:3,value:9.7,money:'aa'},
-            {key:3,value:9.7,money:'aa'},
-            {key:3,value:9.7,money:'aa'},
-            {key:3,value:9.7,money:'aa'},
-            {key:3,value:9.7,money:'aa'}
-        ],
-        //10
-        [
-            {key:4,value:9.7,money:'aa'},
-            {key:4,value:9.7,money:'aa'},
-            {key:4,value:9.7,money:'aa'},
-            {key:4,value:9.7,money:'aa'},
-            {key:4,value:9.7,money:'aa'},
-            {key:4,value:9.7,money:'aa'},
-            {key:4,value:9.7,money:'aa'},
-            {key:4,value:9.7,money:'aa'},
-            {key:4,value:9.7,money:'aa'},
-            {key:4,value:9.7,money:'aa'}
-        ],
-        //11
-        [
-            {key:5,value:9.7,money:'aa'},
-            {key:5,value:9.7,money:'aa'},
-            {key:5,value:9.7,money:'aa'},
-            {key:5,value:9.7,money:'aa'},
-            {key:5,value:9.7,money:'aa'},
-            {key:5,value:9.7,money:'aa'},
-            {key:5,value:9.7,money:'aa'},
-            {key:5,value:9.7,money:'aa'},
-            {key:5,value:9.7,money:'aa'},
-            {key:5,value:9.7,money:'aa'}
-        ],
-        //12
-        [
-            {key:6,value:9.7,money:'aa'},
-            {key:6,value:9.7,money:'aa'},
-            {key:6,value:9.7,money:'aa'},
-            {key:6,value:9.7,money:'aa'},
-            {key:6,value:9.7,money:'aa'},
-            {key:6,value:9.7,money:'aa'},
-            {key:6,value:9.7,money:'aa'},
-            {key:6,value:9.7,money:'aa'},
-            {key:6,value:9.7,money:'aa'},
-            {key:6,value:9.7,money:'aa'}
-        ],
-        //13
-        [
-            {key:7,value:9.7,money:'aa'},
-            {key:7,value:9.7,money:'aa'},
-            {key:7,value:9.7,money:'aa'},
-            {key:7,value:9.7,money:'aa'},
-            {key:7,value:9.7,money:'aa'},
-            {key:7,value:9.7,money:'aa'},
-            {key:7,value:9.7,money:'aa'},
-            {key:7,value:9.7,money:'aa'},
-            {key:7,value:9.7,money:'aa'},
-            {key:7,value:9.7,money:'aa'}
-        ],
-        //14
-        [
-            {key:8,value:9.7,money:'aa'},
-            {key:8,value:9.7,money:'aa'},
-            {key:8,value:9.7,money:'aa'},
-            {key:8,value:9.7,money:'aa'},
-            {key:8,value:9.7,money:'aa'},
-            {key:8,value:9.7,money:'aa'},
-            {key:8,value:9.7,money:'aa'},
-            {key:8,value:9.7,money:'aa'},
-            {key:8,value:9.7,money:'aa'},
-            {key:8,value:9.7,money:'aa'}
-        ],
-        //15
-        [
-            {key:9,value:9.7,money:'aa'},
-            {key:9,value:9.7,money:'aa'},
-            {key:9,value:9.7,money:'aa'},
-            {key:9,value:9.7,money:'aa'},
-            {key:9,value:9.7,money:'aa'},
-            {key:9,value:9.7,money:'aa'},
-            {key:9,value:9.7,money:'aa'},
-            {key:9,value:9.7,money:'aa'},
-            {key:9,value:9.7,money:'aa'},
-            {key:9,value:9.7,money:'aa'}
-        ],
-        //16
-        [
-            {key:10,value:9.7,money:'aa'},
-            {key:10,value:9.7,money:'aa'},
-            {key:10,value:9.7,money:'aa'},
-            {key:10,value:9.7,money:'aa'},
-            {key:10,value:9.7,money:'aa'},
-            {key:10,value:9.7,money:'aa'},
-            {key:10,value:9.7,money:'aa'},
-            {key:10,value:9.7,money:'aa'},
-            {key:10,value:9.7,money:'aa'},
-            {key:10,value:9.7,money:'aa'}
-        ],
-    ];
-
-
-    //冠亚组 表格数据
-    $scope.table2 = [
-        [{'key':'3','value':'41','money':'100'},{'key':'4','value':'41','money':'100'},{'key':'5','value':'21','money':'100'},{'key':'6','value':'21','money':'100'}],
-        [{'key':'7','value':'12','money':'100'},{'key':'8','value':'12','money':'100'},{'key':'9','value':'10.3','money':'100'},{'key':'10','value':'10.3','money':'100'}],
-        [{'key':'11','value':'8.3','money':'100'},{'key':'12','value':'10.3','money':'100'},{'key':'13','value':'10.3','money':'100'},{'key':'14','value':'12','money':'100'}],
-        [{'key':'15','value':'12','money':'100'},{'key':'16','value':'21','money':'100'},{'key':'17','value':'21','money':'100'},{'key':'18','value':'41','money':'100'}],
-        [{'key':'19','value':'12','money':'100'},{'key':'','value':''},{'key':'','value':''},{'key':'','value':''}],
-        [{'key':'冠亚大','value':'2','money':'100'},{'key':'冠亚小','value':'1.63','money':'100'},{'key':'冠亚单','value':'1.63','money':'100'},{'key':'冠亚双','value':'2','money':'100'}]
-    ];
 
 
     //拖拽配置项 jQuery ui
@@ -318,54 +320,282 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
     }
 
     //修改比赛结果的url
-    var modifyUrl = 'http://192.168.5.109:8080/stake/result';
+    var modifyUrl = 'http://60.205.163.65:8080/manager/stake/configer';
 
     var modifyflag = true;
 
-    //每次请求的 url
-    // var urlObj = {
-    //     url : './data/data.php',
-    //     domain : 'http://120.26.75.31:8080',
-    //     path : '/data/data.php',
-    //     searchObj : {},
-    //     params : null
-    // };
-    // console.log('res secretKey: '+ localStorageService.get('secretKey'));
-    // console.log('res Accesskey: '+localStorageService.get('Accesskey'));
-    // var authoriza = encrypt.getAuthor(urlObj,localStorageService.get('secretKey'));
-    // localStorageService.set('Authorization',authoriza);
-    // localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-    // console.log(authoriza,'set');
-
-
     $timeout.cancel($rootScope.timer);
     function action(){
-        initEncrypt('./data/data.php',null);
+        initEncrypt('http://60.205.163.65:8080/manager/stake/configer',null);
         $http({
-            url : './data/data.php',
+            url : 'http://60.205.163.65:8080/manager/stake/configer',
+            //url : './data/data.php',
             method : 'get',
             dataType : 'json',
         }).then(function(res){
-            //console.log(res.data,'res');
             var resData = res.data;
+            console.log(res,'res data');
 
-            var json = resData.data;
-            $scope.racingNum = json.racingNum;
-            $scope.stopTime= $filter('toMinSec')(json.endStakeTime);
-            $scope.startTime = $filter('toMinSec')(json.startRacingTime);
-            $scope.todayIncome = json.todayIncome;
-            $scope.preResult = json.preResult;
-            $scope.nowStatus = json.nowStatus;
-            $scope.preRacingNum = json.preRacingNum;
+            $scope.racingNum = resData.data.racingNum;
+            $scope.stopTime= $filter('toMinSec')(resData.data.endStakeTime);
+            $scope.startTime = $filter('toMinSec')(resData.data.startRacingTime);
+            $scope.todayIncome = resData.data.todayIncome;
+            $scope.preResult = resData.data.preResult;
+            $scope.nowStatus = resData.data.stageName;
+            $scope.preRacingNum = resData.data.preRacingNum;
 
-            // if(resData.result==='验签失败'){
-            //     $state.go('login');
-            //     return;
+            maketableDate(resData.data.stakeVo);
+
+            // if(!resData.stakeVo){
+            //     console.log('null');
+            //     maketableDate({
+            //         "racingNum": "期号",
+            //         "appointStakeList": [
+            //             {
+            //                 "carNum": 1,
+            //                 "first": 0,
+            //                 "second": 0,
+            //                 "third": 0,
+            //                 "fourth": 0,
+            //                 "fifth": 0,
+            //                 "sixth": 0,
+            //                 "seventh": 0,
+            //                 "eighth": 0,
+            //                 "ninth": 0,
+            //                 "tenth": 0
+            //             },
+            //             {
+            //                 "carNum": 2,
+            //                 "first": 0,
+            //                 "second": 0,
+            //                 "third": 0,
+            //                 "fourth": 0,
+            //                 "fifth": 0,
+            //                 "sixth": 0,
+            //                 "seventh": 0,
+            //                 "eighth": 0,
+            //                 "ninth": 0,
+            //                 "tenth": 0
+            //             },
+            //             {
+            //                 "carNum": 3,
+            //                 "first": 0,
+            //                 "second": 0,
+            //                 "third": 0,
+            //                 "fourth": 0,
+            //                 "fifth": 0,
+            //                 "sixth": 0,
+            //                 "seventh": 0,
+            //                 "eighth": 0,
+            //                 "ninth": 0,
+            //                 "tenth": 0
+            //             },
+            //             {
+            //                 "carNum": 4,
+            //                 "first": 0,
+            //                 "second": 0,
+            //                 "third": 0,
+            //                 "fourth": 0,
+            //                 "fifth": 0,
+            //                 "sixth": 0,
+            //                 "seventh": 0,
+            //                 "eighth": 0,
+            //                 "ninth": 0,
+            //                 "tenth": 0
+            //             },
+            //             {
+            //                 "carNum": 5,
+            //                 "first": 0,
+            //                 "second": 0,
+            //                 "third": 0,
+            //                 "fourth": 0,
+            //                 "fifth": 0,
+            //                 "sixth": 0,
+            //                 "seventh": 0,
+            //                 "eighth": 0,
+            //                 "ninth": 0,
+            //                 "tenth": 0
+            //             },
+            //             {
+            //                 "carNum": 6,
+            //                 "first": 0,
+            //                 "second": 0,
+            //                 "third": 0,
+            //                 "fourth": 0,
+            //                 "fifth": 0,
+            //                 "sixth": 0,
+            //                 "seventh": 0,
+            //                 "eighth": 0,
+            //                 "ninth": 0,
+            //                 "tenth": 0
+            //             },
+            //             {
+            //                 "carNum": 7,
+            //                 "first": 0,
+            //                 "second": 0,
+            //                 "third": 0,
+            //                 "fourth": 0,
+            //                 "fifth": 0,
+            //                 "sixth": 0,
+            //                 "seventh": 0,
+            //                 "eighth": 0,
+            //                 "ninth": 0,
+            //                 "tenth": 0
+            //             },
+            //             {
+            //                 "carNum": 8,
+            //                 "first": 0,
+            //                 "second": 0,
+            //                 "third": 0,
+            //                 "fourth": 0,
+            //                 "fifth": 0,
+            //                 "sixth": 0,
+            //                 "seventh": 0,
+            //                 "eighth": 0,
+            //                 "ninth": 0,
+            //                 "tenth": 0
+            //             },
+            //             {
+            //                 "carNum": 9,
+            //                 "first": 0,
+            //                 "second": 0,
+            //                 "third": 0,
+            //                 "fourth": 0,
+            //                 "fifth": 0,
+            //                 "sixth": 0,
+            //                 "seventh": 0,
+            //                 "eighth": 0,
+            //                 "ninth": 0,
+            //                 "tenth": 0
+            //             },
+            //             {
+            //                 "carNum": 10,
+            //                 "first": 0,
+            //                 "second": 0,
+            //                 "third": 0,
+            //                 "fourth": 0,
+            //                 "fifth": 0,
+            //                 "sixth": 0,
+            //                 "seventh": 0,
+            //                 "eighth": 0,
+            //                 "ninth": 0,
+            //                 "tenth": 0
+            //             }
+            //         ],
+            //         "commonStake": {
+            //             "firstUp": 0,
+            //             "firstDowm": 0,
+            //             "secondUp": 0,
+            //             "secondDowm": 0,
+            //             "thirdUp": 0,
+            //             "thirdDowm": 0,
+            //             "fourthUp": 0,
+            //             "fourthDowm": 0,
+            //             "fifthUp": 0,
+            //             "fifthDowm": 0,
+            //             "firstSecondOdd": 0,
+            //             "firstSecondEven": 0,
+            //             "firstSecondBig": 0,
+            //             "firstSecondSmall": 0,
+            //             "firstSecond3": 0,
+            //             "firstSecond4": 0,
+            //             "firstSecond5": 0,
+            //             "firstSecond6": 0,
+            //             "firstSecond7": 0,
+            //             "firstSecond8": 0,
+            //             "firstSecond9": 0,
+            //             "firstSecond10": 0,
+            //             "firstSecond11": 0,
+            //             "firstSecond12": 0,
+            //             "firstSecond13": 0,
+            //             "firstSecond14": 0,
+            //             "firstSecond15": 0,
+            //             "firstSecond16": 0,
+            //             "firstSecond17": 0,
+            //             "firstSecond18": 0,
+            //             "firstSecond19": 0
+            //         },
+            //         "rankingStakeList": [
+            //             {
+            //                 "rankingNum": 1,
+            //                 "big": 0,
+            //                 "small": 0,
+            //                 "odd": 0,
+            //                 "even": 0
+            //             },
+            //             {
+            //                 "rankingNum": 2,
+            //                 "big": 0,
+            //                 "small": 0,
+            //                 "odd": 0,
+            //                 "even": 0
+            //             },
+            //             {
+            //                 "rankingNum": 3,
+            //                 "big": 0,
+            //                 "small": 0,
+            //                 "odd": 0,
+            //                 "even": 0
+            //             },
+            //             {
+            //                 "rankingNum": 4,
+            //                 "big": 0,
+            //                 "small": 0,
+            //                 "odd": 0,
+            //                 "even": 0
+            //             },
+            //             {
+            //                 "rankingNum": 5,
+            //                 "big": 0,
+            //                 "small": 0,
+            //                 "odd": 0,
+            //                 "even": 0
+            //             },
+            //             {
+            //                 "rankingNum": 6,
+            //                 "big": 0,
+            //                 "small": 0,
+            //                 "odd": 0,
+            //                 "even": 0
+            //             },
+            //             {
+            //                 "rankingNum": 7,
+            //                 "big": 0,
+            //                 "small": 0,
+            //                 "odd": 0,
+            //                 "even": 0
+            //             },
+            //             {
+            //                 "rankingNum": 8,
+            //                 "big": 0,
+            //                 "small": 0,
+            //                 "odd": 0,
+            //                 "even": 0
+            //             },
+            //             {
+            //                 "rankingNum": 9,
+            //                 "big": 0,
+            //                 "small": 0,
+            //                 "odd": 0,
+            //                 "even": 0
+            //             },
+            //             {
+            //                 "rankingNum": 10,
+            //                 "big": 0,
+            //                 "small": 0,
+            //                 "odd": 0,
+            //                 "even": 0
+            //             }
+            //         ]
+            //     });
+            // }else{
+            //     console.log('obj');
+            //     maketableDate(resData.data.stakeVo);
             // }
+
 
             if(resData.result==='ERROR'){
                 console.log('暂无比赛结果');
-
                 $scope.modifyNotice = '';
                 $scope.tableDisabled = true;
                 $scope.toast = true;
@@ -447,14 +677,25 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
     //修改比赛结果
     $scope.modifyReslut = function(){
         console.log($scope.arrResult,'drag end');
-        return;
+        initEncrypt(modifyUrl,{
+          "racingNum": $scope.racingNum,
+          "result": $scope.arrResult
+        });
+        //return;
         $http({
             url : modifyUrl,
             method : 'put',
             dataType : 'json',
-            data : {'racingNum':$scope.racingNum,racingResult:$scope.arrResult}
+            data : {'racingNum':$scope.racingNum,'result':$scope.arrResult}
         }).then(function(res){
             console.log(res,'modifyReslut');
+            var data = res.data;
+            if(data.result=='ERROR'){
+                alert(data.message);
+            }
+            if(data.result=='SUCCESS'){
+                alert('操作成功');
+            }
         },function(err){
             console.log(err);
             $scope.modifyNotice = '请求失败请重试';
@@ -465,41 +706,44 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
 }]);
 
 //开奖列表
-myApp.controller('lotterylistCtrl',['$scope','$http',function($scope,$http){
+myApp.controller('lotterylistCtrl',['$scope','$http','localStorageService','encrypt',function($scope,$http,localStorageService,encrypt){
     $scope.text = '开奖列表页';
 
-    // $scope.tableRows = [{"date":"20161003043","reslut":[9,3,4,1,2,7,6,8,10,5],"item1":["\u662f","\u5426","\u662f","\u5426"],"item2":["\u662f","\u5426","\u662f","\u5426"]},{"date":"20161003044","reslut":[2,7,6,8,10,9,3,4,1,5],"item1":["\u662f","\u5426","\u662f","\u5426"],"item2":["\u662f","\u5426","\u662f","\u5426"]}]
+    function initEncrypt(url,bodyQuery){
+        //console.log(url,'url');
+        var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
+        localStorageService.set('Authorization',authoriza);
+        localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
+        //console.log(authoriza,'set');
+    }
 
-    /*
-    // var params = $.param({
-    //     email: 'blue@qq.com',
-    //     password: '123456'
-    // });
+    initEncrypt('http://60.205.163.65:8080/manager/racing/result',null);
     $http({
-        url : './data/lotterylist.php',
-        method : 'POST',
-        // headers : {
-        //     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-        // },
-        //data : params
+        url : 'http://60.205.163.65:8080/manager/racing/result',
+        method : 'get',
     }).then(function(res){
-        if(res.status==200){
-            $scope.tableRows = res.data;
-        }
+        console.log(res,'开奖列表');
+        var data = res.data;
+        console.log(data.data,'开奖列表');
+        $scope.tableData = data.data;
+        //分页
+        $scope.currentPage = data.page;
+        //$scope.pageSize = data.pageSize;
+        $scope.total = data.totalPage;
     },function(err){
-        console.log(err);
+        alert('请求失败，请重试或缺失必要内容');
     });
-    */
-
-    $scope.tableRows = [{"date":"20161003043","reslut":[9,3,4,1,2,7,6,8,10,5],"item1":["\u662f","\u5426","\u662f","\u5426"],"item2":["\u662f","\u5426","\u662f","\u5426"]},{"date":"20161003044","reslut":[2,7,6,8,10,9,3,4,1,5],"item1":["\u662f","\u5426","\u662f","\u5426"],"item2":["\u662f","\u5426","\u662f","\u5426"]}];
 
 
-    $scope.currentPage = 30;
-    //$scope.pageSize = 5;  //每页显示多少
-    $scope.total = 100;
-    $scope.goPage = function(a,b){
-        console.log(a,b);
-    };
+    // $scope.tableRows = [{"date":"20161003043","reslut":[9,3,4,1,2,7,6,8,10,5],"item1":["\u662f","\u5426","\u662f","\u5426"],"item2":["\u662f","\u5426","\u662f","\u5426"]},{"date":"20161003044","reslut":[2,7,6,8,10,9,3,4,1,5],"item1":["\u662f","\u5426","\u662f","\u5426"],"item2":["\u662f","\u5426","\u662f","\u5426"]}];
+    //
+    //
+    // $scope.currentPage = 30;
+    // //$scope.pageSize = 5;  //每页显示多少
+    // $scope.total = 100;
+    // $scope.goPage = function(a,b){
+    //     console.log(a,b);
+    // };
 
 }]);
 
@@ -595,15 +839,16 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     //确认发送数据
     $scope.confirm = function(status) {
         //console.log(status,$scope.modalContent,$scope.modalID,'modal');
+        var url = '';
         switch (status) {
             case 'ok':
-                var url = '/manager/pointsapp/'+$scope.modalID+'/status/audit';
+                url = '/manager/pointsapp/'+$scope.modalID+'/status/audit';
                 break;
             case 'danger':
-                var url = '/manager/pointsapp/'+$scope.modalID+'/status/reject';
+                url = '/manager/pointsapp/'+$scope.modalID+'/status/reject';
                 break;
             case 'cancel':
-                var url = '/manager/pointsapp/'+$scope.modalID+'/status/cancel';
+                url = '/manager/pointsapp/'+$scope.modalID+'/status/cancel';
                 break;
         }
         initEncrypt('http://60.205.163.65:8080'+url,{
@@ -689,7 +934,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
         console.log('search list');
         console.log($scope.searchName,$scope.searchId);
         $scope.queryNickName = $scope.searchName;
-        $scope.queryUserId = $scope.searchId
+        $scope.queryUserId = $scope.searchId;
         initData();
     };
 
@@ -708,12 +953,13 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     };
     // 弹层确定
     $scope.confirm = function(status){
+        var url = '';
         switch (status) {
             case 'add':
-                var url = '/manager/add/points/user/'+$scope.queryUserId;
+                url = '/manager/add/points/user/'+$scope.queryUserId;
                 break;
             case 'reduce':
-                var url = '/manager/subtract/points/user/'+$scope.queryUserId;
+                url = '/manager/subtract/points/user/'+$scope.queryUserId;
                 break;
         }
         initEncrypt('http://60.205.163.65:8080'+url,{
@@ -1043,6 +1289,10 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
 
     // 按日期 与 按 期号 切换
     $scope.reRender = function(item){
+        if(!$scope.userId){
+            alert('请先选择分盘名称');
+            return;
+        }
         if(item == 'date'){ //按日期
             $scope.selectActive = 'byDate';
             $scope.queryStartDate = '';
@@ -1245,7 +1495,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             $scope.total = data.totalPage;
 
         },function(){
-            alert('请求失败，请重试或缺失必要内容')
+            alert('请求失败，请重试或缺失必要内容');
         });
     }
     function byIssue(){
@@ -1306,6 +1556,10 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
 
     // 按日期 与 按 期号 切换
     $scope.reRender = function(item){
+        if(!$scope.userId){
+            alert('请先选择分盘名称');
+            return;
+        }
         if(item == 'date'){ //按日期
             $scope.selectActive = 'byDate';
             $scope.queryStartDate = '';

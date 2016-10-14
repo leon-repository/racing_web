@@ -30,7 +30,7 @@
         "preResult" : [ 9, 6, 7, 5, 4, 1, 2, 10, 8, 3 ],
         "endStakeTime" : 184000,
         "startRacingTime" : 244000,
-        "stage" : 1,
+        "stage" : 2,
         "todayIncome" : 1000.23,
         "nowStatus":"修改比赛结果"
     },

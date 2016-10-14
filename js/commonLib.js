@@ -7,7 +7,7 @@ myApp.directive('navHeader',function() {
             realtimeSelsect : '@realtimeActive'
         },
         templateUrl : './templates/nav/nav.html',
-    }
+    };
 });
 
 //历史回退
@@ -17,10 +17,10 @@ myApp.directive('goback',function(){
         link : function(scope,elem){
             $(elem).on('click',function(){
                 window.history.back();
-            })
+            });
         }
-    }
-})
+    };
+});
 
 // 切换 class active 指令
 myApp.directive('tabActive',function(){
@@ -41,15 +41,16 @@ myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
 
     function getUrlInfo(url,bodyQuery) {
         var arrUrl = url.split("//");
-        var queryObj = new Object();
+        var queryObj = {};
         var start = arrUrl[1].indexOf("/");
         var relUrl = arrUrl[1].substring(start);
+        var path = null;
         console.log(relUrl,'relUrl');
 
         if (relUrl.indexOf("?") != -1) {
-            var path = relUrl.split("?")[0];
+            path = relUrl.split("?")[0];
         }else{
-            var path = relUrl;
+            path = relUrl;
         }
         if (url.indexOf("?") != -1) {
             var searchStr = '?'+relUrl.split("?")[1];
@@ -68,7 +69,7 @@ myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
             console.log(urlObj,'urlObj');
             //return;
             if(angular.isObject(urlObj.params)){
-                urlObj.searchObj['requestBody'] = JSON.stringify(urlObj.params);
+                urlObj.searchObj.requestBody = JSON.stringify(urlObj.params);
             }
             var keyArr = [];
             angular.forEach(urlObj.searchObj, function(val, key) {
@@ -113,7 +114,7 @@ myApp.factory('HttpInterceptor', ['$q', 'localStorageService', function($q, loca
     return {
         // 请求发出之前，可以用于添加各种身份验证信息
         request: function(config) {
-            
+
             //对所有的请求添加 验证
             if (localStorageService.get('Authorization')) {
                 //console.log(localStorageService.get('Authorization'),'location');
@@ -144,6 +145,9 @@ myApp.factory('HttpInterceptor', ['$q', 'localStorageService', function($q, loca
 //时间格式化
 myApp.filter('toMinSec', function() {
     return function(time) {
+        if(time<0){
+            return '00:00';
+        }
         var totalSec = time / 1000;
         var min = parseInt(totalSec / 60);
         var sec = parseInt(totalSec % 60);
@@ -154,7 +158,7 @@ myApp.filter('toMinSec', function() {
             sec = '0' + sec;
         }
         return min + ':' + sec;
-    }
+    };
 });
 
 //过滤数据
@@ -163,7 +167,7 @@ myApp.filter('splitArrFilter',function(){
         if(typeof o == 'object'){
             var str ='';
             for(var i=0;i<o.length;i++){
-                if(i==0){
+                if(i === 0){
                     str += o[i];
                 }else{
                     str += '<span class="paddingTips">|</span>'+o[i];
@@ -173,5 +177,5 @@ myApp.filter('splitArrFilter',function(){
         }else{
             return o;
         }
-    }
+    };
 });
