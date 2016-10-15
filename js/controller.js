@@ -429,9 +429,9 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
         },function(err){
             console.log(err);
         });
-        $rootScope.timer = $timeout(action,3000);
+        $rootScope.timer = $timeout(action,1000);
     }
-    $rootScope.timer = $timeout(action,3000);
+    $rootScope.timer = $timeout(action,1000);
 
 
 
