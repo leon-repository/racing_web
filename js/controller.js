@@ -473,6 +473,8 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
 myApp.controller('lotterylistCtrl',['$scope','$http','$state','localStorageService','encrypt',function($scope,$http,$state,localStorageService,encrypt){
     $scope.text = '开奖列表页';
 
+    $scope.queryPage = '';
+
     function initEncrypt(url,bodyQuery){
         //console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
@@ -481,31 +483,41 @@ myApp.controller('lotterylistCtrl',['$scope','$http','$state','localStorageServi
         //console.log(authoriza,'set');
     }
 
-    initEncrypt('http://60.205.163.65:8080/manager/racing/result',null);
-    $http({
-        url : 'http://60.205.163.65:8080/manager/racing/result',
-        method : 'get',
-    }).then(function(res){
-        console.log(res,'开奖列表');
-        var data = res.data;
-        console.log(data.data,'开奖列表');
-        if(res.result == 'NO_LOGIN'){
-            $state.go('login');
-            return;
-        }
-        if(data.result=='ERROR'){
-            alert(data.message);
-            return;
-        }
-        $scope.tableData = data.data;
-        //分页
-        $scope.currentPage = data.page;
-        //$scope.pageSize = data.pageSize;
-        $scope.total = data.totalPage;
-    },function(err){
-        alert('请求失败，请重试或缺失必要内容');
-    });
+    function initData(){
+        initEncrypt('http://60.205.163.65:8080/manager/racing/result?page='+$scope.queryPage ,null);
+        $http({
+            url : 'http://60.205.163.65:8080/manager/racing/result?page='+$scope.queryPage ,
+            method : 'get',
+        }).then(function(res){
+            console.log(res,'开奖列表');
+            var data = res.data;
+            console.log(data.data,'开奖列表');
+            if(res.result == 'NO_LOGIN'){
+                $state.go('login');
+                return;
+            }
+            if(data.result=='ERROR'){
+                alert(data.message);
+                return;
+            }
+            $scope.tableData = data.data;
+            //分页
+            $scope.currentPage = data.page;
+            //$scope.pageSize = data.pageSize;
+            $scope.total = data.totalPage;
+        },function(err){
+            alert('请求失败，请重试或缺失必要内容');
+        });
+    }
+    initData();
 
+
+    //页面跳转
+    $scope.goPage = function(page){
+        console.log(page);
+        $scope.queryPage = page;
+        initData();
+    };
 
     // $scope.tableRows = [{"date":"20161003043","reslut":[9,3,4,1,2,7,6,8,10,5],"item1":["\u662f","\u5426","\u662f","\u5426"],"item2":["\u662f","\u5426","\u662f","\u5426"]},{"date":"20161003044","reslut":[2,7,6,8,10,9,3,4,1,5],"item1":["\u662f","\u5426","\u662f","\u5426"],"item2":["\u662f","\u5426","\u662f","\u5426"]}];
     //
@@ -765,6 +777,9 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
                 alert(data.message);
             }
             if(data.result=='SUCCESS'){
+                $scope.queryNickName = '';
+                $scope.queryUserId = '';
+                $scope.queryPage = 1;
                 initData();
             }
         },function(){
