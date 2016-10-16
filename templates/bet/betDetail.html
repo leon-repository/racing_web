@@ -1,19 +1,15 @@
 <nav-header select-active='betClass'></nav-header>
 <div class='container-fluid' ng-controller='betDetailCtrl'>
     <div class="row realtime-header bg-success">
-        <div class="col-md-3" ng-if="type=='byDate'">
+        <div class="col-md-2" ng-if="type=='byDate'">
             <h4>按日期</h4>
             <p>{{dateIssue}}</p>
         </div>
-        <div class="col-md-3" ng-if="type=='byIssue'">
+        <div class="col-md-2" ng-if="type=='byIssue'">
             <h4>按期号</h4>
             <p>{{dateIssue}}</p>
         </div>
-        <div class="col-md-3" ng-if="type=='byDate'">
-            <h4>押注金额</h4>
-            <p>{{money}}</p>
-        </div>
-        <div class="col-md-3" ng-if="type=='byIssue'">
+        <div class="col-md-2" ng-if="type=='byIssue'">
             <h4>开奖结果</h4>
             <p>{{lotteryRestut}}</p>
         </div>
@@ -22,7 +18,11 @@
             <p>{{number}}</p>
         </div>
         <div class="col-md-2">
-            <h4>盈利</h4>
+            <h4>押注金额(收入)</h4>
+            <p>{{money}}</p>
+        </div>
+        <div class="col-md-2">
+            <h4>支出</h4>
             <p>{{fitloss}}</p>
         </div>
         <div class="col-md-2">
