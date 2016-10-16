@@ -1529,6 +1529,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
 
 }]).controller('betDetailCtrl',['$scope','$stateParams','$http','encrypt','localStorageService',function($scope,$stateParams,$http,encrypt,localStorageService){
     console.log($stateParams.type);
+    $scope.userId = $stateParams.id;
     $scope.type = $stateParams.type;
     $scope.dateIssue = $stateParams.category;
 
@@ -1767,10 +1768,11 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
 
     var url = '';
     if($scope.type == 'byDate'){
-        url = 'http://60.205.163.65:8080/manager/stake/day/info?day='+$scope.dateIssue;
+        // /manager/user/{userId/stake/day/info?day=
+        url = 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/stake/day/info?day='+$scope.dateIssue;
     }
     if($scope.type == 'byIssue'){
-        url = 'http://60.205.163.65:8080/manager/stake/racingnum/info?racingNum='+$scope.dateIssue;
+        url = 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/stake/racingnum/info?racingNum='+$scope.dateIssue;
     }
 
     initEncrypt(url,null);
