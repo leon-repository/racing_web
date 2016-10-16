@@ -662,9 +662,9 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 }]).controller('listCtrl',['$scope','$http','$state','localStorageService','encrypt',function($scope,$http,$state,localStorageService,encrypt){
     $scope.text = "分盘积分列表";
 
-    // $scope.queryNickName = '';
-    // $scope.queryUserId = '';
-    // $scope.queryPage = 1;
+    $scope.queryNickName = '';
+    $scope.queryUserId = '';
+    $scope.queryPage = 1;
 
 
     function initEncrypt(url,bodyQuery){
@@ -676,9 +676,6 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     }
 
     function initData(){
-        $scope.queryNickName = '';
-        $scope.queryUserId = '';
-        $scope.queryPage = 1;
         initEncrypt('http://60.205.163.65:8080/manager/user/points?nickName='+$scope.queryNickName+'&userId='+$scope.queryUserId+'&page='+$scope.queryPage,null);
         $http({
             url : 'http://60.205.163.65:8080/manager/user/points?nickName='+$scope.queryNickName+'&userId='+$scope.queryUserId+'&page='+$scope.queryPage,
@@ -1692,6 +1689,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         [{'key':'19','value':'12','money':'100'},{'key':'','value':''},{'key':'','value':''},{'key':'','value':''}],
         [{'key':'冠亚大','value':'2','money':'100'},{'key':'冠亚小','value':'1.63','money':'100'},{'key':'冠亚单','value':'1.63','money':'100'},{'key':'冠亚双','value':'2','money':'100'}]
     ];
+
+
+
 
 
 }]);

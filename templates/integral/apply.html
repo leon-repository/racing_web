@@ -24,7 +24,12 @@
                         <td>{{row.appComment}}</td>
                         <td>{{row.operationTime | date:'yyyy-MM-dd'}}</td>
                         <td>{{row.userId}}</td>
-                        <td>{{row.status}}</td>
+                        <td>
+                            {{row.status=='UNTREATED'?'待处理':''}}
+                            {{row.status=='AUDIT'?'已批准':''}}
+                            {{row.status=='REJECT'?'已拒绝':''}}
+                            {{row.status=='CANCEL'?'已取消':''}}
+                        </td>
                         <td>
                             <a class='btn btn-sm btn-success' ng-if="row.status=='UNTREATED'" ng-click='toRight("ok",row.id)' data-toggle="modal" data-target="#myModal">批准</a>
                             <a class='btn btn-sm btn-danger' ng-if="row.status=='UNTREATED'" ng-click='toRight("danger",row.id)' data-toggle="modal" data-target="#myModal">拒绝</a>
