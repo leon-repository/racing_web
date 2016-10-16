@@ -493,6 +493,10 @@ myApp.controller('lotterylistCtrl',['$scope','$http','$state','localStorageServi
             $state.go('login');
             return;
         }
+        if(data.result=='ERROR'){
+            alert(data.message);
+            return;
+        }
         $scope.tableData = data.data;
         //分页
         $scope.currentPage = data.page;
@@ -551,7 +555,10 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
                 $state.go('login');
                 return;
             }
-
+            if(data.result=='ERROR'){
+                alert(data.message);
+                return;
+            }
             $scope.tableData = data.data;
             //分页
             $scope.currentPage = data.page;
@@ -681,6 +688,10 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
+                return;
+            }
+            if(data.result=='ERROR'){
+                alert(data.message);
                 return;
             }
             $scope.tableData = data.data;
@@ -862,6 +873,10 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
                 $state.go('login');
                 return;
             }
+            if(data.result=='ERROR'){
+                alert(data.message);
+                return;
+            }
             $scope.tableData = data.data;
 
             $scope.currentPage = data.page;
@@ -881,6 +896,10 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
+                return;
+            }
+            if(data.result=='ERROR'){
+                alert(data.message);
                 return;
             }
             $scope.tableData = data.data;
@@ -1019,6 +1038,10 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
                 $state.go('login');
                 return;
             }
+            if(data.result=='ERROR'){
+                alert(data.message);
+                return;
+            }
             $scope.tableData = data.data;
 
             $scope.currentPage = data.page;
@@ -1038,6 +1061,10 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
+                return;
+            }
+            if(data.result=='ERROR'){
+                alert(data.message);
                 return;
             }
             $scope.tableData = data.data;
@@ -1157,6 +1184,10 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
                 $state.go('login');
                 return;
             }
+            if(data.result=='ERROR'){
+                alert(data.message);
+                return;
+            }
             $scope.tableData = data.data;
 
             $scope.currentPage = data.page;
@@ -1176,6 +1207,10 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
+                return;
+            }
+            if(data.result=='ERROR'){
+                alert(data.message);
                 return;
             }
             $scope.tableData = data.data;
@@ -1310,6 +1345,10 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
                 $state.go('login');
                 return;
             }
+            if(data.result=='ERROR'){
+                alert(data.message);
+                return;
+            }
             $scope.tableData = data.data;
 
             $scope.currentPage = data.page;
@@ -1329,6 +1368,10 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
+                return;
+            }
+            if(data.result=='ERROR'){
+                alert(data.message);
                 return;
             }
             $scope.tableData = data.data;
@@ -1684,6 +1727,10 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                 $state.go('login');
                 return;
             }
+            if(data.result=='ERROR'){
+                alert(data.message);
+                return;
+            }
             $scope.userArr = data.data;
 
             $scope.currentPage = data.page;
@@ -1905,6 +1952,10 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
+                return;
+            }
+            if(data.result=='ERROR'){
+                alert(data.message);
                 return;
             }
             $scope.userArr = data.data;
