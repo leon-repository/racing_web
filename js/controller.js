@@ -716,8 +716,8 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     $scope.search = function(){
         console.log('search list');
         console.log($scope.searchName,$scope.searchId);
-        $scope.queryNickName = $scope.searchName;
-        $scope.queryUserId = $scope.searchId;
+        $scope.queryNickName = $scope.searchName ? $scope.searchName : '';
+        $scope.queryUserId = $scope.searchId ? $scope.searchId : '';
         initData();
     };
 
@@ -1010,13 +1010,34 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         //console.log(authoriza,'set');
     }
 
-    $scope.selectOptions = [
-        {key:'0',value:'选择分盘名称'},
-        {key:'1',value:'分盘one'},
-        {key:'2',value:'分盘two'},
-        {key:'3',value:'分盘three'},
-    ];
-    $scope.selectName = $scope.selectOptions[0];
+    //加载select 列表
+    initEncrypt('http://60.205.163.65:8080/manager/user?nicName=&userId=',null);
+    $http({
+        url : 'http://60.205.163.65:8080/manager/user?nicName=&userId=',
+        methoed : 'get'
+    }).then(function(res){
+        console.log(res,'select');
+        var resData = res.data;
+        if(resData.result == 'ERROR'){
+            alert('获取分盘名称列表失败，请重新刷新页面');
+            return;
+        }
+        if(res.result == 'NO_LOGIN'){
+            $state.go('login');
+            return;
+        }
+        $scope.selectOptions = [{key:'0',value:'选择分盘名称'}];
+        angular.forEach(resData.data,function(item){
+            var json = {};
+            json.key = item.id;
+            json.value = item.nickName;
+            $scope.selectOptions.push(json);
+        });
+
+        $scope.selectName = $scope.selectOptions[0];
+    },function(){
+        alert('请求失败，请重试或缺失必要内容');
+    });
 
     $scope.selectChange = function(){
         console.log($scope.selectName);
@@ -1026,8 +1047,6 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         }else{
             byIssue();
         }
-
-
     };
 
     function byDate(){
@@ -1325,13 +1344,34 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     }
 
 
-    $scope.selectOptions = [
-        {key:'0',value:'选择分盘名称'},
-        {key:'1',value:'分盘one'},
-        {key:'2',value:'分盘two'},
-        {key:'3',value:'分盘three'},
-    ];
-    $scope.selectName = $scope.selectOptions[0];
+    //加载select 列表
+    initEncrypt('http://60.205.163.65:8080/manager/user?nicName=&userId=',null);
+    $http({
+        url : 'http://60.205.163.65:8080/manager/user?nicName=&userId=',
+        methoed : 'get'
+    }).then(function(res){
+        console.log(res,'select');
+        var resData = res.data;
+        if(resData.result == 'ERROR'){
+            alert('获取分盘名称列表失败，请重新刷新页面');
+            return;
+        }
+        if(res.result == 'NO_LOGIN'){
+            $state.go('login');
+            return;
+        }
+        $scope.selectOptions = [{key:'0',value:'选择分盘名称'}];
+        angular.forEach(resData.data,function(item){
+            var json = {};
+            json.key = item.id;
+            json.value = item.nickName;
+            $scope.selectOptions.push(json);
+        });
+
+        $scope.selectName = $scope.selectOptions[0];
+    },function(){
+        alert('请求失败，请重试或缺失必要内容');
+    });
 
     $scope.selectChange = function(){
         console.log($scope.selectName);
