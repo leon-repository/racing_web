@@ -82,7 +82,7 @@ myApp.config(['$stateProvider','$urlRouterProvider','$httpProvider','localStorag
 //监控所有路由 清除 实时监控的 请求定时器
 myApp.run(['$state','$rootScope','$timeout','localStorageService',function($state,$rootScope,$timeout,localStorageService){
     $rootScope.$on('$stateChangeStart',function(event,toState,toParams,fromState,fromParams,options){
-        console.log('url router change');
+        //console.log('url router change');
         $timeout.cancel($rootScope.timer);
         if(toState.name=='login')return;// 如果是进入登录界面则允许
         if(!localStorageService.get('username')){

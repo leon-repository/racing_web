@@ -45,7 +45,7 @@ myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
         var start = arrUrl[1].indexOf("/");
         var relUrl = arrUrl[1].substring(start);
         var path = null;
-        console.log(relUrl,'relUrl');
+        //console.log(relUrl,'relUrl');
 
         if (relUrl.indexOf("?") != -1) {
             path = relUrl.split("?")[0];
@@ -66,7 +66,7 @@ myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
     return {
         getAuthor: function(url, bodyQuery,secretKey) {
             var urlObj = getUrlInfo(url,bodyQuery);
-            console.log(urlObj,'urlObj');
+            //console.log(urlObj,'urlObj');
             //return;
             if(angular.isObject(urlObj.params)){
                 urlObj.searchObj.requestBody = JSON.stringify(urlObj.params);
@@ -76,13 +76,13 @@ myApp.factory('encrypt', ['$location', 'sha1', function($location, sha1) {
                 keyArr.push(key);
             });
             keyArr.sort();
-            //console.log(keyArr);
+            ////console.log(keyArr);
             var keyStr = '';
             angular.forEach(keyArr, function(val, index) {
                 keyStr += urlObj.searchObj[val];
             });
-            console.log(urlObj.path + keyStr + secretKey,'加密的字串');
-            console.log(secretKey,'secretKey');
+            //console.log(urlObj.path + keyStr + secretKey,'加密的字串');
+            //console.log(secretKey,'secretKey');
             return sha1.hash(urlObj.path + keyStr + secretKey).toUpperCase();
         }
     };
@@ -117,7 +117,7 @@ myApp.factory('HttpInterceptor', ['$q', 'localStorageService', function($q, loca
 
             //对所有的请求添加 验证
             if (localStorageService.get('Authorization')) {
-                //console.log(localStorageService.get('Authorization'),'location');
+                ////console.log(localStorageService.get('Authorization'),'location');
                 config.headers.Authorization = localStorageService.get('Authorization');
                 config.headers.Accesskey = localStorageService.get('Accesskey');
             }
@@ -125,7 +125,7 @@ myApp.factory('HttpInterceptor', ['$q', 'localStorageService', function($q, loca
         },
         // 请求发出时出错
         requestError: function(err) {
-            //console.log('request config error');
+            ////console.log('request config error');
             return $q.reject(err);
         },
         // 成功返回了响应
@@ -134,7 +134,7 @@ myApp.factory('HttpInterceptor', ['$q', 'localStorageService', function($q, loca
         },
         // 返回的响应出错，包括后端返回响应时，设置了非 200 的 http 状态码
         responseError: function(err) {
-            //console.log('response config error');
+            ////console.log('response config error');
             return $q.reject(err);
         }
     };

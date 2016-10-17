@@ -47,7 +47,7 @@ myApp.controller('loginCtrl',['$scope','$http','$state','$rootScope','localStora
             },
             data: params
         }).then(function(res){
-            console.log(res);
+            //console.log(res);
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
@@ -69,7 +69,7 @@ myApp.controller('loginCtrl',['$scope','$http','$state','$rootScope','localStora
                 alert('用户名或密码有误请重试');
             }
         },function(err){
-            console.log(err);
+            //console.log(err);
         });
     };
 }]);
@@ -316,11 +316,11 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
     // }
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
     //修改比赛结果的url
@@ -338,7 +338,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
             dataType : 'json',
         }).then(function(res){
             var resData = res.data;
-            console.log(res,'res data');
+            //console.log(res,'res data');
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
                 return;
@@ -356,7 +356,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
 
 
             if(resData.result==='ERROR'){
-                console.log('暂无比赛结果');
+                //console.log('暂无比赛结果');
                 $scope.modifyNotice = '';
                 $scope.tableDisabled = true;
                 $scope.toast = true;
@@ -367,7 +367,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
                 return;
             }
             if(resData.result==='SUCCESS' && resData.data.stage == 4){ // 不可押注
-                console.log('不可押注');
+                //console.log('不可押注');
 
                 $scope.modifyNotice = '';
                 $scope.tableDisabled = true;
@@ -380,7 +380,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
             }
 
             if(resData.result==='SUCCESS' && resData.data.stage == 2){ //计算最优结果
-                console.log('计算最优结果中..');
+                //console.log('计算最优结果中..');
 
                 $scope.modifyNotice = '';
                 $scope.tableDisabled = true;
@@ -392,7 +392,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
             }
 
             if(resData.result==='SUCCESS' && resData.data.stage == 3){ //改比赛结果
-                console.log('修改比赛结果');
+                //console.log('修改比赛结果');
                 // config.racingNum = resData.data.racingNum;
                 // $('.toast').hide();
                 // $('.table-box').addClass('disabled');
@@ -417,7 +417,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
 
 
             if(resData.result==='SUCCESS' && resData.data.stage == 1){          //押注阶段
-                console.log('押注时间');
+                //console.log('押注时间');
 
                 $scope.toast = false;
                 $scope.mask = false;
@@ -427,7 +427,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
             }
 
         },function(err){
-            console.log(err);
+            //console.log(err);
         });
         $rootScope.timer = $timeout(action,1000);
     }
@@ -437,7 +437,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
 
     //修改比赛结果
     $scope.modifyReslut = function(){
-        console.log($scope.arrResult,'drag end');
+        //console.log($scope.arrResult,'drag end');
         initEncrypt(modifyUrl,{
           "racingNum": $scope.racingNum,
           "result": $scope.arrResult
@@ -448,7 +448,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
             method : 'put',
             data : {'racingNum':$scope.racingNum,'result':$scope.arrResult}
         }).then(function(res){
-            console.log(res,'modifyReslut');
+            //console.log(res,'modifyReslut');
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
@@ -461,7 +461,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
                 alert('操作成功');
             }
         },function(err){
-            console.log(err);
+            //console.log(err);
             $scope.modifyNotice = '请求失败请重试';
         });
     };
@@ -476,11 +476,11 @@ myApp.controller('lotterylistCtrl',['$scope','$http','$state','localStorageServi
     $scope.queryPage = '';
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
     function initData(){
@@ -489,9 +489,9 @@ myApp.controller('lotterylistCtrl',['$scope','$http','$state','localStorageServi
             url : 'http://60.205.163.65:8080/manager/racing/result?page='+$scope.queryPage ,
             method : 'get',
         }).then(function(res){
-            console.log(res,'开奖列表');
+            //console.log(res,'开奖列表');
             var data = res.data;
-            console.log(data.data,'开奖列表');
+            //console.log(data.data,'开奖列表');
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
                 return;
@@ -514,7 +514,7 @@ myApp.controller('lotterylistCtrl',['$scope','$http','$state','localStorageServi
 
     //页面跳转
     $scope.goPage = function(page){
-        console.log(page);
+        //console.log(page);
         $scope.queryPage = page;
         initData();
     };
@@ -526,7 +526,7 @@ myApp.controller('lotterylistCtrl',['$scope','$http','$state','localStorageServi
     // //$scope.pageSize = 5;  //每页显示多少
     // $scope.total = 100;
     // $scope.goPage = function(a,b){
-    //     console.log(a,b);
+    //     //console.log(a,b);
     // };
 
 }]);
@@ -544,15 +544,15 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
     $scope.queryStatus = 'UNTREATED';
     $scope.queryPage = 1;
 
-    console.log('res secretKey: '+ localStorageService.get('secretKey'));
-    console.log('res Accesskey: '+localStorageService.get('Accesskey'));
+    //console.log('res secretKey: '+ localStorageService.get('secretKey'));
+    //console.log('res Accesskey: '+localStorageService.get('Accesskey'));
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
     initEncrypt('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,null);
 
@@ -561,7 +561,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
             url : 'http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,
             method : 'get',
         }).then(function(res){
-            console.log(res);
+            //console.log(res);
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
@@ -578,7 +578,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
             $scope.total = data.totalPage;
 
         }, function(err){
-            console.log(err,'获取用户管理页面失败');
+            //console.log(err,'获取用户管理页面失败');
             alert('请求失败，请重试或缺失必要内容');
         });
     }
@@ -603,14 +603,14 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 
     //页面跳转
     $scope.goPage = function(page){
-        console.log(page);
+        //console.log(page);
         $scope.queryPage = page;
         initEncrypt('http://60.205.163.65:8080/manager/pointsapp/status?status='+$scope.queryStatus+'&page='+$scope.queryPage,null);
         initData();
     };
 
     $scope.toRight = function(status,id) {
-        //console.log(status,id);
+        ////console.log(status,id);
         $scope.modalContent = '';
         $scope.modalID = id;
         $scope.modalStatus = status;
@@ -629,7 +629,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 
     //确认发送数据
     $scope.confirm = function(status) {
-        //console.log(status,$scope.modalContent,$scope.modalID,'modal');
+        ////console.log(status,$scope.modalContent,$scope.modalID,'modal');
         var url = '';
         switch (status) {
             case 'ok':
@@ -680,11 +680,11 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
     function initData(){
@@ -693,7 +693,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
             url : 'http://60.205.163.65:8080/manager/user/points?nickName='+$scope.queryNickName+'&userId='+$scope.queryUserId+'&page='+$scope.queryPage,
             method : 'get',
         }).then(function(res){
-            console.log(res);
+            //console.log(res);
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
@@ -710,7 +710,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
             $scope.total = data.totalPage;
 
         }, function(err){
-            console.log(err,'获取用户管理页面失败');
+            //console.log(err,'获取用户管理页面失败');
         });
     }
 
@@ -718,7 +718,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 
     //分页跳转
     $scope.goPage = function(page){
-        console.log(page);
+        //console.log(page);
         $scope.queryPage = page;
         initData();
     };
@@ -726,8 +726,8 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 
     //搜索
     $scope.search = function(){
-        console.log('search list');
-        console.log($scope.searchName,$scope.searchId);
+        //console.log('search list');
+        //console.log($scope.searchName,$scope.searchId);
         $scope.queryNickName = $scope.searchName ? $scope.searchName : '';
         $scope.queryUserId = $scope.searchId ? $scope.searchId : '';
         initData();
@@ -760,7 +760,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
         initEncrypt('http://60.205.163.65:8080'+url,{
             points : $scope.money
         });
-        console.log(status, url, $scope.money);
+        //console.log(status, url, $scope.money);
         $http({
             url : 'http://60.205.163.65:8080'+url,
             method : 'put',
@@ -790,7 +790,7 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
 }]);
 //查看积分详情
 myApp.controller('integralDetailCtrl',['$scope','$http','$state','$stateParams','$sanitize','localStorageService','encrypt',function($scope,$http,$state,$stateParams,$sanitize,localStorageService,encrypt){
-    //console.log($stateParams);
+    ////console.log($stateParams);
     $scope.queryUserId = $stateParams.userId;
     $scope.queryPage = 1;
 
@@ -798,11 +798,11 @@ myApp.controller('integralDetailCtrl',['$scope','$http','$state','$stateParams',
 
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
     function initData(){
@@ -837,7 +837,7 @@ myApp.controller('integralDetailCtrl',['$scope','$http','$state','$stateParams',
 
     //分页
     $scope.goPage = function(page){
-        console.log(page);
+        //console.log(page);
         $scope.queryPage = page;
         initData();
     };
@@ -865,11 +865,11 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     $scope.queryIssue = '';
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
     $scope.selectActive = 'byDate';
@@ -937,8 +937,8 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     // $scope.endTime = '2016-08-12';
     // $scope.issue = '1232454';
     $scope.searchByDate = function() {
-        console.log('search by date');
-        console.log($scope.startTime,$scope.endTime);
+        //console.log('search by date');
+        //console.log($scope.startTime,$scope.endTime);
         if(!$scope.startTime || !$scope.endTime){
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
@@ -951,8 +951,8 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     };
 
     $scope.searchByIssue = function() {
-        console.log('search by issue');
-        console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
+        //console.log('search by issue');
+        //console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
         if(!$scope.startTimeIssue || !$scope.endTimeIssue){
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
@@ -969,7 +969,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     //分页
     $scope.goPage = function(page){
         $scope.queryPage = page;
-        console.log(page);
+        //console.log(page);
         if($scope.selectActive == 'byDate'){
             byDate();
         }else{
@@ -1018,11 +1018,11 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
 
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
     //加载select 列表
@@ -1031,7 +1031,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
         url : 'http://60.205.163.65:8080/manager/user?nicName=&userId=',
         methoed : 'get'
     }).then(function(res){
-        console.log(res,'select');
+        //console.log(res,'select');
         var resData = res.data;
         if(resData.result == 'ERROR'){
             alert('获取分盘名称列表失败，请重新刷新页面');
@@ -1055,7 +1055,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     });
 
     $scope.selectChange = function(){
-        console.log($scope.selectName);
+        //console.log($scope.selectName);
         $scope.userId = $scope.selectName.key;
         if($scope.selectActive == 'byDate'){
             byDate();
@@ -1125,8 +1125,8 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     // $scope.endTime = '2016-08-12';
     // $scope.issue = '1232454';
     $scope.searchByDate = function() {
-        console.log('search by date');
-        console.log($scope.startTime,$scope.endTime);
+        //console.log('search by date');
+        //console.log($scope.startTime,$scope.endTime);
         if(!$scope.startTime || !$scope.endTime){
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
@@ -1138,8 +1138,8 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     };
 
     $scope.searchByIssue = function() {
-        console.log('search by issue');
-        console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
+        //console.log('search by issue');
+        //console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
         if(!$scope.startTimeIssue || !$scope.endTimeIssue){
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
@@ -1154,7 +1154,7 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
     //分页
     $scope.goPage = function(page){
         $scope.queryPage = page;
-        console.log(page);
+        //console.log(page);
         if($scope.selectActive == 'byDate'){
             byDate();
         }else{
@@ -1207,11 +1207,11 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     $scope.queryIssue = '';
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
     function byDate(){
@@ -1276,8 +1276,8 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     // $scope.endTime = '2016-08-12';
     // $scope.issue = '1232454';
     $scope.searchByDate = function() {
-        console.log('search by date');
-        console.log($scope.startTime,$scope.endTime);
+        //console.log('search by date');
+        //console.log($scope.startTime,$scope.endTime);
         if(!$scope.startTime || !$scope.endTime){
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
@@ -1289,8 +1289,8 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     };
 
     $scope.searchByIssue = function() {
-        console.log('search by issue');
-        console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
+        //console.log('search by issue');
+        //console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
         if(!$scope.startTimeIssue || !$scope.endTimeIssue){
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
@@ -1306,7 +1306,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     //分页
     $scope.goPage = function(page){
         $scope.queryPage = page;
-        console.log(page);
+        //console.log(page);
         if($scope.selectActive == 'byDate'){
             byDate();
         }else{
@@ -1351,11 +1351,11 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     $scope.queryIssue = '';
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
 
@@ -1365,7 +1365,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         url : 'http://60.205.163.65:8080/manager/user?nicName=&userId=',
         methoed : 'get'
     }).then(function(res){
-        console.log(res,'select');
+        //console.log(res,'select');
         var resData = res.data;
         if(resData.result == 'ERROR'){
             alert('获取分盘名称列表失败，请重新刷新页面');
@@ -1389,7 +1389,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     });
 
     $scope.selectChange = function(){
-        console.log($scope.selectName);
+        //console.log($scope.selectName);
         $scope.userId = $scope.selectName.key;
         if($scope.selectActive == 'byDate'){
             byDate();
@@ -1461,8 +1461,8 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     // $scope.endTime = '2016-08-12';
     // $scope.issue = '1232454';
     $scope.searchByDate = function() {
-        console.log('search by date');
-        console.log($scope.startTime,$scope.endTime);
+        //console.log('search by date');
+        //console.log($scope.startTime,$scope.endTime);
         if(!$scope.startTime || !$scope.endTime){
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
@@ -1474,8 +1474,8 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     };
 
     $scope.searchByIssue = function() {
-        console.log('search by issue');
-        console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
+        //console.log('search by issue');
+        //console.log($scope.startTimeIssue,$scope.endTimeIssue,$scope.issue);
         if(!$scope.startTimeIssue || !$scope.endTimeIssue){
             $scope.queryStartDate = '';
             $scope.queryEndDate = '';
@@ -1490,7 +1490,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     //分页
     $scope.goPage = function(page){
         $scope.queryPage = page;
-        console.log(page);
+        //console.log(page);
         if($scope.selectActive == 'byDate'){
             byDate();
         }else{
@@ -1528,18 +1528,18 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
     };
 
 }]).controller('betDetailCtrl',['$scope','$stateParams','$http','encrypt','localStorageService',function($scope,$stateParams,$http,encrypt,localStorageService){
-    console.log($stateParams.type);
+    //console.log($stateParams.type);
     $scope.userId = $stateParams.id;
     $scope.type = $stateParams.type;
     $scope.dateIssue = $stateParams.category;
 
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
     function maketableDate(json){
@@ -1780,7 +1780,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         url :  url,
         method : 'get'
     }).then(function(res){
-        // console.log(res,'详情结果');
+        // //console.log(res,'详情结果');
 
         var resData = res.data;
         if(resData.result == 'NO_LOGIN'){
@@ -1819,11 +1819,11 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
     $scope.queryManagerId = '';
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
     // 获取 用户列表
@@ -1833,7 +1833,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             url : 'http://60.205.163.65:8080/manager',
             method : 'get',
         }).then(function(res){
-            console.log(res);
+            //console.log(res);
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
@@ -1931,10 +1931,10 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
 
     $scope.confirm = function(){
         if($scope.operation == 'modify'){
-            console.log('modify');
-            console.log($scope.nickname);
-            console.log($scope.password);
-            console.log($scope.repeatPwd);
+            //console.log('modify');
+            //console.log($scope.nickname);
+            //console.log($scope.password);
+            //console.log($scope.repeatPwd);
             if($scope.password != $scope.repeatPwd){
                 alert('两次密码不一致');
                 return;
@@ -1952,7 +1952,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                     password : $scope.password
                 }
             }).then(function(res){
-                console.log(res);
+                //console.log(res);
                 var data = res.data;
                 if(res.result == 'NO_LOGIN'){
                     $state.go('login');
@@ -1969,13 +1969,13 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             });
         }
         if($scope.operation == 'delete'){
-            console.log('delete');
+            //console.log('delete');
             initEncrypt('http://60.205.163.65:8080/manager/'+$scope.queryManagerId,null);
             $http({
                 url : 'http://60.205.163.65:8080/manager/'+$scope.queryManagerId,
                 method : 'delete',
             }).then(function(res){
-                console.log(res);
+                //console.log(res);
                 var data = res.data;
                 if(res.result == 'NO_LOGIN'){
                     $state.go('login');
@@ -1992,11 +1992,11 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             });
         }
         if($scope.operation == 'add'){
-            console.log('adduser');
-            console.log($scope.nickname);
-            console.log($scope.username);
-            console.log($scope.password);
-            console.log($scope.repeatPwd);
+            //console.log('adduser');
+            //console.log($scope.nickname);
+            //console.log($scope.username);
+            //console.log($scope.password);
+            //console.log($scope.repeatPwd);
             if($scope.password != $scope.repeatPwd){
                 alert('两次密码不一致');
                 return;
@@ -2015,7 +2015,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                     userName : $scope.username,
                 }
             }).then(function(res){
-                console.log(res);
+                //console.log(res);
                 var data = res.data;
                 if(res.result == 'NO_LOGIN'){
                     $state.go('login');
@@ -2045,11 +2045,11 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
     $scope.queryUserId = '';
 
     function initEncrypt(url,bodyQuery){
-        //console.log(url,'url');
+        ////console.log(url,'url');
         var authoriza = encrypt.getAuthor(url,bodyQuery,localStorageService.get('secretKey'));
         localStorageService.set('Authorization',authoriza);
         localStorageService.set('Accesskey',localStorageService.get('Accesskey'));
-        //console.log(authoriza,'set');
+        ////console.log(authoriza,'set');
     }
 
 
@@ -2060,7 +2060,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             url : 'http://60.205.163.65:8080/manager/user?nickName='+$scope.queryNickName+'&userId='+$scope.queryNumber,
             method : 'get',
         }).then(function(res){
-            console.log(res);
+            //console.log(res);
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
@@ -2084,7 +2084,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
 
 
     $scope.search = function(){
-        console.log($scope.searchName,$scope.searchNumber);
+        //console.log($scope.searchName,$scope.searchNumber);
         $scope.queryNickName = $scope.searchName || '';
         $scope.queryNumber = $scope.searchNumber || '';
 
@@ -2138,7 +2138,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                 isEnable : flage
             }
         }).then(function(res){
-            console.log(res);
+            //console.log(res);
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
@@ -2167,7 +2167,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                 clientIsEnable : flage
             }
         }).then(function(res){
-            console.log(res);
+            //console.log(res);
             var data = res.data;
             if(res.result == 'NO_LOGIN'){
                 $state.go('login');
@@ -2190,7 +2190,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
     //         url : 'http://60.205.163.65:8080/manager/user/'+id+'/robot/available',
     //         method : 'put',
     //     }).then(function(res){
-    //         console.log(res);
+    //         //console.log(res);
     //         var data = res.data;
     //         if(data.result == 'ERROR'){
     //             alert(data.message);
@@ -2205,8 +2205,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
 
     $scope.confirm = function(){
         if($scope.operation == 'modify'){
-            console.log('modify');
-            console.log($scope.nickname);
+            //console.log('modify');
+            //console.log($scope.nickname);
 
             if($scope.password != $scope.repeatPwd){
                 alert('两次密码不一致');
@@ -2227,7 +2227,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                     //repassword : $scope.repeatPwd,
                 }
             }).then(function(res){
-                console.log(res);
+                //console.log(res);
                 var data = res.data;
                 if(res.result == 'NO_LOGIN'){
                     $state.go('login');
@@ -2244,13 +2244,13 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             });
         }
         if($scope.operation == 'delete'){
-            console.log('delete');
+            //console.log('delete');
             initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.queryUserId,null);
             $http({
                 url : 'http://60.205.163.65:8080/manager/user/'+$scope.queryUserId,
                 method : 'delete',
             }).then(function(res){
-                console.log(res);
+                //console.log(res);
                 var data = res.data;
                 if(res.result == 'NO_LOGIN'){
                     $state.go('login');
@@ -2267,8 +2267,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             });
         }
         if($scope.operation == 'add'){
-            console.log('adduser');
-            console.log($scope.nickname,$scope.username,$scope.password,$scope.repeatPwd);
+            //console.log('adduser');
+            //console.log($scope.nickname,$scope.username,$scope.password,$scope.repeatPwd);
 
             if($scope.password != $scope.repeatPwd){
                 alert('两次密码不一致');
@@ -2290,7 +2290,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                     userName : $scope.username,
                 }
             }).then(function(res){
-                console.log(res);
+                //console.log(res);
                 var data = res.data;
                 if(res.result == 'NO_LOGIN'){
                     $state.go('login');
@@ -2307,7 +2307,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             });
         }
         if($scope.operation == 'addSetRobot'){
-            console.log('addSetRobot',$scope.expire);
+            //console.log('addSetRobot',$scope.expire);
             initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.queryUserId+'/robot',{
                 clientSn : $scope.clientsn,
                 clientExpireDate : new Date($scope.expire).getTime()
@@ -2320,7 +2320,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
                     clientExpireDate : new Date($scope.expire).getTime()
                 }
             }).then(function(res){
-                console.log(res);
+                //console.log(res);
                 var data = res.data;
                 if(res.result == 'NO_LOGIN'){
                     $state.go('login');
