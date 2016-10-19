@@ -1768,7 +1768,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
 
     var url = '';
     console.log($scope.userId,'sdfsdfsdf');
-    if(typeof($scope.userId) === 'null'){ //总盘详情
+    if( $scope.userId == 'all'){ //总盘详情
         if($scope.type == 'byDate'){
             // /manager/stake/day/info?day=
             url = 'http://60.205.163.65:8080/manager/stake/day/info?day='+$scope.dateIssue;
