@@ -1767,10 +1767,9 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
 
 
     var url = '';
-    console.log($scope.userId);
-    if($scope.userId === 'all'){ //总盘查看详情
+    if( $scope.userId === 'all'){ //总盘详情
         if($scope.type == 'byDate'){
-            // /manager/user/{userId/stake/day/info?day=
+            // /manager/stake/day/info?day=
             url = 'http://60.205.163.65:8080/manager/stake/day/info?day='+$scope.dateIssue;
         }
         if($scope.type == 'byIssue'){
@@ -1785,6 +1784,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             url = 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/stake/racingnum/info?racingNum='+$scope.dateIssue;
         }
     }
+
 
 
     initEncrypt(url,null);
