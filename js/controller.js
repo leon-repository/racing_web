@@ -1767,13 +1767,25 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
 
 
     var url = '';
-    if($scope.type == 'byDate'){
-        // /manager/user/{userId/stake/day/info?day=
-        url = 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/stake/day/info?day='+$scope.dateIssue;
+    console.log($scope.userId);
+    if($scope.userId === 'all'){ //总盘查看详情
+        if($scope.type == 'byDate'){
+            // /manager/user/{userId/stake/day/info?day=
+            url = 'http://60.205.163.65:8080/manager/stake/day/info?day='+$scope.dateIssue;
+        }
+        if($scope.type == 'byIssue'){
+            url = 'http://60.205.163.65:8080/manager/stake/racingnum/info?racingNum='+$scope.dateIssue;
+        }
+    }else{
+        if($scope.type == 'byDate'){
+            // /manager/user/{userId/stake/day/info?day=
+            url = 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/stake/day/info?day='+$scope.dateIssue;
+        }
+        if($scope.type == 'byIssue'){
+            url = 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/stake/racingnum/info?racingNum='+$scope.dateIssue;
+        }
     }
-    if($scope.type == 'byIssue'){
-        url = 'http://60.205.163.65:8080/manager/user/'+$scope.userId+'/stake/racingnum/info?racingNum='+$scope.dateIssue;
-    }
+
 
     initEncrypt(url,null);
     $http({
@@ -1793,7 +1805,7 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
         }
 
         if($scope.type == 'byIssue'){
-            $scope.lotteryRestut = resData.data.result ? resData.data.result.join(''):'';
+            $scope.lotteryRestut = resData.data.result ? resData.data.result.join('-'):'';
         }
         $scope.money = resData.data.stakeAmount;
         $scope.number = resData.data.stakeCount;

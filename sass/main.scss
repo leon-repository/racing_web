@@ -1,11 +1,18 @@
 //@import "sassCore/_base.scss";
 
 $colors : #ffff00 #0089ff #4d4d4d #ff7300 #81ffff #5200ff #b8b8b8 #ff0000 #760000 #28c200;
+$bgColors : #028461 #f5fc2f #ff2d88;
 body{
     overflow-x: hidden;
 }
 button,input{
     outline: none !important;
+}
+
+@for $i from 1 through 3 {
+    .bgColor-#{$i}{
+        background-color: nth($bgColors, $i);
+    }
 }
 
 @for $i from 1 through 10 {
@@ -131,7 +138,7 @@ table{
 }
 .item-value{
     width: 65%;
-    color: #ff0000;
+    color: #000;
     text-align: center;
 }
 .notice-info{

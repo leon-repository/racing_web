@@ -38,16 +38,16 @@
                     <thead>
                         <tr>
                             <th>赔率</th>
-                            <th>冠军</th>
-                            <th>亚军</th>
-                            <th>第三名</th>
-                            <th>第四名</th>
-                            <th>第五名</th>
-                            <th>第六名</th>
-                            <th>第七名</th>
-                            <th>第八名</th>
-                            <th>第九名</th>
-                            <th>第十名</th>
+                            <th style="background:#60f7cf">冠军</th>
+                            <th style="background:#60f7cf">亚军</th>
+                            <th style="background:#60f7cf">第三名</th>
+                            <th style="background:#60f7cf">第四名</th>
+                            <th style="background:#60f7cf">第五名</th>
+                            <th style="background:#60f7cf">第六名</th>
+                            <th style="background:#60f7cf">第七名</th>
+                            <th style="background:#60f7cf">第八名</th>
+                            <th style="background:#60f7cf">第九名</th>
+                            <th style="background:#60f7cf">第十名</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,7 +56,7 @@
                             <td ng-if='$index>5' class="red">9.7</td>
                             <td ng-repeat='item in row'>
                                 <div class="item-td">
-                                    <p class="item-code" ng-if='item.key'>{{item.key}}</p>
+                                    <p class="item-code" ng-if='item.key' ng-class="{'bgColor-1': (item.key=='大'||item.key=='小'),'bgColor-2': (item.key=='单'||item.key=='双'),'bgColor-3': (item.key=='龙'||item.key=='虎'),'color-1': item.key==1,'color-2': item.key==2,'color-3': item.key==3,'color-4': item.key==4,'color-5': item.key==5,'color-6': item.key==6,'color-7': item.key==7,'color-8': item.key==8,'color-9': item.key==9,'color-10': item.key==10}">{{item.key}}</p>
                                     <p class="item-value" ng-if='item.key'>{{item.money}}</p>
                                 </div>
                             </td>

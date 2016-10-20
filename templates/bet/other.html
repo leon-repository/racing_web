@@ -80,7 +80,7 @@
                         <td>{{row.totalDeficitAmount}}<span class="paddingTips">|</span>{{row.userDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}</td>
                         <td>{{row.totalStakeCount}}<span class="paddingTips">|</span>{{row.userStakeCount}}<span class="paddingTips">|</span>{{row.membersStakeCount}}</td>
                         <td>
-                            <a class="btn btn-primary" ui-sref="betDetail({type:'byDate',category:row.day,id:row.id})">查看详情</a>
+                            <a class="btn btn-primary" ui-sref="betDetail({type:'byDate',category:row.day,id:row.userId})">查看详情</a>
                         </td>
                     </tr>
                 </tbody>
@@ -161,7 +161,7 @@
                         <td>{{row.totalDeficitAmount}}<span class="paddingTips">|</span>{{row.userDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}</td>
                         <td>{{row.totalStakeCount}}<span class="paddingTips">|</span>{{row.userStakeCount}}<span class="paddingTips">|</span>{{row.membersStakeCount}}</td>
                         <td>
-                            <a class="btn btn-primary" ui-sref="betDetail({type:'byIssue',category:row.racingNum,id:row.id})">查看详情</a>
+                            <a class="btn btn-primary" ui-sref="betDetail({type:'byIssue',category:row.racingNum,id:row.userId})">查看详情</a>
                         </td>
                     </tr>
                 </tbody>
