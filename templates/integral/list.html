@@ -34,9 +34,9 @@
                     <tr ng-repeat="row in tableData track by $index">
                         <td>{{$index+1}}</td>
                         <td>{{row.nickName}}</td>
-                        <td>{{row.userPoints}}</td>
                         <td>{{row.totalPoints}}</td>
                         <td>{{row.membersPoints}}</td>
+                        <td>{{row.userPoints}}</td>
                         <td>
                             <a class='btn btn-sm btn-success' ng-click='toModal("add",row.userId)' data-toggle="modal" data-target="#myModal">加积分</a>
                             <a class='btn btn-sm btn-info' ng-click='toModal("reduce",row.userId)' data-toggle="modal" data-target="#myModal">减积分</a>

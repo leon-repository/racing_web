@@ -2,6 +2,8 @@ body { overflow-x: hidden; }
 
 button, input { outline: none !important; }
 
+.table > tbody > tr > td, .table-bordered > thead > tr > th { padding: 3px 8px; }
+
 .bgColor-1 { background-color: #028461; }
 
 .bgColor-2 { background-color: #f5fc2f; }
@@ -29,6 +31,10 @@ button, input { outline: none !important; }
 .color-10 { background-color: #28c200; }
 
 .main-box { padding: 20px; }
+
+.realtime-header { position: relative; margin-bottom: 50px; }
+
+.more-info { position: absolute; bottom: 7px; left: 20px; }
 
 .old-code span { width: 28px; height: 24px; text-align: center; line-height: 24px; display: inline-block; margin: 0 3px; border-radius: 2px; font-weight: normal; color: #fff; text-shadow: 0 0 1px #000; }
 
@@ -68,7 +74,7 @@ table tbody .selected { background-color: #dff0d8; }
 
 .loading { position: absolute; top: 48%; left: 48%; font-size: 14px; color: #fff; z-index: 20; }
 
-.pos-box { position: fixed; padding: 100px; top: 0; left: 0; right: 0; bottom: 0; z-index: 20; font-size: 20px; font-weight: bold; }
+.pos-box { position: absolute; padding: 20px 100px; top: 0; left: 0; right: 0; bottom: 0; z-index: 20; font-size: 20px; font-weight: bold; }
 
 .drag-box { width: 745px; height: 100px; padding: 20px; margin: 0 auto; text-align: center; }
 .drag-box span { line-height: 60px; color: #fff; text-shadow: 0 0 1px #333; font-size: 35px; cursor: pointer; }
@@ -79,7 +85,9 @@ table tbody .selected { background-color: #dff0d8; }
 
 .dash { float: left; width: 60px; height: 60px; margin-right: 10px; border: 1px dashed #f00; }
 
-.modify-notice { height: 45px; font-size: 16px; color: red; }
+#modifying h3 { margin: 0; }
+
+.modify-notice { height: 20px; font-size: 16px; color: red; }
 
 .toast { position: fixed; z-index: 40; background-color: rgba(0, 0, 0, 0.8); color: #fff; font-size: 20px; padding: 10px 80px; border-radius: 8px; top: 50%; left: 50%; -webkit-transform: translateX(-50%); -ms-transform: translateX(-50%); transform: translateX(-50%); }
 
@@ -89,6 +97,8 @@ table tbody .selected { background-color: #dff0d8; }
 .chose-box { margin-top: 10px; margin-bottom: 20px; }
 
 .red { color: red; }
+
+.green { color: green; }
 
 .th-box { font-size: 14px; }
 .th-box span { padding: 0 5px; color: #999; }

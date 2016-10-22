@@ -48,7 +48,11 @@
                         <td>{{row.day}}</td>
                         <td>{{row.stakeAmount}}</td>
                         <td>{{row.incomeAmount}}</td>
-                        <td>{{row.deficitAmount}}</td>
+                        <td>
+                            <span ng-if="row.deficitAmount>0" class="green">{{row.deficitAmount}}</span>
+                            <span ng-if="row.deficitAmount==0">{{row.deficitAmount}}</span>
+                            <span ng-if="row.deficitAmount<0" class="red">{{row.deficitAmount}}</span>
+                        </td>
                         <td>{{row.stakeCount}}</td>
                     </tr>
                 </tbody>
@@ -105,7 +109,11 @@
                         <td>{{row.racingNum}}</td>
                         <td>{{row.stakeAmount}}</td>
                         <td>{{row.incomeAmount}}</td>
-                        <td>{{row.deficitAmount}}</td>
+                        <td>
+                            <span ng-if="row.deficitAmount>0" class="green">{{row.deficitAmount}}</span>
+                            <span ng-if="row.deficitAmount==0">{{row.deficitAmount}}</span>
+                            <span ng-if="row.deficitAmount<0" class="red">{{row.deficitAmount}}</span>
+                        </td>
                         <td>{{row.stakeCount}}</td>
                     </tr>
                 </tbody>

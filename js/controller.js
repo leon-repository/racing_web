@@ -375,7 +375,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
                 $scope.mask = false;
                 $scope.computering = false;
                 $scope.modifying = false;
-
+                modifyflag = true;
                 return;
             }
 
@@ -391,7 +391,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
                 return;
             }
 
-            if(resData.result==='SUCCESS' && resData.data.stage == 3){ //改比赛结果
+            if(resData.result==='SUCCESS' && resData.data.stage == 3 ){ //改比赛结果
                 //console.log('修改比赛结果');
                 // config.racingNum = resData.data.racingNum;
                 // $('.toast').hide();
@@ -402,7 +402,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
 
                 $scope.tableDisabled = true;
                 $scope.toast = false;
-                $scope.mask = true;
+                $scope.mask = false;
                 $scope.computering = false;
                 $scope.modifying = true;
                 if(modifyflag){

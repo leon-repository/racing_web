@@ -8,6 +8,9 @@ body{
 button,input{
     outline: none !important;
 }
+.table>tbody>tr>td,.table-bordered>thead>tr>th{
+    padding: 3px 8px
+}
 
 @for $i from 1 through 3 {
     .bgColor-#{$i}{
@@ -23,6 +26,16 @@ button,input{
 
 .main-box{
     padding: 20px;
+}
+
+.realtime-header{
+    position: relative;
+    margin-bottom: 50px;
+}
+.more-info{
+    position: absolute;
+    bottom: 7px;
+    left: 20px;
 }
 
 .old-code{
@@ -166,8 +179,8 @@ table{
 }
 
 .pos-box{
-    position: fixed;
-    padding: 100px;
+    position: absolute;
+    padding: 20px 100px;
     top: 0;
     left: 0;
     right: 0;
@@ -216,8 +229,13 @@ table{
     margin-right: 10px;
     border: 1px dashed #f00;
 };
+
+#modifying h3{
+    margin: 0;
+}
+
 .modify-notice{
-    height: 45px;
+    height: 20px;
     font-size: 16px;
     color: red;
 }
@@ -251,6 +269,9 @@ table{
 }
 .red{
     color: red;
+}
+.green{
+    color: green;
 }
 
 .th-box{

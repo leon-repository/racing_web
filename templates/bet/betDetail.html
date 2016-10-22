@@ -27,14 +27,14 @@
         </div>
         <div class="col-md-2">
             <h4>总盈亏</h4>
-            <p>{{allfitloss}}</p>
+            <p><span ng-if="allfitloss<0" class="red">{{allfitloss}}</span><span ng-if="allfitloss>=0">{{allfitloss}}</span></p>
         </div>
     </div>
-    <h2 class="text-center text-primary">1-10名</h2>
-    <div class="row main-box">
+    <!-- <h2 class="text-center text-primary">1-10名</h2> -->
+    <div class="row">
         <div class="col-md-12">
-            <div id="table-box_1" class="table-box table-responsive">
-                <table class="table table-bordered table-striped">
+            <div id="table-box_1" class="table-box table-responsive" >
+                <table class="table table-bordered table-striped" style="margin-bottom:0;">
                     <thead>
                         <tr>
                             <th>赔率</th>
@@ -66,8 +66,8 @@
             </div>
         </div>
     </div>
-    <h2 class="text-center text-primary">冠亚组合</h2>
-    <div id='table-gy' class="row main-box">
+    <!-- <h2 class="text-center text-primary">冠亚组合</h2> -->
+    <div id='table-gy' class="row">
         <div class="col-md-12">
             <div id="table-box_2" class="table-box table-responsive">
                 <table class="table table-bordered table-striped">
