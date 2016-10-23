@@ -56,10 +56,23 @@
                             {{!row.isHaveClient ? '无机器人':''}}
                             {{row.isHaveClient && !row.isClientExpired ? '有机器人':''}}
                             {{row.isHaveClient && row.isClientExpired ? '机器人已到期':''}}
+                            <button class="btn btn-info btn-sm" ng-if="row.isHaveClient && !row.isClientExpired" data-toggle="modal" data-target="#myModalClient" ng-click="lookSn(row.clientSn)">查看机器人clientSn</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div class="modal" id="myModalClient">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">当前机器人的 clientsn 为：</div>
+            <div class="modal-body">{{lookClientSn}}</div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+            </div>
+          </div>
         </div>
     </div>
     <div class="modal" id="myModal">
@@ -126,7 +139,7 @@
                 <div class="form-group" ng-show="modalTitle == '添加机器人'">
                   <label class='control-label col-sm-3'>ClientSN: </label>
                   <div class="col-sm-7">
-                      <input type="text" class="form-control" placeholder="请输入ClientSN" ng-model="clientsn">
+                      <input type="text" class="form-control" placeholder="请输入ClientSN" ng-model="clientsn" disabled>
                   </div>
                 </div>
                 <div class="form-group">

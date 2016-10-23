@@ -76,7 +76,19 @@
                         <td>{{row.day}}</td>
                         <td>{{row.totalStakeAmount}}<span class="paddingTips">|</span>{{row.userStakeAmount}}<span class="paddingTips">|</span>{{row.membersStakeAmount}}</td>
                         <td>{{row.totalIncomeAmount}}<span class="paddingTips">|</span>{{row.userIncomeAmount}}<span class="paddingTips">|</span>{{row.membersIncomeAmount}}</td>
-                        <td>{{row.totalDeficitAmount}}<span class="paddingTips">|</span>{{row.userDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}</td>
+                        <td>
+                            <span ng-if="row.totalDeficitAmount<0" class="red">{{row.totalDeficitAmount}}</span>
+                            <span ng-if="row.totalDeficitAmount==0">0</span>
+                            <span ng-if="row.totalDeficitAmount>0" class="green">{{row.totalDeficitAmount}}</span>
+                            <span class="paddingTips">|</span>
+                            <span ng-if="row.userDeficitAmount<0" class="red">{{row.userDeficitAmount}}</span>
+                            <span ng-if="row.userDeficitAmount>0" class="green">{{row.userDeficitAmount}}</span>
+                            <span ng-if="row.userDeficitAmount==0">0</span>
+                            <span class="paddingTips">|</span>
+                            <span ng-if="row.membersDeficitAmount>0" class="green">{{row.membersDeficitAmount}}</span>
+                            <span ng-if="row.membersDeficitAmount<0" class="red">{{row.membersDeficitAmount}}</span>
+                            <span ng-if="row.membersDeficitAmount==0">0</span>
+                        </td>
                         <td>{{row.totalStakeCount}}<span class="paddingTips">|</span>{{row.userStakeCount}}<span class="paddingTips">|</span>{{row.membersStakeCount}}</td>
                     </tr>
                 </tbody>
@@ -153,7 +165,19 @@
                         <td>{{row.racingNum}}</td>
                         <td>{{row.totalStakeAmount}}<span class="paddingTips">|</span>{{row.userStakeAmount}}<span class="paddingTips">|</span>{{row.membersStakeAmount}}</td>
                         <td>{{row.totalIncomeAmount}}<span class="paddingTips">|</span>{{row.userIncomeAmount}}<span class="paddingTips">|</span>{{row.membersIncomeAmount}}</td>
-                        <td>{{row.totalDeficitAmount}}<span class="paddingTips">|</span>{{row.userDeficitAmount}}<span class="paddingTips">|</span>{{row.membersDeficitAmount}}</td>
+                        <td>
+                            <span ng-if="row.totalDeficitAmount<0" class="red">{{row.totalDeficitAmount}}</span>
+                            <span ng-if="row.totalDeficitAmount==0">0</span>
+                            <span ng-if="row.totalDeficitAmount>0" class="green">{{row.totalDeficitAmount}}</span>
+                            <span class="paddingTips">|</span>
+                            <span ng-if="row.userDeficitAmount<0" class="red">{{row.userDeficitAmount}}</span>
+                            <span ng-if="row.userDeficitAmount>0" class="green">{{row.userDeficitAmount}}</span>
+                            <span ng-if="row.userDeficitAmount==0">0</span>
+                            <span class="paddingTips">|</span>
+                            <span ng-if="row.membersDeficitAmount>0" class="green">{{row.membersDeficitAmount}}</span>
+                            <span ng-if="row.membersDeficitAmount<0" class="red">{{row.membersDeficitAmount}}</span>
+                            <span ng-if="row.membersDeficitAmount==0">0</span>
+                        </td>
                         <td>{{row.totalStakeCount}}<span class="paddingTips">|</span>{{row.userStakeCount}}<span class="paddingTips">|</span>{{row.membersStakeCount}}</td>
                     </tr>
                 </tbody>

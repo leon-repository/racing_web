@@ -351,6 +351,7 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
             $scope.preResult = resData.data.preResult;
             $scope.nowStatus = resData.data.stageName;
             $scope.preRacingNum = resData.data.preRacingNum;
+            $scope.money = resData.data.totalRacingStakeAmount;
 
             maketableDate(resData.data.stakeVo);
 
@@ -2137,6 +2138,13 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         $scope.modalTitle = title;
         $scope.expire = '';
         $scope.queryUserId = id;
+        if(title == '添加机器人'){
+            $scope.statusOperate = 'addRobot';
+            $scope.clientsn = new UUID();
+        }else{
+            $scope.statusOperate = 'setRobot';
+        }
+
     };
 
     $scope.userCanAble = function(id,flage){
@@ -2214,6 +2222,11 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
     //         alert('请求失败，请重试或缺失必要内容');
     //     });
     // };
+
+    //查看 clientsn
+    $scope.lookSn = function(clientsn){
+        $scope.lookClientSn = clientsn;
+    }
 
     $scope.confirm = function(){
         if($scope.operation == 'modify'){
@@ -2320,6 +2333,10 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         }
         if($scope.operation == 'addSetRobot'){
             //console.log('addSetRobot',$scope.expire);
+            // if( $scope.statusOperate == 'addRobot'){
+            //
+            // }
+
             initEncrypt('http://60.205.163.65:8080/manager/user/'+$scope.queryUserId+'/robot',{
                 clientSn : $scope.clientsn,
                 clientExpireDate : new Date($scope.expire).getTime()
