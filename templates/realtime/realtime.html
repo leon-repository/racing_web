@@ -44,8 +44,8 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="row in table1 track by $index">
-                            <td ng-if='$index<6' class="red">1.94</td>
-                            <td ng-if='$index>5' class="red">9.7</td>
+                            <td ng-if='$index<6' class="red">1.988</td>
+                            <td ng-if='$index>5' class="red">9.94</td>
                             <td ng-repeat='item in row'>
                                 <div class="item-td">
                                     <p class="item-code" ng-if='item.key' ng-class="{'bgColor-1': (item.key=='大'||item.key=='小'),'bgColor-2': (item.key=='单'||item.key=='双'),'bgColor-3': (item.key=='龙'||item.key=='虎'),'color-1': item.key==1,'color-2': item.key==2,'color-3': item.key==3,'color-4': item.key==4,'color-5': item.key==5,'color-6': item.key==6,'color-7': item.key==7,'color-8': item.key==8,'color-9': item.key==9,'color-10': item.key==10}">{{item.key}}</p>
