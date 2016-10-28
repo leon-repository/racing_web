@@ -49,7 +49,8 @@ myApp.controller('loginCtrl',['$scope','$http','$state','$rootScope','localStora
         }).then(function(res){
             //console.log(res);
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -339,7 +340,8 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
         }).then(function(res){
             var resData = res.data;
             //console.log(res,'res data');
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -451,7 +453,8 @@ myApp.controller('realtimeCtrl',['$scope','$rootScope','$http','$timeout','$filt
         }).then(function(res){
             //console.log(res,'modifyReslut');
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -493,7 +496,8 @@ myApp.controller('lotterylistCtrl',['$scope','$http','$state','localStorageServi
             //console.log(res,'开奖列表');
             var data = res.data;
             //console.log(data.data,'开奖列表');
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -564,7 +568,8 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
         }).then(function(res){
             //console.log(res);
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -654,7 +659,8 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
             }
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -696,7 +702,8 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
         }).then(function(res){
             //console.log(res);
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -770,7 +777,8 @@ myApp.controller('integralCtrl',['$scope','$location',function($scope,$location)
             }
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -813,7 +821,8 @@ myApp.controller('integralDetailCtrl',['$scope','$http','$state','$stateParams',
             method : 'get',
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -882,7 +891,8 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             method : 'get'
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -907,7 +917,8 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             method : 'get'
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -1038,7 +1049,8 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             alert('获取分盘名称列表失败，请重新刷新页面');
             return;
         }
-        if(res.result == 'NO_LOGIN'){
+        if(res.data.result == 'NO_LOGIN'){
+            localStorageService.clearAll();
             $state.go('login');
             return;
         }
@@ -1072,7 +1084,8 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             method : 'get'
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -1097,7 +1110,8 @@ myApp.controller('profitCtrl',['$scope','$location',function($scope,$location){
             method : 'get'
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -1222,7 +1236,8 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             method : 'get'
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -1247,7 +1262,8 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             method : 'get'
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -1372,7 +1388,8 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             alert('获取分盘名称列表失败，请重新刷新页面');
             return;
         }
-        if(res.result == 'NO_LOGIN'){
+        if(res.data.result == 'NO_LOGIN'){
+            localStorageService.clearAll();
             $state.go('login');
             return;
         }
@@ -1408,7 +1425,8 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             method : 'get'
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -1433,7 +1451,8 @@ myApp.controller('betCtrl',['$scope','$location',function($scope,$location){
             method : 'get'
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -1848,7 +1867,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         }).then(function(res){
             //console.log(res);
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -1877,7 +1897,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             method : 'put'
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -1900,7 +1921,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             method : 'put'
         }).then(function(res){
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -1967,7 +1989,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             }).then(function(res){
                 //console.log(res);
                 var data = res.data;
-                if(res.result == 'NO_LOGIN'){
+                if(res.data.result == 'NO_LOGIN'){
+                    localStorageService.clearAll();
                     $state.go('login');
                     return;
                 }
@@ -1990,7 +2013,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             }).then(function(res){
                 //console.log(res);
                 var data = res.data;
-                if(res.result == 'NO_LOGIN'){
+                if(res.data.result == 'NO_LOGIN'){
+                    localStorageService.clearAll();
                     $state.go('login');
                     return;
                 }
@@ -2030,7 +2054,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             }).then(function(res){
                 //console.log(res);
                 var data = res.data;
-                if(res.result == 'NO_LOGIN'){
+                if(res.data.result == 'NO_LOGIN'){
+                    localStorageService.clearAll();
                     $state.go('login');
                     return;
                 }
@@ -2075,7 +2100,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         }).then(function(res){
             //console.log(res);
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -2160,7 +2186,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         }).then(function(res){
             //console.log(res);
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -2189,7 +2216,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         }).then(function(res){
             //console.log(res);
             var data = res.data;
-            if(res.result == 'NO_LOGIN'){
+            if(res.data.result == 'NO_LOGIN'){
+                localStorageService.clearAll();
                 $state.go('login');
                 return;
             }
@@ -2254,7 +2282,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             }).then(function(res){
                 //console.log(res);
                 var data = res.data;
-                if(res.result == 'NO_LOGIN'){
+                if(res.data.result == 'NO_LOGIN'){
+                    localStorageService.clearAll();
                     $state.go('login');
                     return;
                 }
@@ -2277,7 +2306,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             }).then(function(res){
                 //console.log(res);
                 var data = res.data;
-                if(res.result == 'NO_LOGIN'){
+                if(res.data.result == 'NO_LOGIN'){
+                    localStorageService.clearAll();
                     $state.go('login');
                     return;
                 }
@@ -2317,7 +2347,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             }).then(function(res){
                 //console.log(res);
                 var data = res.data;
-                if(res.result == 'NO_LOGIN'){
+                if(res.data.result == 'NO_LOGIN'){
+                    localStorageService.clearAll();
                     $state.go('login');
                     return;
                 }
@@ -2351,7 +2382,8 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
             }).then(function(res){
                 //console.log(res);
                 var data = res.data;
-                if(res.result == 'NO_LOGIN'){
+                if(res.data.result == 'NO_LOGIN'){
+                    localStorageService.clearAll();
                     $state.go('login');
                     return;
                 }
