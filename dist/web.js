@@ -2260,7 +2260,7 @@ myApp.controller('userCtrl',['$scope','$location',function($scope,$location){
         $scope.queryUserId = id;
         if(title == '添加机器人'){
             $scope.statusOperate = 'addRobot';
-            $scope.clientsn = new UUID();
+            $scope.clientsn = new UUID().id;
         }else{
             $scope.statusOperate = 'setRobot';
         }
